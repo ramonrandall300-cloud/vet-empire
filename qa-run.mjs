@@ -1,6 +1,5 @@
 import { downloadReportPdf } from '/tmp/qa/report-pdf.mjs';
 import fs from 'fs';
-globalThis.window = {};
 const money = (n) => '$' + n.toFixed(0);
 // patch save via monkeypatching jsPDF prototype
 const { jsPDF } = await import('jspdf');
