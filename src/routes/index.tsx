@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImage from "@/assets/hero-vet.png.asset.json";
-import logoImage from "@/assets/vetigo-logo.png.asset.json";
 import howItWorksImage from "@/assets/how-it-works-vet.png.asset.json";
 import testimonialImage from "@/assets/testimonial-vet.png.asset.json";
 import {
@@ -245,12 +244,6 @@ function Landing() {
         <section className="relative overflow-hidden border-b border-border">
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-20 lg:grid-cols-2 lg:py-28">
             <div>
-              <img
-                src={logoImage.url}
-                alt="Vetigo logo"
-                className="mb-6 h-9 w-auto"
-                loading="eager"
-              />
               <Badge variant="secondary" className="mb-5">
                 30-day free trial — no credit card
               </Badge>
