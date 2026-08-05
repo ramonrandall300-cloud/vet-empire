@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/page-header";
 import { RequireClinic } from "@/components/require-clinic";
 import { ResourceTable } from "@/components/resource-table";
 import { useLookup, useClinicStaff } from "@/lib/data";
+import { formatLbs, kgToLbsInput, lbsInputToKg } from "@/lib/weight";
 
 export const Route = createFileRoute("/_authenticated/app/examinations")({
   head: () => ({
@@ -42,7 +43,7 @@ function Examinations() {
           { key: "complaint", label: "Complaint" },
           { key: "diagnosis", label: "Diagnosis", className: "font-medium" },
           { key: "temperature_c", label: "Temp °C" },
-          { key: "weight_kg", label: "Weight kg" },
+          { key: "weight_kg", label: "Weight", render: (r) => formatLbs(r["weight_kg"]) },
         ]}
         fields={[
           { name: "pet_id", label: "Patient", type: "select", options: pets, required: true },
@@ -63,7 +64,13 @@ function Examinations() {
           },
           { name: "temperature_c", label: "Temperature (°C)", type: "number" },
           { name: "heart_rate", label: "Heart rate (bpm)", type: "number" },
-          { name: "weight_kg", label: "Weight (kg)", type: "number" },
+          {
+            name: "weight_kg",
+            label: "Weight (lbs)",
+            type: "number",
+            toForm: kgToLbsInput,
+            fromForm: lbsInputToKg,
+          },
           { name: "complaint", label: "Presenting complaint", type: "textarea" },
           { name: "diagnosis", label: "Diagnosis", type: "textarea" },
           { name: "treatment", label: "Treatment", type: "textarea" },

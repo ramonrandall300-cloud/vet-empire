@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/page-header";
 import { RequireClinic } from "@/components/require-clinic";
 import { ResourceTable } from "@/components/resource-table";
 import { useLookup } from "@/lib/data";
+import { formatLbs, kgToLbsInput, lbsInputToKg } from "@/lib/weight";
 
 export const Route = createFileRoute("/_authenticated/app/pets")({
   head: () => ({
@@ -43,7 +44,7 @@ function Pets() {
             render: (r) =>
               r["birth_date"] ? format(parseISO(String(r["birth_date"])), "d MMM yyyy") : "—",
           },
-          { key: "weight_kg", label: "Weight (kg)" },
+          { key: "weight_kg", label: "Weight", render: (r) => formatLbs(r["weight_kg"]) },
         ]}
         fields={[
           { name: "name", label: "Pet name", required: true },
@@ -65,7 +66,13 @@ function Pets() {
             options: ["male", "female", "unknown"].map((v) => ({ value: v, label: v })),
           },
           { name: "birth_date", label: "Birth date", type: "date" },
-          { name: "weight_kg", label: "Weight (kg)", type: "number" },
+          {
+            name: "weight_kg",
+            label: "Weight (lbs)",
+            type: "number",
+            toForm: kgToLbsInput,
+            fromForm: lbsInputToKg,
+          },
           { name: "color", label: "Colour" },
           { name: "microchip", label: "Microchip number" },
           { name: "notes", label: "Notes", type: "textarea" },
