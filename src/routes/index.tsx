@@ -123,18 +123,6 @@ const plans = [
   },
 ];
 
-const addOns = [
-  ["SMS reminders", "$29/mo"],
-  ["AI medical note generation", "$79/mo"],
-  ["Telemedicine", "$99/mo"],
-  ["Online payments", "2.9% + $0.30 per transaction"],
-  ["Client mobile app", "$49/mo"],
-  ["Advanced inventory", "$79/mo"],
-  ["Multi-location", "$99 per extra location"],
-  ["API access", "$99/mo"],
-  ["Business intelligence dashboards", "$149/mo"],
-  ["White labeling", "$299/mo"],
-];
 
 const steps = [
   {
@@ -372,36 +360,6 @@ function Landing() {
               ))}
             </div>
 
-            <div className="mt-10 grid gap-5 lg:grid-cols-3">
-              <div className="surface-panel p-6 lg:col-span-2">
-                <h3 className="font-medium">Optional add-ons</h3>
-                <ul className="mt-4 grid gap-x-8 gap-y-2 text-sm sm:grid-cols-2">
-                  {addOns.map(([label, price]) => (
-                    <li
-                      key={label}
-                      className="flex items-baseline justify-between gap-4 border-b border-border/60 pb-2"
-                    >
-                      <span>{label}</span>
-                      <span className="shrink-0 text-muted-foreground">{price}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="surface-panel p-6">
-                <h3 className="font-medium">One-time services</h3>
-                <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                  <li>Data migration — $500 to $5,000</li>
-                  <li>Staff onboarding — $500</li>
-                  <li>Custom training — $200/hour</li>
-                  <li>API integration — from $2,000</li>
-                  <li>Custom reports — from $500</li>
-                </ul>
-                <p className="mt-5 text-sm text-muted-foreground">
-                  Example: a 5-vet practice on Professional with AI notes, telemedicine and SMS pays
-                  <span className="font-medium text-foreground"> $456/month</span>.
-                </p>
-              </div>
-            </div>
           </div>
         </section>
 
