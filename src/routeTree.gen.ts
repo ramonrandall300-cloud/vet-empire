@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedAppRouteRouteImport } from './routes/_authenticated/app/route'
+import { Route as CSlugRouteImport } from './routes/c.$slug'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
 import { Route as AuthenticatedAppAppointmentsRouteImport } from './routes/_authenticated/app/appointments'
 import { Route as AuthenticatedAppClinicsRouteImport } from './routes/_authenticated/app/clinics'
@@ -47,6 +48,11 @@ const AuthenticatedAppRouteRoute = AuthenticatedAppRouteRouteImport.update({
   id: '/app',
   path: '/app',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const CSlugRoute = CSlugRouteImport.update({
+  id: '/c/$slug',
+  path: '/c/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   id: '/',
@@ -136,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/app': typeof AuthenticatedAppRouteRouteWithChildren
+  '/c/$slug': typeof CSlugRoute
   '/app/appointments': typeof AuthenticatedAppAppointmentsRoute
   '/app/clinics': typeof AuthenticatedAppClinicsRoute
   '/app/customers': typeof AuthenticatedAppCustomersRoute
@@ -155,6 +162,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/c/$slug': typeof CSlugRoute
   '/app/appointments': typeof AuthenticatedAppAppointmentsRoute
   '/app/clinics': typeof AuthenticatedAppClinicsRoute
   '/app/customers': typeof AuthenticatedAppCustomersRoute
@@ -177,6 +185,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteRouteWithChildren
+  '/c/$slug': typeof CSlugRoute
   '/_authenticated/app/appointments': typeof AuthenticatedAppAppointmentsRoute
   '/_authenticated/app/clinics': typeof AuthenticatedAppClinicsRoute
   '/_authenticated/app/customers': typeof AuthenticatedAppCustomersRoute
@@ -199,6 +208,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/app'
+    | '/c/$slug'
     | '/app/appointments'
     | '/app/clinics'
     | '/app/customers'
@@ -218,6 +228,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/c/$slug'
     | '/app/appointments'
     | '/app/clinics'
     | '/app/customers'
@@ -239,6 +250,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/app'
+    | '/c/$slug'
     | '/_authenticated/app/appointments'
     | '/_authenticated/app/clinics'
     | '/_authenticated/app/customers'
@@ -260,6 +272,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  CSlugRoute: typeof CSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -291,6 +304,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app'
       preLoaderRoute: typeof AuthenticatedAppRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/c/$slug': {
+      id: '/c/$slug'
+      path: '/c/$slug'
+      fullPath: '/c/$slug'
+      preLoaderRoute: typeof CSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/app/': {
       id: '/_authenticated/app/'
@@ -456,6 +476,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  CSlugRoute: CSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
