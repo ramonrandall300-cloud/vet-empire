@@ -35,7 +35,7 @@ function ClinicSite() {
       if (!clinic) return null;
       const { data: site } = await supabase
         .from("clinic_websites")
-        .select("*")
+        .select("id, clinic_id, is_published, headline, tagline, about, hero_image_url, primary_color, social_links")
         .eq("clinic_id", clinic.id)
         .eq("is_published", true)
         .maybeSingle();
