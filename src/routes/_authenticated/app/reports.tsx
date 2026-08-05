@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { format, parseISO, startOfMonth, subMonths } from "date-fns";
 import {
   Bar,
@@ -13,6 +13,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { Download } from "lucide-react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { PageHeader, StatCard } from "@/components/page-header";
 import { RequireClinic } from "@/components/require-clinic";
 import { useClinic } from "@/lib/clinic-context";
@@ -42,6 +45,7 @@ const CHART_COLORS = [
 
 function Reports() {
   const { clinic } = useClinic();
+  const [exporting, setExporting] = useState(false);
   const invoices = useClinicRows("invoices", { orderBy: "issued_at" });
   const appointments = useClinicRows("appointments", {
     select: "id, starts_at, status, services(name)",
@@ -137,12 +141,7 @@ function Reports() {
         <StatCard label="Completed visits" value={completed} />
         <StatCard
           label="Avg. invoice"
-          value={money(
-            (invoices.data ?? []).length
-              ? (invoices.data ?? []).reduce((s, r) => s + Number(r["total"]), 0) /
-                  (invoices.data ?? []).length
-              : 0,
-          )}
+          value={money(avgInvoice)}
         />
       </div>
 
