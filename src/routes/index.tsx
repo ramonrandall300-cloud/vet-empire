@@ -317,11 +317,6 @@ function Landing() {
             <h2 className="font-display text-3xl font-semibold tracking-tight">
               Pricing that scales with your practice
             </h2>
-            <p className="mt-3 max-w-2xl text-muted-foreground">
-              Priced by clinic size, never by pets or records. Save 15% with annual billing.
-              Non-profit rescues get 20% off and veterinary schools 50% off.
-            </p>
-
             <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {plans.map((p) => (
                 <div
