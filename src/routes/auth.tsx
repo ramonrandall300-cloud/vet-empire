@@ -64,7 +64,7 @@ type Tab = "signin" | "signup";
 
 export const Route = createFileRoute("/auth")({
   validateSearch: (search: Record<string, unknown>) => ({
-    oauth_error: typeof search.oauth_error === "string" ? search.oauth_error : undefined,
+    oauth_error: typeof search["oauth_error"] === "string" ? (search["oauth_error"] as string) : undefined,
   }),
   head: () => ({
     meta: [
