@@ -23,6 +23,7 @@ import { Route as AuthenticatedAppCustomersRouteImport } from './routes/_authent
 import { Route as AuthenticatedAppExaminationsRouteImport } from './routes/_authenticated/app/examinations'
 import { Route as AuthenticatedAppInventoryRouteImport } from './routes/_authenticated/app/inventory'
 import { Route as AuthenticatedAppInvoicesRouteImport } from './routes/_authenticated/app/invoices'
+import { Route as AuthenticatedAppOnboardingRouteImport } from './routes/_authenticated/app/onboarding'
 import { Route as AuthenticatedAppPetsRouteImport } from './routes/_authenticated/app/pets'
 import { Route as AuthenticatedAppReportsRouteImport } from './routes/_authenticated/app/reports'
 import { Route as AuthenticatedAppRolesRouteImport } from './routes/_authenticated/app/roles'
@@ -106,6 +107,12 @@ const AuthenticatedAppInvoicesRoute =
     path: '/invoices',
     getParentRoute: () => AuthenticatedAppRouteRoute,
   } as any)
+const AuthenticatedAppOnboardingRoute =
+  AuthenticatedAppOnboardingRouteImport.update({
+    id: '/onboarding',
+    path: '/onboarding',
+    getParentRoute: () => AuthenticatedAppRouteRoute,
+  } as any)
 const AuthenticatedAppPetsRoute = AuthenticatedAppPetsRouteImport.update({
   id: '/pets',
   path: '/pets',
@@ -163,6 +170,7 @@ export interface FileRoutesByFullPath {
   '/app/examinations': typeof AuthenticatedAppExaminationsRoute
   '/app/inventory': typeof AuthenticatedAppInventoryRoute
   '/app/invoices': typeof AuthenticatedAppInvoicesRoute
+  '/app/onboarding': typeof AuthenticatedAppOnboardingRoute
   '/app/pets': typeof AuthenticatedAppPetsRoute
   '/app/reports': typeof AuthenticatedAppReportsRoute
   '/app/roles': typeof AuthenticatedAppRolesRoute
@@ -185,6 +193,7 @@ export interface FileRoutesByTo {
   '/app/examinations': typeof AuthenticatedAppExaminationsRoute
   '/app/inventory': typeof AuthenticatedAppInventoryRoute
   '/app/invoices': typeof AuthenticatedAppInvoicesRoute
+  '/app/onboarding': typeof AuthenticatedAppOnboardingRoute
   '/app/pets': typeof AuthenticatedAppPetsRoute
   '/app/reports': typeof AuthenticatedAppReportsRoute
   '/app/roles': typeof AuthenticatedAppRolesRoute
@@ -210,6 +219,7 @@ export interface FileRoutesById {
   '/_authenticated/app/examinations': typeof AuthenticatedAppExaminationsRoute
   '/_authenticated/app/inventory': typeof AuthenticatedAppInventoryRoute
   '/_authenticated/app/invoices': typeof AuthenticatedAppInvoicesRoute
+  '/_authenticated/app/onboarding': typeof AuthenticatedAppOnboardingRoute
   '/_authenticated/app/pets': typeof AuthenticatedAppPetsRoute
   '/_authenticated/app/reports': typeof AuthenticatedAppReportsRoute
   '/_authenticated/app/roles': typeof AuthenticatedAppRolesRoute
@@ -235,6 +245,7 @@ export interface FileRouteTypes {
     | '/app/examinations'
     | '/app/inventory'
     | '/app/invoices'
+    | '/app/onboarding'
     | '/app/pets'
     | '/app/reports'
     | '/app/roles'
@@ -257,6 +268,7 @@ export interface FileRouteTypes {
     | '/app/examinations'
     | '/app/inventory'
     | '/app/invoices'
+    | '/app/onboarding'
     | '/app/pets'
     | '/app/reports'
     | '/app/roles'
@@ -281,6 +293,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/examinations'
     | '/_authenticated/app/inventory'
     | '/_authenticated/app/invoices'
+    | '/_authenticated/app/onboarding'
     | '/_authenticated/app/pets'
     | '/_authenticated/app/reports'
     | '/_authenticated/app/roles'
@@ -401,6 +414,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppInvoicesRouteImport
       parentRoute: typeof AuthenticatedAppRouteRoute
     }
+    '/_authenticated/app/onboarding': {
+      id: '/_authenticated/app/onboarding'
+      path: '/onboarding'
+      fullPath: '/app/onboarding'
+      preLoaderRoute: typeof AuthenticatedAppOnboardingRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
     '/_authenticated/app/pets': {
       id: '/_authenticated/app/pets'
       path: '/pets'
@@ -467,6 +487,7 @@ interface AuthenticatedAppRouteRouteChildren {
   AuthenticatedAppExaminationsRoute: typeof AuthenticatedAppExaminationsRoute
   AuthenticatedAppInventoryRoute: typeof AuthenticatedAppInventoryRoute
   AuthenticatedAppInvoicesRoute: typeof AuthenticatedAppInvoicesRoute
+  AuthenticatedAppOnboardingRoute: typeof AuthenticatedAppOnboardingRoute
   AuthenticatedAppPetsRoute: typeof AuthenticatedAppPetsRoute
   AuthenticatedAppReportsRoute: typeof AuthenticatedAppReportsRoute
   AuthenticatedAppRolesRoute: typeof AuthenticatedAppRolesRoute
@@ -485,6 +506,7 @@ const AuthenticatedAppRouteRouteChildren: AuthenticatedAppRouteRouteChildren = {
   AuthenticatedAppExaminationsRoute: AuthenticatedAppExaminationsRoute,
   AuthenticatedAppInventoryRoute: AuthenticatedAppInventoryRoute,
   AuthenticatedAppInvoicesRoute: AuthenticatedAppInvoicesRoute,
+  AuthenticatedAppOnboardingRoute: AuthenticatedAppOnboardingRoute,
   AuthenticatedAppPetsRoute: AuthenticatedAppPetsRoute,
   AuthenticatedAppReportsRoute: AuthenticatedAppReportsRoute,
   AuthenticatedAppRolesRoute: AuthenticatedAppRolesRoute,
