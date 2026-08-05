@@ -432,7 +432,9 @@ function Onboarding() {
                       </span>
                     </p>
                     <p className="mt-1 text-xs text-muted-foreground">
-                      Up to {plan.max_staff} staff · {plan.max_pets.toLocaleString()} patients
+                      {plan.max_staff >= 9999 ? "Unlimited" : `Up to ${plan.max_staff}`} staff ·{" "}
+                      {plan.max_pets >= 9999 ? "unlimited" : plan.max_pets.toLocaleString()}{" "}
+                      patients
                     </p>
                   </button>
                 );
