@@ -41,6 +41,10 @@ export type FieldDef = {
   required?: boolean;
   placeholder?: string;
   colSpan?: 1 | 2;
+  /** Convert stored value → form display value */
+  toForm?: (raw: unknown) => string;
+  /** Convert form display value → stored value */
+  fromForm?: (value: string) => unknown;
 };
 
 export type ColumnDef = {
@@ -109,6 +113,7 @@ export function ResourceTable({
         fields.map((f) => {
           const raw = row[f.name];
           if (raw == null) return [f.name, ""];
+          if (f.toForm) return [f.name, f.toForm(raw)];
           if (f.type === "datetime-local") return [f.name, String(raw).slice(0, 16)];
           return [f.name, String(raw)];
         }),
@@ -130,7 +135,11 @@ export function ResourceTable({
         payload[f.name] = null;
         continue;
       }
-      payload[f.name] = f.type === "number" ? Number(str) : str;
+      payload[f.name] = f.fromForm
+        ? f.fromForm(String(str))
+        : f.type === "number"
+          ? Number(str)
+          : str;
     }
     setSaving(true);
     try {
