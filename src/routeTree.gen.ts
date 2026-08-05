@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedAppRouteRouteImport } from './routes/_authenticated/app/route'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
+import { Route as AuthenticatedAppAppointmentsRouteImport } from './routes/_authenticated/app/appointments'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -33,14 +34,22 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAppRouteRoute,
 } as any)
+const AuthenticatedAppAppointmentsRoute =
+  AuthenticatedAppAppointmentsRouteImport.update({
+    id: '/appointments',
+    path: '/appointments',
+    getParentRoute: () => AuthenticatedAppRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AuthenticatedAppRouteRouteWithChildren
+  '/app/appointments': typeof AuthenticatedAppAppointmentsRoute
   '/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/appointments': typeof AuthenticatedAppAppointmentsRoute
   '/app': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesById {
@@ -48,18 +57,20 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_authenticated/app': typeof AuthenticatedAppRouteRouteWithChildren
+  '/_authenticated/app/appointments': typeof AuthenticatedAppAppointmentsRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/app/'
+  fullPaths: '/' | '/app' | '/app/appointments' | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app'
+  to: '/' | '/app/appointments' | '/app'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/_authenticated/app'
+    | '/_authenticated/app/appointments'
     | '/_authenticated/app/'
   fileRoutesById: FileRoutesById
 }
@@ -98,14 +109,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRouteRoute
     }
+    '/_authenticated/app/appointments': {
+      id: '/_authenticated/app/appointments'
+      path: '/appointments'
+      fullPath: '/app/appointments'
+      preLoaderRoute: typeof AuthenticatedAppAppointmentsRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
   }
 }
 
 interface AuthenticatedAppRouteRouteChildren {
+  AuthenticatedAppAppointmentsRoute: typeof AuthenticatedAppAppointmentsRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
 
 const AuthenticatedAppRouteRouteChildren: AuthenticatedAppRouteRouteChildren = {
+  AuthenticatedAppAppointmentsRoute: AuthenticatedAppAppointmentsRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
 
