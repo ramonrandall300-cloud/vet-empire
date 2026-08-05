@@ -24,6 +24,7 @@ import { Route as AuthenticatedAppRolesRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedAppServicesRouteImport } from './routes/_authenticated/app/services'
 import { Route as AuthenticatedAppUsersRouteImport } from './routes/_authenticated/app/users'
 import { Route as AuthenticatedAppVaccinationsRouteImport } from './routes/_authenticated/app/vaccinations'
+import { Route as AuthenticatedAppWebsiteRouteImport } from './routes/_authenticated/app/website'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -106,6 +107,11 @@ const AuthenticatedAppVaccinationsRoute =
     path: '/vaccinations',
     getParentRoute: () => AuthenticatedAppRouteRoute,
   } as any)
+const AuthenticatedAppWebsiteRoute = AuthenticatedAppWebsiteRouteImport.update({
+  id: '/website',
+  path: '/website',
+  getParentRoute: () => AuthenticatedAppRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/app/services': typeof AuthenticatedAppServicesRoute
   '/app/users': typeof AuthenticatedAppUsersRoute
   '/app/vaccinations': typeof AuthenticatedAppVaccinationsRoute
+  '/app/website': typeof AuthenticatedAppWebsiteRoute
   '/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesByTo {
@@ -136,6 +143,7 @@ export interface FileRoutesByTo {
   '/app/services': typeof AuthenticatedAppServicesRoute
   '/app/users': typeof AuthenticatedAppUsersRoute
   '/app/vaccinations': typeof AuthenticatedAppVaccinationsRoute
+  '/app/website': typeof AuthenticatedAppWebsiteRoute
   '/app': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesById {
@@ -154,6 +162,7 @@ export interface FileRoutesById {
   '/_authenticated/app/services': typeof AuthenticatedAppServicesRoute
   '/_authenticated/app/users': typeof AuthenticatedAppUsersRoute
   '/_authenticated/app/vaccinations': typeof AuthenticatedAppVaccinationsRoute
+  '/_authenticated/app/website': typeof AuthenticatedAppWebsiteRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRouteTypes {
@@ -172,6 +181,7 @@ export interface FileRouteTypes {
     | '/app/services'
     | '/app/users'
     | '/app/vaccinations'
+    | '/app/website'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/app/services'
     | '/app/users'
     | '/app/vaccinations'
+    | '/app/website'
     | '/app'
   id:
     | '__root__'
@@ -204,6 +215,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/services'
     | '/_authenticated/app/users'
     | '/_authenticated/app/vaccinations'
+    | '/_authenticated/app/website'
     | '/_authenticated/app/'
   fileRoutesById: FileRoutesById
 }
@@ -319,6 +331,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppVaccinationsRouteImport
       parentRoute: typeof AuthenticatedAppRouteRoute
     }
+    '/_authenticated/app/website': {
+      id: '/_authenticated/app/website'
+      path: '/website'
+      fullPath: '/app/website'
+      preLoaderRoute: typeof AuthenticatedAppWebsiteRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
   }
 }
 
@@ -334,6 +353,7 @@ interface AuthenticatedAppRouteRouteChildren {
   AuthenticatedAppServicesRoute: typeof AuthenticatedAppServicesRoute
   AuthenticatedAppUsersRoute: typeof AuthenticatedAppUsersRoute
   AuthenticatedAppVaccinationsRoute: typeof AuthenticatedAppVaccinationsRoute
+  AuthenticatedAppWebsiteRoute: typeof AuthenticatedAppWebsiteRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
 
@@ -349,6 +369,7 @@ const AuthenticatedAppRouteRouteChildren: AuthenticatedAppRouteRouteChildren = {
   AuthenticatedAppServicesRoute: AuthenticatedAppServicesRoute,
   AuthenticatedAppUsersRoute: AuthenticatedAppUsersRoute,
   AuthenticatedAppVaccinationsRoute: AuthenticatedAppVaccinationsRoute,
+  AuthenticatedAppWebsiteRoute: AuthenticatedAppWebsiteRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
 
