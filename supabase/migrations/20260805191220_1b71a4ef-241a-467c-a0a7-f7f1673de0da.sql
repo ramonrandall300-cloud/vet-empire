@@ -1,0 +1,1 @@
+REVOKE ALL ON FUNCTION public.enforce_staff_seat_limit() FROM anon, authenticated, public;
