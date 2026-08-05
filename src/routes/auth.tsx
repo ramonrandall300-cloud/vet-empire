@@ -154,9 +154,16 @@ function AuthPage() {
     e.preventDefault();
     const result = signUpSchema.safeParse(signUpForm);
     if (!result.success) {
-      const errors: Record<string, string> = {};
+      const errors: {
+        fullName?: string;
+        email?: string;
+        password?: string;
+        confirmPassword?: string;
+        agreeTerms?: string;
+      } = {};
       result.error.errors.forEach((err) => {
-        errors[err.path[0]] = err.message;
+        const key = err.path[0];
+        if (typeof key === "string") (errors as Record<string, string>)[key] = err.message;
       });
       setSignUpErrors(errors);
       return;
