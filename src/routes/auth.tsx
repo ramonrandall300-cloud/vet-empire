@@ -124,7 +124,8 @@ function AuthPage() {
     if (!result.success) {
       const errors: Record<string, string> = {};
       result.error.errors.forEach((err) => {
-        errors[err.path[0]] = err.message;
+        const key = err.path[0];
+        if (typeof key === "string") errors[key] = err.message;
       });
       setSignInErrors(errors);
       return;
