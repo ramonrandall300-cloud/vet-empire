@@ -91,7 +91,7 @@ function AuthPage() {
   const [forgotOpen, setForgotOpen] = useState(false);
 
   const [signInForm, setSignInForm] = useState({ email: "", password: "" });
-  const [signInErrors, setSignInErrors] = useState<Record<string, string>>({});
+  const [signInErrors, setSignInErrors] = useState<{ email?: string; password?: string }>({});
 
   const [signUpForm, setSignUpForm] = useState({
     fullName: "",
@@ -100,7 +100,13 @@ function AuthPage() {
     confirmPassword: "",
     agreeTerms: false,
   });
-  const [signUpErrors, setSignUpErrors] = useState<Record<string, string>>({});
+  const [signUpErrors, setSignUpErrors] = useState<{
+    fullName?: string;
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+    agreeTerms?: string;
+  }>({});
 
   const [forgotEmail, setForgotEmail] = useState("");
   const [forgotError, setForgotError] = useState("");
