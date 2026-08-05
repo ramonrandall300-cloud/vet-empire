@@ -17,6 +17,7 @@ import { Route as AuthenticatedAppAppointmentsRouteImport } from './routes/_auth
 import { Route as AuthenticatedAppCustomersRouteImport } from './routes/_authenticated/app/customers'
 import { Route as AuthenticatedAppExaminationsRouteImport } from './routes/_authenticated/app/examinations'
 import { Route as AuthenticatedAppPetsRouteImport } from './routes/_authenticated/app/pets'
+import { Route as AuthenticatedAppServicesRouteImport } from './routes/_authenticated/app/services'
 import { Route as AuthenticatedAppVaccinationsRouteImport } from './routes/_authenticated/app/vaccinations'
 
 const IndexRoute = IndexRouteImport.update({
@@ -61,6 +62,12 @@ const AuthenticatedAppPetsRoute = AuthenticatedAppPetsRouteImport.update({
   path: '/pets',
   getParentRoute: () => AuthenticatedAppRouteRoute,
 } as any)
+const AuthenticatedAppServicesRoute =
+  AuthenticatedAppServicesRouteImport.update({
+    id: '/services',
+    path: '/services',
+    getParentRoute: () => AuthenticatedAppRouteRoute,
+  } as any)
 const AuthenticatedAppVaccinationsRoute =
   AuthenticatedAppVaccinationsRouteImport.update({
     id: '/vaccinations',
@@ -75,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/app/customers': typeof AuthenticatedAppCustomersRoute
   '/app/examinations': typeof AuthenticatedAppExaminationsRoute
   '/app/pets': typeof AuthenticatedAppPetsRoute
+  '/app/services': typeof AuthenticatedAppServicesRoute
   '/app/vaccinations': typeof AuthenticatedAppVaccinationsRoute
   '/app/': typeof AuthenticatedAppIndexRoute
 }
@@ -84,6 +92,7 @@ export interface FileRoutesByTo {
   '/app/customers': typeof AuthenticatedAppCustomersRoute
   '/app/examinations': typeof AuthenticatedAppExaminationsRoute
   '/app/pets': typeof AuthenticatedAppPetsRoute
+  '/app/services': typeof AuthenticatedAppServicesRoute
   '/app/vaccinations': typeof AuthenticatedAppVaccinationsRoute
   '/app': typeof AuthenticatedAppIndexRoute
 }
@@ -96,6 +105,7 @@ export interface FileRoutesById {
   '/_authenticated/app/customers': typeof AuthenticatedAppCustomersRoute
   '/_authenticated/app/examinations': typeof AuthenticatedAppExaminationsRoute
   '/_authenticated/app/pets': typeof AuthenticatedAppPetsRoute
+  '/_authenticated/app/services': typeof AuthenticatedAppServicesRoute
   '/_authenticated/app/vaccinations': typeof AuthenticatedAppVaccinationsRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
 }
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/app/customers'
     | '/app/examinations'
     | '/app/pets'
+    | '/app/services'
     | '/app/vaccinations'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/app/customers'
     | '/app/examinations'
     | '/app/pets'
+    | '/app/services'
     | '/app/vaccinations'
     | '/app'
   id:
@@ -128,6 +140,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/customers'
     | '/_authenticated/app/examinations'
     | '/_authenticated/app/pets'
+    | '/_authenticated/app/services'
     | '/_authenticated/app/vaccinations'
     | '/_authenticated/app/'
   fileRoutesById: FileRoutesById
@@ -195,6 +208,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppPetsRouteImport
       parentRoute: typeof AuthenticatedAppRouteRoute
     }
+    '/_authenticated/app/services': {
+      id: '/_authenticated/app/services'
+      path: '/services'
+      fullPath: '/app/services'
+      preLoaderRoute: typeof AuthenticatedAppServicesRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
     '/_authenticated/app/vaccinations': {
       id: '/_authenticated/app/vaccinations'
       path: '/vaccinations'
@@ -210,6 +230,7 @@ interface AuthenticatedAppRouteRouteChildren {
   AuthenticatedAppCustomersRoute: typeof AuthenticatedAppCustomersRoute
   AuthenticatedAppExaminationsRoute: typeof AuthenticatedAppExaminationsRoute
   AuthenticatedAppPetsRoute: typeof AuthenticatedAppPetsRoute
+  AuthenticatedAppServicesRoute: typeof AuthenticatedAppServicesRoute
   AuthenticatedAppVaccinationsRoute: typeof AuthenticatedAppVaccinationsRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
@@ -219,6 +240,7 @@ const AuthenticatedAppRouteRouteChildren: AuthenticatedAppRouteRouteChildren = {
   AuthenticatedAppCustomersRoute: AuthenticatedAppCustomersRoute,
   AuthenticatedAppExaminationsRoute: AuthenticatedAppExaminationsRoute,
   AuthenticatedAppPetsRoute: AuthenticatedAppPetsRoute,
+  AuthenticatedAppServicesRoute: AuthenticatedAppServicesRoute,
   AuthenticatedAppVaccinationsRoute: AuthenticatedAppVaccinationsRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
