@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImage from "@/assets/hero-vet.png.asset.json";
 import howItWorksImage from "@/assets/how-it-works-vet.png.asset.json";
+import testimonialImage from "@/assets/testimonial-vet.png.asset.json";
 import {
   Activity,
   ArrowRight,
@@ -409,17 +410,27 @@ function Landing() {
             <h2 className="font-display text-3xl font-semibold tracking-tight">
               Trusted by growing veterinary teams
             </h2>
-            <div className="mt-10 grid gap-5 lg:grid-cols-3">
-              {testimonials.map((t) => (
-                <figure key={t.name} className="surface-panel flex h-full flex-col p-6">
-                  <Quote className="size-6 text-primary" />
-                  <blockquote className="mt-4 flex-1 text-sm leading-relaxed">{t.quote}</blockquote>
-                  <figcaption className="mt-5 text-sm">
-                    <span className="font-medium">{t.name}</span>
-                    <span className="block text-muted-foreground">{t.role}</span>
-                  </figcaption>
-                </figure>
-              ))}
+            <div className="mt-10 grid items-stretch gap-8 lg:grid-cols-2">
+              <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+                <img
+                  src={testimonialImage.url}
+                  alt="Veterinarian examining a dog with a stethoscope in a bright modern clinic"
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="grid content-start gap-5">
+                {testimonials.map((t) => (
+                  <figure key={t.name} className="surface-panel flex flex-col p-6">
+                    <Quote className="size-6 text-primary" />
+                    <blockquote className="mt-4 flex-1 text-sm leading-relaxed">{t.quote}</blockquote>
+                    <figcaption className="mt-5 text-sm">
+                      <span className="font-medium">{t.name}</span>
+                      <span className="block text-muted-foreground">{t.role}</span>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
             </div>
           </div>
         </section>
