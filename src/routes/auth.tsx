@@ -15,6 +15,7 @@ import {
   User,
   Eye,
   EyeOff,
+  Chrome,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,6 +37,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable/index";
 
 
 const signInSchema = z.object({
