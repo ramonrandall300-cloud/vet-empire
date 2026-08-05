@@ -73,7 +73,9 @@ export function useClinicStaff() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("clinic_members")
-        .select("user_id, role, profiles:user_id(full_name, email)")
+        .select(
+          "user_id, role, profiles!clinic_members_user_id_profiles_fkey(full_name, email)",
+        )
         .eq("clinic_id", clinic!.id);
       if (error) throw error;
       return (data ?? []) as unknown as {
