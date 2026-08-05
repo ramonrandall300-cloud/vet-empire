@@ -94,8 +94,10 @@ function Clinics() {
         title="All Clinics"
         description="Every clinic you operate runs on its own isolated dataset."
         actions={
-          <Button onClick={() => setOpen(true)}>
-            <Plus className="size-4" /> Onboard clinic
+          <Button asChild>
+            <Link to="/app/onboarding">
+              <Plus className="size-4" /> Onboard clinic
+            </Link>
           </Button>
         }
       />
@@ -169,6 +171,11 @@ function Clinics() {
                   <p className="text-sm text-muted-foreground">
                     Onboard your first clinic to open its panel.
                   </p>
+                  <Button className="mt-4" asChild>
+                    <Link to="/app/onboarding">
+                      <Plus className="size-4" /> Start onboarding
+                    </Link>
+                  </Button>
                 </TableCell>
               </TableRow>
             )}
@@ -177,43 +184,6 @@ function Clinics() {
         </Table>
       </div>
 
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Onboard a clinic</DialogTitle>
-            <DialogDescription>
-              You are set as the operator of this clinic and it starts on a 14-day Starter trial.
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="clinic-name">Clinic name</Label>
-              <Input
-                id="clinic-name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Green Valley Veterinary"
-              />
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="clinic-city">City</Label>
-                <Input id="clinic-city" value={city} onChange={(e) => setCity(e.target.value)} />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="clinic-phone">Phone</Label>
-                <Input id="clinic-phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button onClick={() => create.mutate()} disabled={!name.trim() || create.isPending}>
-              {create.isPending ? "Creating…" : "Create clinic"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
