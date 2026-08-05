@@ -17,6 +17,7 @@ import {
   CreditCard,
   Heart,
   Sparkles,
+  UserRound,
 } from "lucide-react";
 import {
   Sidebar,
@@ -49,6 +50,7 @@ const managementNav = [
   { title: "Users", url: "/app/users", icon: UserCog },
   { title: "Roles & Permissions", url: "/app/roles", icon: ShieldCheck },
   { title: "Subscription", url: "/app/subscription", icon: CreditCard },
+  { title: "My Profile", url: "/app/profile", icon: UserRound },
 ];
 
 const platformNav = [
