@@ -141,7 +141,11 @@ function Website() {
 
           <div className="space-y-2">
             <Label htmlFor="headline">Headline</Label>
-            <Input id="headline" placeholder="Compassionate care for every pet" {...field("headline")} />
+            <Input
+              id="headline"
+              placeholder="Compassionate care for every pet"
+              {...field("headline")}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="tagline">Tagline</Label>

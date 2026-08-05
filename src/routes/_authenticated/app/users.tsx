@@ -217,10 +217,7 @@ function UsersPage() {
             </div>
           </div>
           <DialogFooter>
-            <Button
-              onClick={() => invite.mutate()}
-              disabled={!email.trim() || invite.isPending}
-            >
+            <Button onClick={() => invite.mutate()} disabled={!email.trim() || invite.isPending}>
               {invite.isPending ? "Adding…" : "Add member"}
             </Button>
           </DialogFooter>

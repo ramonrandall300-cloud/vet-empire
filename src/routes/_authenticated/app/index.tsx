@@ -62,11 +62,16 @@ function useDashboard() {
           .order("next_due_at", { ascending: true })
           .limit(6),
         supabase.from("invoices").select("total, status").eq("clinic_id", id),
-        supabase.from("inventory_items").select("name, quantity, reorder_level, unit").eq("clinic_id", id),
+        supabase
+          .from("inventory_items")
+          .select("name, quantity, reorder_level, unit")
+          .eq("clinic_id", id),
       ]);
 
       const paid = (invoices.data ?? []).filter((i) => i.status === "paid");
-      const outstanding = (invoices.data ?? []).filter((i) => i.status !== "paid" && i.status !== "void");
+      const outstanding = (invoices.data ?? []).filter(
+        (i) => i.status !== "paid" && i.status !== "void",
+      );
 
       return {
         customers: customers.count ?? 0,
@@ -97,7 +102,11 @@ function Dashboard() {
   const { data } = useDashboard();
   const currency = clinic?.currency ?? "USD";
   const money = (n: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency, maximumFractionDigits: 0 }).format(n);
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 0,
+    }).format(n);
 
   const todays = (data?.appointments ?? []).filter((a) => isToday(parseISO(a.starts_at)));
 
@@ -122,7 +131,11 @@ function Dashboard() {
           hint={`${data?.appointments.length ?? 0} upcoming total`}
           icon={<CalendarDays className="size-5" />}
         />
-        <StatCard label="Customers" value={data?.customers ?? 0} icon={<Users className="size-5" />} />
+        <StatCard
+          label="Customers"
+          value={data?.customers ?? 0}
+          icon={<Users className="size-5" />}
+        />
         <StatCard label="Patients" value={data?.pets ?? 0} icon={<PawPrint className="size-5" />} />
         <StatCard
           label="Collected revenue"

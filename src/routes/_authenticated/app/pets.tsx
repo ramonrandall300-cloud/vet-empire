@@ -32,7 +32,11 @@ function Pets() {
           { key: "name", label: "Name", className: "font-medium" },
           { key: "species", label: "Species" },
           { key: "breed", label: "Breed" },
-          { key: "sex", label: "Sex", render: (r) => <span className="capitalize">{String(r["sex"])}</span> },
+          {
+            key: "sex",
+            label: "Sex",
+            render: (r) => <span className="capitalize">{String(r["sex"])}</span>,
+          },
           {
             key: "birth_date",
             label: "Born",

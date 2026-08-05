@@ -54,7 +54,11 @@ export function useRowMutations(table: string) {
 }
 
 export function useLookup(table: string, labelColumn = "name") {
-  const rows = useClinicRows(table, { select: `id, ${labelColumn}`, orderBy: labelColumn, ascending: true });
+  const rows = useClinicRows(table, {
+    select: `id, ${labelColumn}`,
+    orderBy: labelColumn,
+    ascending: true,
+  });
   return (rows.data ?? []).map((r) => ({
     value: String(r["id"]),
     label: String(r[labelColumn] ?? "Untitled"),

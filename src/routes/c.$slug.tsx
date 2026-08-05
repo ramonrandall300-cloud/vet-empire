@@ -50,7 +50,9 @@ function ClinicSite() {
   });
 
   if (isLoading) {
-    return <div className="grid min-h-screen place-items-center text-muted-foreground">Loading…</div>;
+    return (
+      <div className="grid min-h-screen place-items-center text-muted-foreground">Loading…</div>
+    );
   }
 
   if (!data?.clinic || !data.site) {
@@ -82,9 +84,7 @@ function ClinicSite() {
       )}
 
       <main className="mx-auto max-w-5xl px-5 py-14">
-        <h1 className="text-3xl font-semibold tracking-tight">
-          {site.headline ?? clinic.name}
-        </h1>
+        <h1 className="text-3xl font-semibold tracking-tight">{site.headline ?? clinic.name}</h1>
         {site.tagline && <p className="mt-3 text-lg text-muted-foreground">{site.tagline}</p>}
         {site.about && <p className="mt-6 max-w-3xl leading-relaxed">{site.about}</p>}
 

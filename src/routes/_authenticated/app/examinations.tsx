@@ -46,7 +46,12 @@ function Examinations() {
         ]}
         fields={[
           { name: "pet_id", label: "Patient", type: "select", options: pets, required: true },
-          { name: "visited_at", label: "Visit date & time", type: "datetime-local", required: true },
+          {
+            name: "visited_at",
+            label: "Visit date & time",
+            type: "datetime-local",
+            required: true,
+          },
           {
             name: "vet_id",
             label: "Veterinarian",

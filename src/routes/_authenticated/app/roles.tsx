@@ -39,16 +39,31 @@ const ROLE_NOTES: Record<(typeof ROLES)[number], string> = {
 const MATRIX: { area: string; access: Record<(typeof ROLES)[number], boolean> }[] = [
   { area: "Dashboard", access: { owner: true, admin: true, veterinarian: true, staff: true } },
   { area: "Appointments", access: { owner: true, admin: true, veterinarian: true, staff: true } },
-  { area: "Customers & Pets", access: { owner: true, admin: true, veterinarian: true, staff: true } },
+  {
+    area: "Customers & Pets",
+    access: { owner: true, admin: true, veterinarian: true, staff: true },
+  },
   { area: "Examinations", access: { owner: true, admin: true, veterinarian: true, staff: false } },
   { area: "Vaccinations", access: { owner: true, admin: true, veterinarian: true, staff: false } },
-  { area: "Services & pricing", access: { owner: true, admin: true, veterinarian: false, staff: false } },
+  {
+    area: "Services & pricing",
+    access: { owner: true, admin: true, veterinarian: false, staff: false },
+  },
   { area: "Inventory", access: { owner: true, admin: true, veterinarian: true, staff: true } },
   { area: "Invoices", access: { owner: true, admin: true, veterinarian: false, staff: true } },
   { area: "Reports", access: { owner: true, admin: true, veterinarian: false, staff: false } },
-  { area: "Users & roles", access: { owner: true, admin: true, veterinarian: false, staff: false } },
-  { area: "Website management", access: { owner: true, admin: true, veterinarian: false, staff: false } },
-  { area: "Subscription & billing", access: { owner: true, admin: false, veterinarian: false, staff: false } },
+  {
+    area: "Users & roles",
+    access: { owner: true, admin: true, veterinarian: false, staff: false },
+  },
+  {
+    area: "Website management",
+    access: { owner: true, admin: true, veterinarian: false, staff: false },
+  },
+  {
+    area: "Subscription & billing",
+    access: { owner: true, admin: false, veterinarian: false, staff: false },
+  },
 ];
 
 function Roles() {

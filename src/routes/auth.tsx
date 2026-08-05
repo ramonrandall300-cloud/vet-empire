@@ -15,7 +15,8 @@ export const Route = createFileRoute("/auth")({
       { title: "Sign in — SmartVet Clinic Platform" },
       {
         name: "description",
-        content: "Sign in to your SmartVet clinic panel to manage appointments, patients and billing.",
+        content:
+          "Sign in to your SmartVet clinic panel to manage appointments, patients and billing.",
       },
       { property: "og:title", content: "Sign in — SmartVet Clinic Platform" },
       {
@@ -104,8 +105,8 @@ function AuthPage() {
             One platform, every clinic you run.
           </h2>
           <p className="mt-4 max-w-md text-primary-foreground/80">
-            Appointments, patient records, vaccination reminders, inventory and billing — each clinic
-            with its own isolated workspace.
+            Appointments, patient records, vaccination reminders, inventory and billing — each
+            clinic with its own isolated workspace.
           </p>
         </div>
         <p className="text-sm text-primary-foreground/70">Trusted by modern veterinary teams.</p>
@@ -155,7 +156,11 @@ function AuthPage() {
             <TabsContent value="signup" className="space-y-4 pt-4">
               <div className="space-y-2">
                 <Label htmlFor="su-name">Full name</Label>
-                <Input id="su-name" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+                <Input
+                  id="su-name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="su-email">Email</Label>

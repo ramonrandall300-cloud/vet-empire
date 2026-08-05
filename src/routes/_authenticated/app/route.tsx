@@ -73,7 +73,9 @@ function UserMenu() {
         <Button variant="ghost" className="h-10 gap-2">
           <span className="hidden text-right leading-tight sm:block">
             <span className="block max-w-[160px] truncate text-sm font-medium">{name}</span>
-            <span className="block text-xs capitalize text-muted-foreground">{role ?? "member"}</span>
+            <span className="block text-xs capitalize text-muted-foreground">
+              {role ?? "member"}
+            </span>
           </span>
           <span className="grid size-8 place-items-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
             {name.charAt(0).toUpperCase()}
@@ -111,7 +113,6 @@ function Shell() {
     </SidebarProvider>
   );
 }
-
 
 function AppLayout() {
   return (

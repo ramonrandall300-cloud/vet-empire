@@ -1,14 +1,6 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  addDays,
-  format,
-  isSameDay,
-  parseISO,
-  startOfWeek,
-  addWeeks,
-  subWeeks,
-} from "date-fns";
+import { addDays, format, isSameDay, parseISO, startOfWeek, addWeeks, subWeeks } from "date-fns";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { RequireClinic } from "@/components/require-clinic";
@@ -59,9 +51,7 @@ function WeekCalendar() {
         at: parseISO(String(a["starts_at"])),
         status: String(a["status"]),
         label:
-          (a["pets"] as { name?: string } | null)?.name ??
-          (a["reason"] as string) ??
-          "Appointment",
+          (a["pets"] as { name?: string } | null)?.name ?? (a["reason"] as string) ?? "Appointment",
         service: (a["services"] as { name?: string } | null)?.name ?? "",
       })),
     [data],
@@ -112,9 +102,7 @@ function WeekCalendar() {
                 {String(hour).padStart(2, "0")}:00
               </div>
               {days.map((d) => {
-                const slot = items.filter(
-                  (i) => isSameDay(i.at, d) && i.at.getHours() === hour,
-                );
+                const slot = items.filter((i) => isSameDay(i.at, d) && i.at.getHours() === hour);
                 return (
                   <div key={d.toISOString() + hour} className="border-r p-1 last:border-0">
                     {slot.map((i) => (

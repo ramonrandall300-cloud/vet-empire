@@ -73,7 +73,8 @@ function Invoices() {
           {
             key: "due_at",
             label: "Due",
-            render: (r) => (r["due_at"] ? format(parseISO(String(r["due_at"])), "d MMM yyyy") : "—"),
+            render: (r) =>
+              r["due_at"] ? format(parseISO(String(r["due_at"])), "d MMM yyyy") : "—",
           },
           { key: "total", label: "Total", render: (r) => money(r["total"]) },
           {

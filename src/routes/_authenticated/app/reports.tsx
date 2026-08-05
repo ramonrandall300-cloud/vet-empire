@@ -60,10 +60,7 @@ function Reports() {
     return base.map((m) => {
       const key = format(m, "yyyy-MM");
       const revenue = (invoices.data ?? [])
-        .filter(
-          (r) =>
-            r["status"] === "paid" && String(r["issued_at"]).slice(0, 7) === key,
-        )
+        .filter((r) => r["status"] === "paid" && String(r["issued_at"]).slice(0, 7) === key)
         .reduce((s, r) => s + Number(r["total"]), 0);
       const visits = (appointments.data ?? []).filter(
         (a) => String(a["starts_at"]).slice(0, 7) === key,
@@ -87,10 +84,7 @@ function Reports() {
 
   return (
     <div>
-      <PageHeader
-        title="Reports"
-        description="Six-month performance snapshot for this clinic."
-      />
+      <PageHeader title="Reports" description="Six-month performance snapshot for this clinic." />
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard label="Revenue (6 mo)" value={money(totalRevenue)} />
         <StatCard label="Appointments (6 mo)" value={totalVisits} />
@@ -112,7 +106,11 @@ function Reports() {
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={months}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" vertical={false} />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="var(--color-border)"
+                  vertical={false}
+                />
                 <XAxis dataKey="month" stroke="var(--color-muted-foreground)" fontSize={12} />
                 <YAxis stroke="var(--color-muted-foreground)" fontSize={12} />
                 <Tooltip
@@ -135,7 +133,13 @@ function Reports() {
             <div className="h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
-                  <Pie data={serviceMix} dataKey="value" nameKey="name" innerRadius={50} outerRadius={90}>
+                  <Pie
+                    data={serviceMix}
+                    dataKey="value"
+                    nameKey="name"
+                    innerRadius={50}
+                    outerRadius={90}
+                  >
                     {serviceMix.map((_, i) => (
                       <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
                     ))}
@@ -174,7 +178,9 @@ function Reports() {
               </li>
             ))}
           {!(invoices.data ?? []).some((r) => r["status"] === "paid") && (
-            <li className="py-8 text-center text-sm text-muted-foreground">No paid invoices yet.</li>
+            <li className="py-8 text-center text-sm text-muted-foreground">
+              No paid invoices yet.
+            </li>
           )}
         </ul>
       </section>

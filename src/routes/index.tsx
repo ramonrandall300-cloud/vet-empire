@@ -92,8 +92,8 @@ function Landing() {
             Manage unlimited veterinary clinics from a single platform
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">
-            Every clinic gets its own independent panel, staff, patients and billing — while you keep
-            an overview of the whole group.
+            Every clinic gets its own independent panel, staff, patients and billing — while you
+            keep an overview of the whole group.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button size="lg" asChild>

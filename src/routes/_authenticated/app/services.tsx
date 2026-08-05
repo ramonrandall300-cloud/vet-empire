@@ -8,7 +8,10 @@ export const Route = createFileRoute("/_authenticated/app/services")({
   head: () => ({
     meta: [
       { title: "Services & Pricing — SmartVet" },
-      { name: "description", content: "The treatments this clinic offers, with duration and price." },
+      {
+        name: "description",
+        content: "The treatments this clinic offers, with duration and price.",
+      },
     ],
   }),
   component: () => (

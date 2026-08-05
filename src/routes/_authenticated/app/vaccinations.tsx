@@ -27,7 +27,9 @@ function Vaccinations() {
 
   const rows = data ?? [];
   const overdue = rows.filter(
-    (r) => r["next_due_at"] && differenceInCalendarDays(parseISO(String(r["next_due_at"])), new Date()) < 0,
+    (r) =>
+      r["next_due_at"] &&
+      differenceInCalendarDays(parseISO(String(r["next_due_at"])), new Date()) < 0,
   ).length;
   const soon = rows.filter((r) => {
     if (!r["next_due_at"]) return false;

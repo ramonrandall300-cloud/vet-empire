@@ -45,7 +45,9 @@ function Subscription() {
   });
 
   const currentPlan = (plans ?? []).find((p) => p.id === clinic?.plan_id) ?? null;
-  const trialDays = clinic ? differenceInCalendarDays(parseISO(clinic.trial_ends_at), new Date()) : 0;
+  const trialDays = clinic
+    ? differenceInCalendarDays(parseISO(clinic.trial_ends_at), new Date())
+    : 0;
 
   const choose = useMutation({
     mutationFn: async (planId: string) => {
@@ -91,9 +93,7 @@ function Subscription() {
         <StatCard label="Current plan" value={currentPlan?.name ?? "Trial"} />
         <StatCard
           label="Status"
-          value={
-            <Badge className="capitalize">{clinic?.subscription_status ?? "trialing"}</Badge>
-          }
+          value={<Badge className="capitalize">{clinic?.subscription_status ?? "trialing"}</Badge>}
         />
         <StatCard
           label="Patients used"

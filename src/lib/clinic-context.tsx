@@ -77,8 +77,7 @@ export function ClinicProvider({ children }: { children: ReactNode }) {
     memberships,
     clinic: current?.clinics ?? null,
     role: current?.role ?? null,
-    isAdmin:
-      current?.role === "owner" || current?.role === "admin" || platformQuery.data === true,
+    isAdmin: current?.role === "owner" || current?.role === "admin" || platformQuery.data === true,
     isPlatformAdmin: platformQuery.data === true,
     loading: membershipQuery.isLoading,
     setClinicId: (id: string) => {

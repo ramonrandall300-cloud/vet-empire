@@ -20,7 +20,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useClinicRows, useRowMutations } from "@/lib/data";
 
@@ -81,7 +88,11 @@ export function ResourceTable({
     if (!query.trim() || !searchKeys.length) return list;
     const q = query.toLowerCase();
     return list.filter((row) =>
-      searchKeys.some((k) => String(row[k] ?? "").toLowerCase().includes(q)),
+      searchKeys.some((k) =>
+        String(row[k] ?? "")
+          .toLowerCase()
+          .includes(q),
+      ),
     );
   }, [data, query, searchKeys]);
 
@@ -220,9 +231,7 @@ export function ResourceTable({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle>
-              {editing ? `Edit ${singular}` : `New ${singular}`}
-            </DialogTitle>
+            <DialogTitle>{editing ? `Edit ${singular}` : `New ${singular}`}</DialogTitle>
             <DialogDescription>
               Records are stored privately for this clinic only.
             </DialogDescription>

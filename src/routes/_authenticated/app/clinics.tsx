@@ -100,7 +100,11 @@ function Clinics() {
       />
 
       <div className="mb-6 grid gap-4 sm:grid-cols-3">
-        <StatCard label="Clinics" value={memberships.length} icon={<Building2 className="size-5" />} />
+        <StatCard
+          label="Clinics"
+          value={memberships.length}
+          icon={<Building2 className="size-5" />}
+        />
         <StatCard
           label="Active subscriptions"
           value={memberships.filter((m) => m.clinics?.subscription_status === "active").length}
@@ -137,9 +141,7 @@ function Clinics() {
                 <TableCell className="capitalize">{m.role}</TableCell>
                 <TableCell>
                   <Badge
-                    variant={
-                      m.clinics?.subscription_status === "active" ? "default" : "secondary"
-                    }
+                    variant={m.clinics?.subscription_status === "active" ? "default" : "secondary"}
                     className="capitalize"
                   >
                     {m.clinics?.subscription_status}
