@@ -15,6 +15,7 @@ import {
   User,
   Eye,
   EyeOff,
+  Chrome,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,6 +37,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable/index";
 
 
 const signInSchema = z.object({
@@ -213,6 +215,22 @@ function AuthPage() {
     setForgotSent(true);
   }
 
+  async function handleGoogle() {
+    setBusy(true);
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: window.location.origin,
+    });
+    setBusy(false);
+    if (result.error) {
+      toast.error(result.error.message);
+      return;
+    }
+    if (result.redirected) {
+      return;
+    }
+    navigate({ to: "/app", replace: true });
+  }
+
   if (signedUpEmail) {
     return (
       <main className="grid min-h-screen lg:grid-cols-2">
@@ -295,8 +313,25 @@ function AuthPage() {
               </button>
             </div>
 
+            <Button
+              type="button"
+              variant="outline"
+              className="mb-4 w-full"
+              disabled={busy}
+              onClick={handleGoogle}
+            >
+              <Chrome className="mr-2 size-4" />
+              Continue with Google
+            </Button>
 
-
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-card px-2 text-muted-foreground">Or continue with email</span>
+              </div>
+            </div>
 
             {tab === "signin" ? (
               <form onSubmit={handleSignIn} className="space-y-4">
