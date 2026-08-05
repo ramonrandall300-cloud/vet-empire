@@ -672,10 +672,12 @@ export type Database = {
       }
       plans: {
         Row: {
+          capabilities: Json
           created_at: string
           features: Json
           id: string
           is_active: boolean
+          max_locations: number
           max_pets: number
           max_staff: number
           name: string
@@ -683,12 +685,15 @@ export type Database = {
           price_yearly: number
           slug: string
           sort_order: number
+          trial_days: number
         }
         Insert: {
+          capabilities?: Json
           created_at?: string
           features?: Json
           id?: string
           is_active?: boolean
+          max_locations?: number
           max_pets?: number
           max_staff?: number
           name: string
@@ -696,12 +701,15 @@ export type Database = {
           price_yearly?: number
           slug: string
           sort_order?: number
+          trial_days?: number
         }
         Update: {
+          capabilities?: Json
           created_at?: string
           features?: Json
           id?: string
           is_active?: boolean
+          max_locations?: number
           max_pets?: number
           max_staff?: number
           name?: string
@@ -709,6 +717,7 @@ export type Database = {
           price_yearly?: number
           slug?: string
           sort_order?: number
+          trial_days?: number
         }
         Relationships: []
       }
@@ -869,6 +878,21 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      clinic_has_capability: {
+        Args: { _capability: string; _clinic_id: string }
+        Returns: boolean
+      }
+      clinic_plan_limits: {
+        Args: { _clinic_id: string }
+        Returns: {
+          capabilities: Json
+          max_locations: number
+          max_pets: number
+          max_staff: number
+          plan_id: string
+          plan_slug: string
+        }[]
+      }
       is_clinic_admin: {
         Args: { _clinic_id: string; _user_id: string }
         Returns: boolean
