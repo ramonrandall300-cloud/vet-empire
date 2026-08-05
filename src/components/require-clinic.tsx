@@ -26,7 +26,7 @@ export function RequireClinic({ children }: { children: ReactNode }) {
           Every clinic you operate gets its own isolated panel, staff and patient records.
         </p>
         <Button className="mt-6" asChild>
-          <Link to="/app/clinics">Onboard a clinic</Link>
+          <Link to="/app/onboarding">Onboard a clinic</Link>
         </Button>
       </div>
     );

@@ -1,21 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Building2, Plus } from "lucide-react";
 import { PageHeader, StatCard } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -24,8 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { supabase } from "@/integrations/supabase/client";
-import { useClinic, useCurrentUser } from "@/lib/clinic-context";
+import { useClinic } from "@/lib/clinic-context";
 
 export const Route = createFileRoute("/_authenticated/app/clinics")({
   head: () => ({
@@ -38,55 +24,9 @@ export const Route = createFileRoute("/_authenticated/app/clinics")({
   component: Clinics,
 });
 
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
 function Clinics() {
-  const { memberships, clinic, setClinicId, refetch } = useClinic();
-  const { data: user } = useCurrentUser();
-  const queryClient = useQueryClient();
-  const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [city, setCity] = useState("");
-  const [phone, setPhone] = useState("");
+  const { memberships, clinic, setClinicId } = useClinic();
 
-  const create = useMutation({
-    mutationFn: async () => {
-      const { data, error } = await supabase
-        .from("clinics")
-        .insert({
-          name: name.trim(),
-          slug: `${slugify(name)}-${Math.random().toString(36).slice(2, 6)}`,
-          city: city.trim() || null,
-          phone: phone.trim() || null,
-          owner_id: user!.id,
-        })
-        .select("id")
-        .single();
-      if (error) throw error;
-      const { error: memberError } = await supabase
-        .from("clinic_members")
-        .insert({ clinic_id: data.id, user_id: user!.id, role: "owner" });
-      if (memberError) throw memberError;
-      return data.id;
-    },
-    onSuccess: (id) => {
-      toast.success("Clinic created");
-      setOpen(false);
-      setName("");
-      setCity("");
-      setPhone("");
-      setClinicId(id);
-      refetch();
-      void queryClient.invalidateQueries({ queryKey: ["memberships"] });
-    },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Could not create clinic"),
-  });
 
   return (
     <div>
@@ -94,8 +34,10 @@ function Clinics() {
         title="All Clinics"
         description="Every clinic you operate runs on its own isolated dataset."
         actions={
-          <Button onClick={() => setOpen(true)}>
-            <Plus className="size-4" /> Onboard clinic
+          <Button asChild>
+            <Link to="/app/onboarding">
+              <Plus className="size-4" /> Onboard clinic
+            </Link>
           </Button>
         }
       />
@@ -169,6 +111,11 @@ function Clinics() {
                   <p className="text-sm text-muted-foreground">
                     Onboard your first clinic to open its panel.
                   </p>
+                  <Button className="mt-4" asChild>
+                    <Link to="/app/onboarding">
+                      <Plus className="size-4" /> Start onboarding
+                    </Link>
+                  </Button>
                 </TableCell>
               </TableRow>
             )}
@@ -177,43 +124,6 @@ function Clinics() {
         </Table>
       </div>
 
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Onboard a clinic</DialogTitle>
-            <DialogDescription>
-              You are set as the operator of this clinic and it starts on a 14-day Starter trial.
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="clinic-name">Clinic name</Label>
-              <Input
-                id="clinic-name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Green Valley Veterinary"
-              />
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="clinic-city">City</Label>
-                <Input id="clinic-city" value={city} onChange={(e) => setCity(e.target.value)} />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="clinic-phone">Phone</Label>
-                <Input id="clinic-phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button onClick={() => create.mutate()} disabled={!name.trim() || create.isPending}>
-              {create.isPending ? "Creating…" : "Create clinic"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
