@@ -43,8 +43,8 @@ function ClinicSwitcher() {
         ))}
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link to="/app/clinics">
-            <Plus className="size-4" /> Add a clinic
+          <Link to="/app/onboarding">
+            <Plus className="size-4" /> Onboard a clinic
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
