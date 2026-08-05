@@ -18,7 +18,7 @@ const EMAIL_TEMPLATES: Record<string, React.ComponentType<any>> = {
 }
 
 // Configuration
-const SITE_NAME = "Vetigo"
+const SITE_NAME = "vet-empire"
 const ROOT_DOMAIN = "vetigo.pet"
 
 // Sample data for preview mode ONLY (not used in actual email sending).
