@@ -112,20 +112,6 @@ function Shell() {
   );
 }
 
-export function NoClinicState() {
-  return (
-    <div className="surface-panel mx-auto max-w-lg p-10 text-center">
-      <Building2 className="mx-auto mb-4 size-8 text-primary" />
-      <h2 className="text-xl font-semibold">Create your first clinic</h2>
-      <p className="mt-2 text-sm text-muted-foreground">
-        Each clinic gets its own isolated panel, staff and records.
-      </p>
-      <Button className="mt-6" asChild>
-        <Link to="/app/clinics">Set up a clinic</Link>
-      </Button>
-    </div>
-  );
-}
 
 function AppLayout() {
   return (
