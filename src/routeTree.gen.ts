@@ -22,6 +22,7 @@ import { Route as AuthenticatedAppPetsRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedAppReportsRouteImport } from './routes/_authenticated/app/reports'
 import { Route as AuthenticatedAppRolesRouteImport } from './routes/_authenticated/app/roles'
 import { Route as AuthenticatedAppServicesRouteImport } from './routes/_authenticated/app/services'
+import { Route as AuthenticatedAppSubscriptionRouteImport } from './routes/_authenticated/app/subscription'
 import { Route as AuthenticatedAppUsersRouteImport } from './routes/_authenticated/app/users'
 import { Route as AuthenticatedAppVaccinationsRouteImport } from './routes/_authenticated/app/vaccinations'
 import { Route as AuthenticatedAppWebsiteRouteImport } from './routes/_authenticated/app/website'
@@ -96,6 +97,12 @@ const AuthenticatedAppServicesRoute =
     path: '/services',
     getParentRoute: () => AuthenticatedAppRouteRoute,
   } as any)
+const AuthenticatedAppSubscriptionRoute =
+  AuthenticatedAppSubscriptionRouteImport.update({
+    id: '/subscription',
+    path: '/subscription',
+    getParentRoute: () => AuthenticatedAppRouteRoute,
+  } as any)
 const AuthenticatedAppUsersRoute = AuthenticatedAppUsersRouteImport.update({
   id: '/users',
   path: '/users',
@@ -125,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/app/reports': typeof AuthenticatedAppReportsRoute
   '/app/roles': typeof AuthenticatedAppRolesRoute
   '/app/services': typeof AuthenticatedAppServicesRoute
+  '/app/subscription': typeof AuthenticatedAppSubscriptionRoute
   '/app/users': typeof AuthenticatedAppUsersRoute
   '/app/vaccinations': typeof AuthenticatedAppVaccinationsRoute
   '/app/website': typeof AuthenticatedAppWebsiteRoute
@@ -141,6 +149,7 @@ export interface FileRoutesByTo {
   '/app/reports': typeof AuthenticatedAppReportsRoute
   '/app/roles': typeof AuthenticatedAppRolesRoute
   '/app/services': typeof AuthenticatedAppServicesRoute
+  '/app/subscription': typeof AuthenticatedAppSubscriptionRoute
   '/app/users': typeof AuthenticatedAppUsersRoute
   '/app/vaccinations': typeof AuthenticatedAppVaccinationsRoute
   '/app/website': typeof AuthenticatedAppWebsiteRoute
@@ -160,6 +169,7 @@ export interface FileRoutesById {
   '/_authenticated/app/reports': typeof AuthenticatedAppReportsRoute
   '/_authenticated/app/roles': typeof AuthenticatedAppRolesRoute
   '/_authenticated/app/services': typeof AuthenticatedAppServicesRoute
+  '/_authenticated/app/subscription': typeof AuthenticatedAppSubscriptionRoute
   '/_authenticated/app/users': typeof AuthenticatedAppUsersRoute
   '/_authenticated/app/vaccinations': typeof AuthenticatedAppVaccinationsRoute
   '/_authenticated/app/website': typeof AuthenticatedAppWebsiteRoute
@@ -179,6 +189,7 @@ export interface FileRouteTypes {
     | '/app/reports'
     | '/app/roles'
     | '/app/services'
+    | '/app/subscription'
     | '/app/users'
     | '/app/vaccinations'
     | '/app/website'
@@ -195,6 +206,7 @@ export interface FileRouteTypes {
     | '/app/reports'
     | '/app/roles'
     | '/app/services'
+    | '/app/subscription'
     | '/app/users'
     | '/app/vaccinations'
     | '/app/website'
@@ -213,6 +225,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/reports'
     | '/_authenticated/app/roles'
     | '/_authenticated/app/services'
+    | '/_authenticated/app/subscription'
     | '/_authenticated/app/users'
     | '/_authenticated/app/vaccinations'
     | '/_authenticated/app/website'
@@ -317,6 +330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppServicesRouteImport
       parentRoute: typeof AuthenticatedAppRouteRoute
     }
+    '/_authenticated/app/subscription': {
+      id: '/_authenticated/app/subscription'
+      path: '/subscription'
+      fullPath: '/app/subscription'
+      preLoaderRoute: typeof AuthenticatedAppSubscriptionRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
     '/_authenticated/app/users': {
       id: '/_authenticated/app/users'
       path: '/users'
@@ -351,6 +371,7 @@ interface AuthenticatedAppRouteRouteChildren {
   AuthenticatedAppReportsRoute: typeof AuthenticatedAppReportsRoute
   AuthenticatedAppRolesRoute: typeof AuthenticatedAppRolesRoute
   AuthenticatedAppServicesRoute: typeof AuthenticatedAppServicesRoute
+  AuthenticatedAppSubscriptionRoute: typeof AuthenticatedAppSubscriptionRoute
   AuthenticatedAppUsersRoute: typeof AuthenticatedAppUsersRoute
   AuthenticatedAppVaccinationsRoute: typeof AuthenticatedAppVaccinationsRoute
   AuthenticatedAppWebsiteRoute: typeof AuthenticatedAppWebsiteRoute
@@ -367,6 +388,7 @@ const AuthenticatedAppRouteRouteChildren: AuthenticatedAppRouteRouteChildren = {
   AuthenticatedAppReportsRoute: AuthenticatedAppReportsRoute,
   AuthenticatedAppRolesRoute: AuthenticatedAppRolesRoute,
   AuthenticatedAppServicesRoute: AuthenticatedAppServicesRoute,
+  AuthenticatedAppSubscriptionRoute: AuthenticatedAppSubscriptionRoute,
   AuthenticatedAppUsersRoute: AuthenticatedAppUsersRoute,
   AuthenticatedAppVaccinationsRoute: AuthenticatedAppVaccinationsRoute,
   AuthenticatedAppWebsiteRoute: AuthenticatedAppWebsiteRoute,
