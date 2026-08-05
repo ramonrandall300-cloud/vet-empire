@@ -30,10 +30,11 @@ import { useClinic, useCurrentUser } from "@/lib/clinic-context";
 export const Route = createFileRoute("/_authenticated/app/clinics")({
   head: () => ({
     meta: [
-      { title: "All Clinics — SmartVet" },
-      { name: "description", content: "Manage every veterinary clinic on your platform." },
+      { title: "All Clinics — SmartVet Operator Console" },
+      { name: "description", content: "Operate and monitor every clinic on your platform." },
     ],
   }),
+
   component: Clinics,
 });
 
@@ -91,13 +92,14 @@ function Clinics() {
     <div>
       <PageHeader
         title="All Clinics"
-        description="Every clinic you manage runs on its own isolated dataset."
+        description="Every clinic you operate runs on its own isolated dataset."
         actions={
           <Button onClick={() => setOpen(true)}>
-            <Plus className="size-4" /> New clinic
+            <Plus className="size-4" /> Onboard clinic
           </Button>
         }
       />
+
 
       <div className="mb-6 grid gap-4 sm:grid-cols-3">
         <StatCard
@@ -165,11 +167,12 @@ function Clinics() {
                   <Building2 className="mx-auto mb-3 size-7 text-muted-foreground" />
                   <p className="text-sm font-medium">No clinics yet</p>
                   <p className="text-sm text-muted-foreground">
-                    Create your first clinic to unlock the panel.
+                    Onboard your first clinic to open its panel.
                   </p>
                 </TableCell>
               </TableRow>
             )}
+
           </TableBody>
         </Table>
       </div>
@@ -177,11 +180,12 @@ function Clinics() {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Create a clinic</DialogTitle>
+            <DialogTitle>Onboard a clinic</DialogTitle>
             <DialogDescription>
-              You become the owner and get a 14-day trial on the Starter plan.
+              You are set as the operator of this clinic and it starts on a 14-day Starter trial.
             </DialogDescription>
           </DialogHeader>
+
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="clinic-name">Clinic name</Label>
