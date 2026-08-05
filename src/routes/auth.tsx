@@ -313,8 +313,25 @@ function AuthPage() {
               </button>
             </div>
 
+            <Button
+              type="button"
+              variant="outline"
+              className="mb-4 w-full"
+              disabled={busy}
+              onClick={handleGoogle}
+            >
+              <Chrome className="mr-2 size-4" />
+              Continue with Google
+            </Button>
 
-
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-card px-2 text-muted-foreground">Or continue with email</span>
+              </div>
+            </div>
 
             {tab === "signin" ? (
               <form onSubmit={handleSignIn} className="space-y-4">
