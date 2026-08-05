@@ -65,6 +65,7 @@ const forgotSchema = z.object({
 type Tab = "signin" | "signup";
 
 export const Route = createFileRoute("/auth")({
+  ssr: false,
   head: () => ({
     meta: [
       { title: "Sign In — Vetigo for Clinics" },
