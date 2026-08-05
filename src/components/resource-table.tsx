@@ -113,6 +113,7 @@ export function ResourceTable({
         fields.map((f) => {
           const raw = row[f.name];
           if (raw == null) return [f.name, ""];
+          if (f.toForm) return [f.name, f.toForm(raw)];
           if (f.type === "datetime-local") return [f.name, String(raw).slice(0, 16)];
           return [f.name, String(raw)];
         }),
