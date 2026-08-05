@@ -63,6 +63,9 @@ const forgotSchema = z.object({
 type Tab = "signin" | "signup";
 
 export const Route = createFileRoute("/auth")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    oauth_error: typeof search.oauth_error === "string" ? search.oauth_error : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Sign In — Vetigo for Clinics" },
@@ -82,6 +85,7 @@ export const Route = createFileRoute("/auth")({
   }),
   component: AuthPage,
 });
+
 
 function AuthPage() {
   const navigate = useNavigate();
