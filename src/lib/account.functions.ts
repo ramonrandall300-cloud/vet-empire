@@ -45,18 +45,9 @@ export const deleteMyAccount = createServerFn({ method: "POST" })
   .handler(async ({ context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { data: owned } = await supabaseAdmin
-      .from("clinics")
-      .select("id, name")
-      .eq("owner_id", context.userId);
-    if (owned && owned.length > 0) {
-      throw new Error(
-        `Transfer ownership of ${owned.map((c) => c.name).join(", ")} before deleting your account.`,
-      );
-    }
-
     await supabaseAdmin.from("clinic_members").delete().eq("user_id", context.userId);
     await supabaseAdmin.from("profiles").update({ is_active: false }).eq("id", context.userId);
+
 
     const { error } = await supabaseAdmin.auth.admin.deleteUser(context.userId);
     if (error) throw new Error(error.message);
