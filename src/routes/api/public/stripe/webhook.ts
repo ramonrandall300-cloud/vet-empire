@@ -8,7 +8,7 @@ function mapStatus(status: Stripe.Subscription.Status): SubStatus {
     case "trialing":
       return "trialing";
     case "active":
-									      return "active";
+      return "active";
     case "past_due":
     case "unpaid":
     case "incomplete":
