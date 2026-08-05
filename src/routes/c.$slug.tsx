@@ -35,7 +35,7 @@ function ClinicSite() {
       if (!clinic) return null;
       const { data: site } = await supabase
         .from("clinic_websites")
-        .select("*")
+        .select("id, clinic_id, is_published, headline, tagline, about, hero_image_url, primary_color, social_links")
         .eq("clinic_id", clinic.id)
         .eq("is_published", true)
         .maybeSingle();
@@ -107,11 +107,11 @@ function ClinicSite() {
         <section className="surface-panel mt-12 grid gap-4 p-6 sm:grid-cols-3">
           <p className="flex items-center gap-2 text-sm">
             <Phone className="size-4 text-primary" />
-            {site.contact_phone ?? clinic.phone ?? "—"}
+            {clinic.phone ?? "—"}
           </p>
           <p className="flex items-center gap-2 text-sm">
             <Mail className="size-4 text-primary" />
-            {site.contact_email ?? clinic.email ?? "—"}
+            {clinic.email ?? "—"}
           </p>
           <p className="flex items-center gap-2 text-sm">
             <MapPin className="size-4 text-primary" />
