@@ -135,7 +135,11 @@ export function ResourceTable({
         payload[f.name] = null;
         continue;
       }
-      payload[f.name] = f.type === "number" ? Number(str) : str;
+      payload[f.name] = f.fromForm
+        ? f.fromForm(String(str))
+        : f.type === "number"
+          ? Number(str)
+          : str;
     }
     setSaving(true);
     try {
