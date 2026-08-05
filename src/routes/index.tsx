@@ -29,13 +29,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SmartVet — Veterinary Practice Management Software" },
+      { title: "Vetigo — Veterinary Practice Management Software" },
       {
         name: "description",
         content:
-          "SmartVet is cloud practice management software for veterinary clinics: scheduling, medical records, vaccinations, inventory and billing. Plans from $99/month, 30-day free trial.",
+          "Vetigo is cloud practice management software for veterinary clinics: scheduling, medical records, vaccinations, inventory and billing. Plans from $99/month, 30-day free trial.",
       },
-      { property: "og:title", content: "SmartVet — Veterinary Practice Management Software" },
+      { property: "og:title", content: "Vetigo — Veterinary Practice Management Software" },
       {
         property: "og:description",
         content:
@@ -189,7 +189,7 @@ const faqs = [
 const testimonials = [
   {
     quote:
-      "We replaced three tools with SmartVet. Scheduling, records and invoicing finally live in one place, and our no-show rate dropped after we switched on automated reminders.",
+      "We replaced three tools with Vetigo. Scheduling, records and invoicing finally live in one place, and our no-show rate dropped after we switched on automated reminders.",
     name: "Dr. Elena Marsh",
     role: "Owner, Green Valley Veterinary",
   },
@@ -219,7 +219,7 @@ function Landing() {
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
           <Link to="/" className="flex items-center gap-2 font-display text-lg font-semibold">
-            <PawPrint className="size-6 text-primary" /> SmartVet
+            <PawPrint className="size-6 text-primary" /> Vetigo
           </Link>
           <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
             {nav.map(([label, href]) => (
@@ -483,7 +483,7 @@ function Landing() {
         <div className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <span className="flex items-center gap-2 font-display font-semibold">
-              <PawPrint className="size-5 text-primary" /> SmartVet
+              <PawPrint className="size-5 text-primary" /> Vetigo
             </span>
             <p className="mt-2 text-sm text-muted-foreground">
               Veterinary practice management by Ordex Systems.

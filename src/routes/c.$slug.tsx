@@ -6,15 +6,15 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/c/$slug")({
   head: () => ({
     meta: [
-      { title: "Veterinary Clinic — SmartVet" },
+      { title: "Veterinary Clinic — Vetigo" },
       {
         name: "description",
         content: "Opening hours, services and contact details for this veterinary clinic.",
       },
-      { property: "og:title", content: "Veterinary Clinic — SmartVet" },
+      { property: "og:title", content: "Veterinary Clinic — Vetigo" },
       {
         property: "og:description",
-        content: "Book an appointment and meet the team at this SmartVet clinic.",
+        content: "Book an appointment and meet the team at this Vetigo clinic.",
       },
     ],
   }),
@@ -121,7 +121,7 @@ function ClinicSite() {
       </main>
 
       <footer className="border-t py-8 text-center text-sm text-muted-foreground">
-        Powered by SmartVet
+        Powered by Vetigo
       </footer>
     </div>
   );

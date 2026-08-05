@@ -40,7 +40,7 @@ import { useClinicStaff } from "@/lib/data";
 export const Route = createFileRoute("/_authenticated/app/users")({
   head: () => ({
     meta: [
-      { title: "Users & Staff — SmartVet" },
+      { title: "Users & Staff — Vetigo" },
       { name: "description", content: "Manage who can access this clinic and what they can do." },
     ],
   }),
@@ -87,7 +87,7 @@ function UsersPage() {
       if (error) throw error;
       if (!profile) {
         throw new Error(
-          "No SmartVet account uses that email yet. Ask them to sign up first, then add them here.",
+          "No Vetigo account uses that email yet. Ask them to sign up first, then add them here.",
         );
       }
       const { error: insertError } = await supabase
@@ -186,7 +186,7 @@ function UsersPage() {
           <DialogHeader>
             <DialogTitle>Add a team member</DialogTitle>
             <DialogDescription>
-              They need a SmartVet account first — then you can grant them access to this clinic.
+              They need a Vetigo account first — then you can grant them access to this clinic.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">

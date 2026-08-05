@@ -87,7 +87,7 @@ export function AppSidebar() {
           {!collapsed && (
             <span className="min-w-0">
               <span className="block truncate text-sm font-semibold">
-                {clinic?.name ?? "SmartVet"}
+                {clinic?.name ?? "Vetigo"}
               </span>
               <span className="block truncate text-xs opacity-70">Clinic Panel</span>
             </span>

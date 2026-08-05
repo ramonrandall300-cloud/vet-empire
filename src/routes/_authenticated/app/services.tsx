@@ -7,7 +7,7 @@ import { useClinic } from "@/lib/clinic-context";
 export const Route = createFileRoute("/_authenticated/app/services")({
   head: () => ({
     meta: [
-      { title: "Services & Pricing — SmartVet" },
+      { title: "Services & Pricing — Vetigo" },
       {
         name: "description",
         content: "The treatments this clinic offers, with duration and price.",

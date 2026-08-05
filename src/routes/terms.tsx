@@ -4,16 +4,16 @@ import { ArrowLeft } from "lucide-react";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms of Service — SmartVet by Ordex Systems" },
+      { title: "Terms of Service — Vetigo by Ordex Systems" },
       {
         name: "description",
         content:
-          "The terms that govern use of the SmartVet veterinary practice management platform, including subscriptions, trials, billing and acceptable use.",
+          "The terms that govern use of the Vetigo veterinary practice management platform, including subscriptions, trials, billing and acceptable use.",
       },
-      { property: "og:title", content: "Terms of Service — SmartVet" },
+      { property: "og:title", content: "Terms of Service — Vetigo" },
       {
         property: "og:description",
-        content: "Subscription, trial, billing and acceptable-use terms for SmartVet.",
+        content: "Subscription, trial, billing and acceptable-use terms for Vetigo.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },
@@ -33,7 +33,7 @@ function Terms() {
       </Link>
       <h1 className="mt-6 font-display text-3xl font-semibold tracking-tight">Terms of Service</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        Maintained by Ordex Systems for the SmartVet platform. Contact{" "}
+        Maintained by Ordex Systems for the Vetigo platform. Contact{" "}
         <a className="text-primary" href="mailto:support@ordex-systems.com">
           support@ordex-systems.com
         </a>{" "}
@@ -44,7 +44,7 @@ function Terms() {
         <section>
           <h2 className="font-display text-lg font-semibold text-foreground">1. Agreement</h2>
           <p className="mt-2 text-muted-foreground">
-            By creating an account or using SmartVet, your clinic agrees to these terms. If you are
+            By creating an account or using Vetigo, your clinic agrees to these terms. If you are
             accepting on behalf of a practice, you confirm you have authority to do so.
           </p>
         </section>
@@ -53,7 +53,7 @@ function Terms() {
             2. Trials and subscriptions
           </h2>
           <p className="mt-2 text-muted-foreground">
-            New clinics may use SmartVet free for 30 days with full functionality and no credit card
+            New clinics may use Vetigo free for 30 days with full functionality and no credit card
             required. After the trial, continued use requires a paid plan — Starter, Professional,
             Growth or Enterprise. Plan limits on locations and users apply as published on our
             pricing page.
@@ -86,7 +86,7 @@ function Terms() {
         <section>
           <h2 className="font-display text-lg font-semibold text-foreground">5. Acceptable use</h2>
           <p className="mt-2 text-muted-foreground">
-            Do not use SmartVet to store unlawful content, attempt to access another clinic&apos;s
+            Do not use Vetigo to store unlawful content, attempt to access another clinic&apos;s
             data, probe or disrupt the service, resell access without a written agreement, or share
             user credentials. Each named user must have their own account.
           </p>
@@ -96,7 +96,7 @@ function Terms() {
             6. Clinical responsibility
           </h2>
           <p className="mt-2 text-muted-foreground">
-            SmartVet is administrative software. It does not provide veterinary advice, diagnosis or
+            Vetigo is administrative software. It does not provide veterinary advice, diagnosis or
             treatment decisions. Optional AI features generate draft text that a licensed
             veterinarian must review before it becomes part of the medical record.
           </p>

@@ -11,16 +11,16 @@ import { lovable } from "@/integrations/lovable/index";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Operator Sign In — SmartVet Console" },
+      { title: "Operator Sign In — Vetigo Console" },
       {
         name: "description",
         content:
-          "Sign in to the SmartVet operator console to run appointments, patients and billing across every clinic.",
+          "Sign in to the Vetigo operator console to run appointments, patients and billing across every clinic.",
       },
-      { property: "og:title", content: "Operator Sign In — SmartVet Console" },
+      { property: "og:title", content: "Operator Sign In — Vetigo Console" },
       {
         property: "og:description",
-        content: "Private staff sign-in for the SmartVet clinic network.",
+        content: "Private staff sign-in for the Vetigo clinic network.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -75,7 +75,7 @@ function AuthPage() {
     <main className="grid min-h-screen lg:grid-cols-2">
       <div className="hidden flex-col justify-between bg-primary p-12 text-primary-foreground lg:flex">
         <div className="flex items-center gap-2 text-lg font-semibold">
-          <PawPrint className="size-6" /> SmartVet
+          <PawPrint className="size-6" /> Vetigo
         </div>
         <div>
           <h2 className="text-3xl font-semibold leading-tight">

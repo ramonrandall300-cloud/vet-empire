@@ -30,7 +30,7 @@ import { useClinic, useCurrentUser } from "@/lib/clinic-context";
 export const Route = createFileRoute("/_authenticated/app/clinics")({
   head: () => ({
     meta: [
-      { title: "All Clinics — SmartVet Operator Console" },
+      { title: "All Clinics — Vetigo Operator Console" },
       { name: "description", content: "Operate and monitor every clinic on your platform." },
     ],
   }),

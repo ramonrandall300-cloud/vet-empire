@@ -4,16 +4,16 @@ import { ArrowLeft } from "lucide-react";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — SmartVet by Ordex Systems" },
+      { title: "Privacy Policy — Vetigo by Ordex Systems" },
       {
         name: "description",
         content:
-          "How SmartVet collects, uses, stores and protects clinic, staff and pet-owner information, and how to exercise your privacy rights.",
+          "How Vetigo collects, uses, stores and protects clinic, staff and pet-owner information, and how to exercise your privacy rights.",
       },
-      { property: "og:title", content: "Privacy Policy — SmartVet" },
+      { property: "og:title", content: "Privacy Policy — Vetigo" },
       {
         property: "og:description",
-        content: "How SmartVet handles clinic, staff and pet-owner data.",
+        content: "How Vetigo handles clinic, staff and pet-owner data.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },
@@ -34,7 +34,7 @@ function Privacy() {
       <h1 className="mt-6 font-display text-3xl font-semibold tracking-tight">Privacy Policy</h1>
       <p className="mt-2 text-sm text-muted-foreground">
         This page is maintained by Ordex Systems to answer common privacy and security questions
-        about SmartVet. It describes our current practices and is not an independent certification or
+        about Vetigo. It describes our current practices and is not an independent certification or
         audit report. Questions:{" "}
         <a className="text-primary" href="mailto:support@ordex-systems.com">
           support@ordex-systems.com
@@ -62,7 +62,7 @@ function Privacy() {
           <h2 className="font-display text-lg font-semibold text-foreground">Roles</h2>
           <p className="mt-2 text-muted-foreground">
             Your clinic is the controller of the client and patient records it enters; Ordex Systems
-            processes that data on your instructions to provide SmartVet. Pet owners should direct
+            processes that data on your instructions to provide Vetigo. Pet owners should direct
             requests about their records to the clinic that holds them.
           </p>
         </section>
@@ -83,7 +83,7 @@ function Privacy() {
           </h2>
           <p className="mt-2 text-muted-foreground">
             Each clinic&apos;s data is isolated with database row-level security, so users only reach
-            records for clinics they belong to. Access inside SmartVet is governed by roles (owner,
+            records for clinics they belong to. Access inside Vetigo is governed by roles (owner,
             admin, veterinarian, staff). Our staff access production data only when needed to
             provide support or resolve an incident.
           </p>

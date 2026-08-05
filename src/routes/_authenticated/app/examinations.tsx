@@ -8,7 +8,7 @@ import { useLookup, useClinicStaff } from "@/lib/data";
 export const Route = createFileRoute("/_authenticated/app/examinations")({
   head: () => ({
     meta: [
-      { title: "Examinations — SmartVet" },
+      { title: "Examinations — Vetigo" },
       { name: "description", content: "Clinical notes, diagnoses, vitals and prescriptions." },
     ],
   }),

@@ -10,7 +10,7 @@ import { useClinicRows } from "@/lib/data";
 export const Route = createFileRoute("/_authenticated/app/inventory")({
   head: () => ({
     meta: [
-      { title: "Inventory — SmartVet" },
+      { title: "Inventory — Vetigo" },
       { name: "description", content: "Medicines, consumables, stock levels and expiry dates." },
     ],
   }),

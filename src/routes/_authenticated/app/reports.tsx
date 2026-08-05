@@ -21,7 +21,7 @@ import { useClinicRows } from "@/lib/data";
 export const Route = createFileRoute("/_authenticated/app/reports")({
   head: () => ({
     meta: [
-      { title: "Reports & Analytics — SmartVet" },
+      { title: "Reports & Analytics — Vetigo" },
       { name: "description", content: "Revenue, visit volume and service mix for your clinic." },
     ],
   }),

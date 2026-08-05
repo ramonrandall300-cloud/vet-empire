@@ -17,7 +17,7 @@ import { useClinic } from "@/lib/clinic-context";
 export const Route = createFileRoute("/_authenticated/app/website")({
   head: () => ({
     meta: [
-      { title: "Website Management — SmartVet" },
+      { title: "Website Management — Vetigo" },
       { name: "description", content: "Publish a public page for your clinic in a few clicks." },
     ],
   }),
