@@ -1,21 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Building2, Plus } from "lucide-react";
 import { PageHeader, StatCard } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -24,8 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { supabase } from "@/integrations/supabase/client";
-import { useClinic, useCurrentUser } from "@/lib/clinic-context";
+import { useClinic } from "@/lib/clinic-context";
 
 export const Route = createFileRoute("/_authenticated/app/clinics")({
   head: () => ({
@@ -38,55 +24,9 @@ export const Route = createFileRoute("/_authenticated/app/clinics")({
   component: Clinics,
 });
 
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
 function Clinics() {
-  const { memberships, clinic, setClinicId, refetch } = useClinic();
-  const { data: user } = useCurrentUser();
-  const queryClient = useQueryClient();
-  const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [city, setCity] = useState("");
-  const [phone, setPhone] = useState("");
+  const { memberships, clinic, setClinicId } = useClinic();
 
-  const create = useMutation({
-    mutationFn: async () => {
-      const { data, error } = await supabase
-        .from("clinics")
-        .insert({
-          name: name.trim(),
-          slug: `${slugify(name)}-${Math.random().toString(36).slice(2, 6)}`,
-          city: city.trim() || null,
-          phone: phone.trim() || null,
-          owner_id: user!.id,
-        })
-        .select("id")
-        .single();
-      if (error) throw error;
-      const { error: memberError } = await supabase
-        .from("clinic_members")
-        .insert({ clinic_id: data.id, user_id: user!.id, role: "owner" });
-      if (memberError) throw memberError;
-      return data.id;
-    },
-    onSuccess: (id) => {
-      toast.success("Clinic created");
-      setOpen(false);
-      setName("");
-      setCity("");
-      setPhone("");
-      setClinicId(id);
-      refetch();
-      void queryClient.invalidateQueries({ queryKey: ["memberships"] });
-    },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Could not create clinic"),
-  });
 
   return (
     <div>
