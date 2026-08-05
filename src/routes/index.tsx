@@ -1,5 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import heroImage from "@/assets/hero-vet.png.asset.json";
 import howItWorksImage from "@/assets/how-it-works-vet.png.asset.json";
@@ -204,22 +203,6 @@ const nav = [
 ];
 
 function Landing() {
-  const navigate = useNavigate();
-
-  // Managed OAuth failures come back to the site origin as a URL hash
-  // (e.g. #error=server_error&error_description=failed+to+exchange+authorization+code).
-  // Forward them to /auth so the user gets a one-click retry.
-  useEffect(() => {
-    const hash = window.location.hash.replace(/^#/, "");
-    if (!hash) return;
-    const params = new URLSearchParams(hash);
-    const error = params.get("error");
-    if (!error) return;
-    const description = params.get("error_description")?.replace(/\+/g, " ") ?? error;
-    window.history.replaceState(null, "", window.location.pathname + window.location.search);
-    void navigate({ to: "/auth", search: { oauth_error: description }, replace: true });
-  }, [navigate]);
-
   return (
     <div className="min-h-screen bg-background">
 
