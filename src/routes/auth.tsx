@@ -215,6 +215,22 @@ function AuthPage() {
     setForgotSent(true);
   }
 
+  async function handleGoogle() {
+    setBusy(true);
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: window.location.origin,
+    });
+    setBusy(false);
+    if (result.error) {
+      toast.error(result.error.message);
+      return;
+    }
+    if (result.redirected) {
+      return;
+    }
+    navigate({ to: "/app", replace: true });
+  }
+
   if (signedUpEmail) {
     return (
       <main className="grid min-h-screen lg:grid-cols-2">
