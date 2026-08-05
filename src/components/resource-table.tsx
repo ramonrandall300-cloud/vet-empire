@@ -41,6 +41,10 @@ export type FieldDef = {
   required?: boolean;
   placeholder?: string;
   colSpan?: 1 | 2;
+  /** Convert stored value → form display value */
+  toForm?: (raw: unknown) => string;
+  /** Convert form display value → stored value */
+  fromForm?: (value: string) => unknown;
 };
 
 export type ColumnDef = {
