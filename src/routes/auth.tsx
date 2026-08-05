@@ -118,6 +118,8 @@ function AuthPage() {
   const [forgotError, setForgotError] = useState("");
   const [forgotSent, setForgotSent] = useState(false);
 
+  const [oauthError, setOauthError] = useState<string | null>(search.oauth_error ?? null);
+
   useEffect(() => {
     void supabase.auth.getSession().then(({ data }) => {
       if (data.session) navigate({ to: "/app", replace: true });
@@ -130,19 +132,53 @@ function AuthPage() {
     return () => sub.subscription.unsubscribe();
   }, [navigate]);
 
-  async function handleGoogle() {
+  // A failed managed OAuth attempt can also land directly on /auth with an error hash.
+  useEffect(() => {
+    const hash = window.location.hash.replace(/^#/, "");
+    if (!hash) return;
+    const params = new URLSearchParams(hash);
+    if (!params.get("error")) return;
+    setOauthError(
+      params.get("error_description")?.replace(/\+/g, " ") ?? params.get("error") ?? "Google sign-in failed",
+    );
+    window.history.replaceState(null, "", window.location.pathname + window.location.search);
+  }, []);
+
+  async function handleGoogle(retry = false) {
     setBusy(true);
+    setOauthError(null);
+
+    if (retry) {
+      // Drop any spent authorization code / stale OAuth state before starting over,
+      // and force Google to issue a brand-new code instead of silently reusing consent.
+      window.history.replaceState(null, "", "/auth");
+      try {
+        await supabase.auth.signOut({ scope: "local" });
+      } catch {
+        /* no local session to clear */
+      }
+      for (const store of [window.localStorage, window.sessionStorage]) {
+        for (const key of Object.keys(store)) {
+          if (/oauth|pkce|code[-_]?verifier|lovable[-_]auth/i.test(key)) store.removeItem(key);
+        }
+      }
+    }
+
     const result = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: window.location.origin,
+      ...(retry ? { extraParams: { prompt: "select_account consent" } } : {}),
     });
     if (result.error) {
       setBusy(false);
-      toast.error(result.error.message ?? "Google sign-in failed");
+      const message = result.error.message ?? "Google sign-in failed";
+      setOauthError(message);
+      toast.error(message);
       return;
     }
     if (result.redirected) return;
     navigate({ to: "/app", replace: true });
   }
+
 
   async function handleSignIn(e: React.FormEvent) {
     e.preventDefault();
