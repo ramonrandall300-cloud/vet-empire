@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { format, parseISO, startOfMonth, subMonths } from "date-fns";
 import {
   Bar,
@@ -13,6 +13,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { Download } from "lucide-react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { PageHeader, StatCard } from "@/components/page-header";
 import { RequireClinic } from "@/components/require-clinic";
 import { useClinic } from "@/lib/clinic-context";
@@ -42,6 +45,7 @@ const CHART_COLORS = [
 
 function Reports() {
   const { clinic } = useClinic();
+  const [exporting, setExporting] = useState(false);
   const invoices = useClinicRows("invoices", { orderBy: "issued_at" });
   const appointments = useClinicRows("appointments", {
     select: "id, starts_at, status, services(name)",
@@ -81,22 +85,63 @@ function Reports() {
   const totalRevenue = months.reduce((s, m) => s + m.revenue, 0);
   const totalVisits = months.reduce((s, m) => s + m.visits, 0);
   const completed = (appointments.data ?? []).filter((a) => a["status"] === "completed").length;
+  const avgInvoice = (invoices.data ?? []).length
+    ? (invoices.data ?? []).reduce((s, r) => s + Number(r["total"]), 0) /
+      (invoices.data ?? []).length
+    : 0;
+
+  async function exportPdf() {
+    setExporting(true);
+    try {
+      const { downloadReportPdf } = await import("@/lib/report-pdf");
+      await downloadReportPdf({
+        clinicName: clinic?.name ?? "Clinic",
+        currencyLabel: money,
+        stats: [
+          { label: "Revenue (6 mo)", value: money(totalRevenue) },
+          { label: "Appointments (6 mo)", value: String(totalVisits) },
+          { label: "Completed visits", value: String(completed) },
+          { label: "Avg. invoice", value: money(avgInvoice) },
+        ],
+        months,
+        serviceMix,
+        paidInvoices: (invoices.data ?? [])
+          .filter((r) => r["status"] === "paid")
+          .slice(0, 20)
+          .map((r) => ({
+            number: String(r["number"]),
+            issued: format(parseISO(String(r["issued_at"])), "d MMM yyyy"),
+            total: Number(r["total"]),
+          })),
+      });
+      toast.success("Report downloaded");
+    } catch {
+      toast.error("Could not generate the PDF");
+    } finally {
+      setExporting(false);
+    }
+  }
 
   return (
     <div>
-      <PageHeader title="Reports" description="Six-month performance snapshot for this clinic." />
+      <PageHeader
+        title="Reports"
+        description="Six-month performance snapshot for this clinic."
+        actions={
+          <Button onClick={exportPdf} disabled={exporting}>
+            <Download className="mr-2 size-4" />
+            {exporting ? "Preparing…" : "Download PDF"}
+          </Button>
+        }
+      />
+
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard label="Revenue (6 mo)" value={money(totalRevenue)} />
         <StatCard label="Appointments (6 mo)" value={totalVisits} />
         <StatCard label="Completed visits" value={completed} />
         <StatCard
           label="Avg. invoice"
-          value={money(
-            (invoices.data ?? []).length
-              ? (invoices.data ?? []).reduce((s, r) => s + Number(r["total"]), 0) /
-                  (invoices.data ?? []).length
-              : 0,
-          )}
+          value={money(avgInvoice)}
         />
       </div>
 
