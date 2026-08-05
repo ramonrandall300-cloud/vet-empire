@@ -4,7 +4,14 @@ import { PageHeader } from "@/components/page-header";
 import { RequireClinic } from "@/components/require-clinic";
 import { ResourceTable } from "@/components/resource-table";
 import { useLookup, useClinicStaff } from "@/lib/data";
-import { formatLbs, kgToLbsInput, lbsInputToKg } from "@/lib/weight";
+import {
+  celsiusToFahrenheitInput,
+  fahrenheitInputToCelsius,
+  formatFahrenheit,
+  formatLbs,
+  kgToLbsInput,
+  lbsInputToKg,
+} from "@/lib/weight";
 
 export const Route = createFileRoute("/_authenticated/app/examinations")({
   head: () => ({
@@ -42,7 +49,11 @@ function Examinations() {
           },
           { key: "complaint", label: "Complaint" },
           { key: "diagnosis", label: "Diagnosis", className: "font-medium" },
-          { key: "temperature_c", label: "Temp °C" },
+          {
+            key: "temperature_c",
+            label: "Temp °F",
+            render: (r) => formatFahrenheit(r["temperature_c"]),
+          },
           { key: "weight_kg", label: "Weight", render: (r) => formatLbs(r["weight_kg"]) },
         ]}
         fields={[
@@ -62,7 +73,13 @@ function Examinations() {
               label: s.profiles?.full_name ?? s.profiles?.email ?? "Staff",
             })),
           },
-          { name: "temperature_c", label: "Temperature (°C)", type: "number" },
+          {
+            name: "temperature_c",
+            label: "Temperature (°F)",
+            type: "number",
+            toForm: celsiusToFahrenheitInput,
+            fromForm: fahrenheitInputToCelsius,
+          },
           { name: "heart_rate", label: "Heart rate (bpm)", type: "number" },
           {
             name: "weight_kg",
