@@ -85,7 +85,7 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
     if (!customerId) {
       const customer = await stripe.customers.create({
         name: clinic.name,
-        email: clinic.email ?? undefined,
+        ...(clinic.email ? { email: clinic.email } : {}),
         metadata: { clinic_id: clinic.id },
       });
       customerId = customer.id;
