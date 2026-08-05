@@ -92,8 +92,6 @@ function UserMenu() {
 }
 
 function Shell() {
-  const { clinic, loading } = useClinic();
-
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full bg-background">
@@ -106,24 +104,26 @@ function Shell() {
             <UserMenu />
           </header>
           <main className="min-w-0 flex-1 p-5 lg:p-8">
-            {!loading && !clinic ? (
-              <div className="surface-panel mx-auto max-w-lg p-10 text-center">
-                <Building2 className="mx-auto mb-4 size-8 text-primary" />
-                <h2 className="text-xl font-semibold">Create your first clinic</h2>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Each clinic gets its own isolated panel, staff and records.
-                </p>
-                <Button className="mt-6" asChild>
-                  <Link to="/app/clinics">Set up a clinic</Link>
-                </Button>
-              </div>
-            ) : (
-              <Outlet />
-            )}
+            <Outlet />
           </main>
         </div>
       </div>
     </SidebarProvider>
+  );
+}
+
+export function NoClinicState() {
+  return (
+    <div className="surface-panel mx-auto max-w-lg p-10 text-center">
+      <Building2 className="mx-auto mb-4 size-8 text-primary" />
+      <h2 className="text-xl font-semibold">Create your first clinic</h2>
+      <p className="mt-2 text-sm text-muted-foreground">
+        Each clinic gets its own isolated panel, staff and records.
+      </p>
+      <Button className="mt-6" asChild>
+        <Link to="/app/clinics">Set up a clinic</Link>
+      </Button>
+    </div>
   );
 }
 
