@@ -16,6 +16,7 @@ import {
   Building2,
   CreditCard,
   Heart,
+  Sparkles,
 } from "lucide-react";
 import {
   Sidebar,
@@ -51,7 +52,10 @@ const managementNav = [
   { title: "Subscription", url: "/app/subscription", icon: CreditCard },
 ];
 
-const platformNav = [{ title: "All Clinics", url: "/app/clinics", icon: Building2 }];
+const platformNav = [
+  { title: "All Clinics", url: "/app/clinics", icon: Building2 },
+  { title: "Onboard Clinic", url: "/app/onboarding", icon: Sparkles },
+];
 
 export function AppSidebar() {
   const { state } = useSidebar();
