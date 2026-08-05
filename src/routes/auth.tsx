@@ -8,6 +8,7 @@ import {
   Users,
   Stethoscope,
   ArrowRight,
+  ArrowLeft,
   CheckCircle2,
   Mail,
   Lock,
