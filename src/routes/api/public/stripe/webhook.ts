@@ -26,18 +26,12 @@ export const Route = createFileRoute("/api/public/stripe/webhook")({
         if (!signature) return new Response("Missing signature", { status: 400 });
 
         const body = await request.text();
-        const { getStripe, getWebhookSecret } = await import("@/lib/stripe.server");
+        const { getStripe, constructWebhookEvent } = await import("@/lib/stripe.server");
         const stripe = getStripe();
 
         let event: Stripe.Event;
         try {
-          event = await stripe.webhooks.constructEventAsync(
-            body,
-            signature,
-            getWebhookSecret(),
-            undefined,
-            Stripe.createSubtleCryptoProvider(),
-          );
+          event = await constructWebhookEvent(body, signature);
         } catch {
           return new Response("Invalid signature", { status: 401 });
         }
@@ -47,7 +41,11 @@ export const Route = createFileRoute("/api/public/stripe/webhook")({
         // Idempotency: skip events we have already handled.
         const { error: logError } = await supabaseAdmin
           .from("billing_events")
-          .insert({ stripe_event_id: event.id, type: event.type, payload: event as unknown as object });
+          .insert({
+            stripe_event_id: event.id,
+            type: event.type,
+            payload: JSON.parse(body) as Record<string, never>,
+          });
         if (logError) {
           if (logError.code === "23505") return new Response("ok (duplicate)");
           console.error("billing_events insert failed", logError.message);
