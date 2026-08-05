@@ -15,8 +15,6 @@ import {
   User,
   Eye,
   EyeOff,
-  RefreshCw,
-
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,9 +63,6 @@ const forgotSchema = z.object({
 type Tab = "signin" | "signup";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    oauth_error: typeof search["oauth_error"] === "string" ? (search["oauth_error"] as string) : undefined,
-  }),
   head: () => ({
     meta: [
       { title: "Sign In — Vetigo for Clinics" },
@@ -91,7 +86,6 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const search = Route.useSearch();
 
   const [tab, setTab] = useState<Tab>("signin");
   const [busy, setBusy] = useState(false);
@@ -122,8 +116,6 @@ function AuthPage() {
   const [forgotError, setForgotError] = useState("");
   const [forgotSent, setForgotSent] = useState(false);
 
-  const [oauthError, setOauthError] = useState<string | null>(search.oauth_error ?? null);
-
   useEffect(() => {
     void supabase.auth.getSession().then(({ data }) => {
       if (data.session) navigate({ to: "/app", replace: true });
@@ -136,46 +128,15 @@ function AuthPage() {
     return () => sub.subscription.unsubscribe();
   }, [navigate]);
 
-  // A failed managed OAuth attempt can also land directly on /auth with an error hash.
-  useEffect(() => {
-    const hash = window.location.hash.replace(/^#/, "");
-    if (!hash) return;
-    const params = new URLSearchParams(hash);
-    if (!params.get("error")) return;
-    setOauthError(
-      params.get("error_description")?.replace(/\+/g, " ") ?? params.get("error") ?? "Google sign-in failed",
-    );
-    window.history.replaceState(null, "", window.location.pathname + window.location.search);
-  }, []);
-
-  async function handleGoogle(retry = false) {
+  async function handleGoogle() {
     setBusy(true);
-    setOauthError(null);
-
-    if (retry) {
-      // Drop any spent authorization code / stale OAuth state before starting over,
-      // and force Google to issue a brand-new code instead of silently reusing consent.
-      window.history.replaceState(null, "", "/auth");
-      try {
-        await supabase.auth.signOut({ scope: "local" });
-      } catch {
-        /* no local session to clear */
-      }
-      for (const store of [window.localStorage, window.sessionStorage]) {
-        for (const key of Object.keys(store)) {
-          if (/oauth|pkce|code[-_]?verifier|lovable[-_]auth/i.test(key)) store.removeItem(key);
-        }
-      }
-    }
-
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
-      ...(retry ? { extraParams: { prompt: "select_account consent" } } : {}),
+      redirect_uri: `${window.location.origin}/auth`,
+      extraParams: { prompt: "select_account" },
     });
     if (result.error) {
       setBusy(false);
       const message = result.error.message ?? "Google sign-in failed";
-      setOauthError(message);
       toast.error(message);
       return;
     }
@@ -350,24 +311,6 @@ function AuthPage() {
             </div>
 
 
-
-            {oauthError && (
-              <div className="mb-4 space-y-3 rounded-lg border border-destructive/30 bg-destructive/10 p-3">
-                <div className="flex items-start gap-2 text-sm text-destructive">
-                  <RefreshCw className="mt-0.5 size-4 shrink-0" />
-                  <span>Google sign-in didn&apos;t complete: {oauthError}</span>
-                </div>
-                <Button
-                  type="button"
-                  size="sm"
-                  className="w-full"
-                  disabled={busy}
-                  onClick={() => void handleGoogle(true)}
-                >
-                  {busy ? "Retrying…" : "Retry Google sign-in"}
-                </Button>
-              </div>
-            )}
 
             <Button
               type="button"
