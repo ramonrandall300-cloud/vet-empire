@@ -12,7 +12,7 @@ import {
   BarChart3,
   UserCog,
   ShieldCheck,
-  Globe,
+  
   Building2,
   CreditCard,
   Heart,
@@ -48,7 +48,6 @@ const clinicNav = [
 const managementNav = [
   { title: "Users", url: "/app/users", icon: UserCog },
   { title: "Roles & Permissions", url: "/app/roles", icon: ShieldCheck },
-  { title: "Website Management", url: "/app/website", icon: Globe },
   { title: "Subscription", url: "/app/subscription", icon: CreditCard },
 ];
 
