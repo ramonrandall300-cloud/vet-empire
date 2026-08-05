@@ -90,3 +90,15 @@ export async function ensurePlanInStripe(stripe: Stripe, plan: PlanRow) {
     stripe_price_id_yearly: await priceFor(plan.stripe_price_id_yearly, plan.price_yearly, "year"),
   };
 }
+
+/** Verifies a Stripe webhook signature using the Worker-compatible crypto provider. */
+export async function constructWebhookEvent(body: string, signature: string) {
+  const stripe = getStripe();
+  return stripe.webhooks.constructEventAsync(
+    body,
+    signature,
+    getWebhookSecret(),
+    undefined,
+    Stripe.createSubtleCryptoProvider(),
+  );
+}
