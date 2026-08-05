@@ -239,7 +239,7 @@ function Landing() {
               </Badge>
 
               <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
-                Vetigo — Practice Management Software Built for Veterinary Teams
+                Vetigo —Veterinary Practice Management Software Built for  Teams
               </h1>
               <p className="mt-5 max-w-xl text-lg text-muted-foreground">
                 Scheduling, medical records, vaccination reminders, inventory, pharmacy and billing —
