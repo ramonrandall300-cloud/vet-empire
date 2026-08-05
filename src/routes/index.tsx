@@ -297,16 +297,26 @@ function Landing() {
             <p className="mt-3 max-w-2xl text-muted-foreground">
               Most clinics are live within a week — without pausing appointments or losing history.
             </p>
-            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-              {steps.map((s) => (
-                <div key={s.title} className="surface-panel p-6">
-                  <span className="grid size-10 place-items-center rounded-lg bg-primary text-primary-foreground">
-                    <s.icon className="size-5" />
-                  </span>
-                  <h3 className="mt-4 font-medium">{s.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
-                </div>
-              ))}
+            <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
+              <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+                <img
+                  src={howItWorksImage.url}
+                  alt="Veterinarian examining a border collie with the owner in a modern clinic"
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="grid gap-5 sm:grid-cols-2">
+                {steps.map((s) => (
+                  <div key={s.title} className="surface-panel p-6">
+                    <span className="grid size-10 place-items-center rounded-lg bg-primary text-primary-foreground">
+                      <s.icon className="size-5" />
+                    </span>
+                    <h3 className="mt-4 font-medium">{s.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
