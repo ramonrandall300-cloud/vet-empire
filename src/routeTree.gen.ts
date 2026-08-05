@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedAppRouteRouteImport } from './routes/_authenticated/app/route'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
 import { Route as AuthenticatedAppAppointmentsRouteImport } from './routes/_authenticated/app/appointments'
+import { Route as AuthenticatedAppClinicsRouteImport } from './routes/_authenticated/app/clinics'
 import { Route as AuthenticatedAppCustomersRouteImport } from './routes/_authenticated/app/customers'
 import { Route as AuthenticatedAppExaminationsRouteImport } from './routes/_authenticated/app/examinations'
 import { Route as AuthenticatedAppInventoryRouteImport } from './routes/_authenticated/app/inventory'
@@ -52,6 +53,11 @@ const AuthenticatedAppAppointmentsRoute =
     path: '/appointments',
     getParentRoute: () => AuthenticatedAppRouteRoute,
   } as any)
+const AuthenticatedAppClinicsRoute = AuthenticatedAppClinicsRouteImport.update({
+  id: '/clinics',
+  path: '/clinics',
+  getParentRoute: () => AuthenticatedAppRouteRoute,
+} as any)
 const AuthenticatedAppCustomersRoute =
   AuthenticatedAppCustomersRouteImport.update({
     id: '/customers',
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AuthenticatedAppRouteRouteWithChildren
   '/app/appointments': typeof AuthenticatedAppAppointmentsRoute
+  '/app/clinics': typeof AuthenticatedAppClinicsRoute
   '/app/customers': typeof AuthenticatedAppCustomersRoute
   '/app/examinations': typeof AuthenticatedAppExaminationsRoute
   '/app/inventory': typeof AuthenticatedAppInventoryRoute
@@ -141,6 +148,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app/appointments': typeof AuthenticatedAppAppointmentsRoute
+  '/app/clinics': typeof AuthenticatedAppClinicsRoute
   '/app/customers': typeof AuthenticatedAppCustomersRoute
   '/app/examinations': typeof AuthenticatedAppExaminationsRoute
   '/app/inventory': typeof AuthenticatedAppInventoryRoute
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_authenticated/app': typeof AuthenticatedAppRouteRouteWithChildren
   '/_authenticated/app/appointments': typeof AuthenticatedAppAppointmentsRoute
+  '/_authenticated/app/clinics': typeof AuthenticatedAppClinicsRoute
   '/_authenticated/app/customers': typeof AuthenticatedAppCustomersRoute
   '/_authenticated/app/examinations': typeof AuthenticatedAppExaminationsRoute
   '/_authenticated/app/inventory': typeof AuthenticatedAppInventoryRoute
@@ -181,6 +190,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/appointments'
+    | '/app/clinics'
     | '/app/customers'
     | '/app/examinations'
     | '/app/inventory'
@@ -198,6 +208,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/app/appointments'
+    | '/app/clinics'
     | '/app/customers'
     | '/app/examinations'
     | '/app/inventory'
@@ -217,6 +228,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/_authenticated/app'
     | '/_authenticated/app/appointments'
+    | '/_authenticated/app/clinics'
     | '/_authenticated/app/customers'
     | '/_authenticated/app/examinations'
     | '/_authenticated/app/inventory'
@@ -272,6 +284,13 @@ declare module '@tanstack/react-router' {
       path: '/appointments'
       fullPath: '/app/appointments'
       preLoaderRoute: typeof AuthenticatedAppAppointmentsRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/app/clinics': {
+      id: '/_authenticated/app/clinics'
+      path: '/clinics'
+      fullPath: '/app/clinics'
+      preLoaderRoute: typeof AuthenticatedAppClinicsRouteImport
       parentRoute: typeof AuthenticatedAppRouteRoute
     }
     '/_authenticated/app/customers': {
@@ -363,6 +382,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAppRouteRouteChildren {
   AuthenticatedAppAppointmentsRoute: typeof AuthenticatedAppAppointmentsRoute
+  AuthenticatedAppClinicsRoute: typeof AuthenticatedAppClinicsRoute
   AuthenticatedAppCustomersRoute: typeof AuthenticatedAppCustomersRoute
   AuthenticatedAppExaminationsRoute: typeof AuthenticatedAppExaminationsRoute
   AuthenticatedAppInventoryRoute: typeof AuthenticatedAppInventoryRoute
@@ -380,6 +400,7 @@ interface AuthenticatedAppRouteRouteChildren {
 
 const AuthenticatedAppRouteRouteChildren: AuthenticatedAppRouteRouteChildren = {
   AuthenticatedAppAppointmentsRoute: AuthenticatedAppAppointmentsRoute,
+  AuthenticatedAppClinicsRoute: AuthenticatedAppClinicsRoute,
   AuthenticatedAppCustomersRoute: AuthenticatedAppCustomersRoute,
   AuthenticatedAppExaminationsRoute: AuthenticatedAppExaminationsRoute,
   AuthenticatedAppInventoryRoute: AuthenticatedAppInventoryRoute,
