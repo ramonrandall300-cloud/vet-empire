@@ -10,7 +10,7 @@ import { useClinicRows, useLookup } from "@/lib/data";
 export const Route = createFileRoute("/_authenticated/app/invoices")({
   head: () => ({
     meta: [
-      { title: "Invoices — SmartVet" },
+      { title: "Invoices — Vetigo" },
       { name: "description", content: "Bill customers, track payments and outstanding balances." },
     ],
   }),

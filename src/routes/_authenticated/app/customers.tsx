@@ -6,7 +6,7 @@ import { ResourceTable } from "@/components/resource-table";
 export const Route = createFileRoute("/_authenticated/app/customers")({
   head: () => ({
     meta: [
-      { title: "Customers — SmartVet" },
+      { title: "Customers — Vetigo" },
       { name: "description", content: "Pet owner records, contact details and visit notes." },
     ],
   }),

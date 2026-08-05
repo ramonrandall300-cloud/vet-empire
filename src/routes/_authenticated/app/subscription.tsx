@@ -14,7 +14,7 @@ import { useClinicRows } from "@/lib/data";
 export const Route = createFileRoute("/_authenticated/app/subscription")({
   head: () => ({
     meta: [
-      { title: "Clinic Plan & Usage — SmartVet Operator Console" },
+      { title: "Clinic Plan & Usage — Vetigo Operator Console" },
       { name: "description", content: "Assign clinic plans and review usage against your limits." },
     ],
   }),

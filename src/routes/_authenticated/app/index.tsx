@@ -20,7 +20,7 @@ import { useClinic } from "@/lib/clinic-context";
 export const Route = createFileRoute("/_authenticated/app/")({
   head: () => ({
     meta: [
-      { title: "Clinic Dashboard — SmartVet" },
+      { title: "Clinic Dashboard — Vetigo" },
       { name: "description", content: "Daily overview of appointments, patients and revenue." },
     ],
   }),

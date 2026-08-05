@@ -12,7 +12,7 @@ import { useClinicRows, useLookup, useClinicStaff } from "@/lib/data";
 export const Route = createFileRoute("/_authenticated/app/appointments")({
   head: () => ({
     meta: [
-      { title: "Appointment Calendar — SmartVet" },
+      { title: "Appointment Calendar — Vetigo" },
       { name: "description", content: "Book, reschedule and track every clinic appointment." },
     ],
   }),

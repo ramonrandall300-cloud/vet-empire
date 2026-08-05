@@ -8,7 +8,7 @@ import { useLookup } from "@/lib/data";
 export const Route = createFileRoute("/_authenticated/app/pets")({
   head: () => ({
     meta: [
-      { title: "Patients — SmartVet" },
+      { title: "Patients — Vetigo" },
       { name: "description", content: "Complete medical profile for every animal in your care." },
     ],
   }),

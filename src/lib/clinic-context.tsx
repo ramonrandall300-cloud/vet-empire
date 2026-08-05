@@ -6,7 +6,7 @@ import type { Database } from "@/integrations/supabase/types";
 export type Clinic = Database["public"]["Tables"]["clinics"]["Row"];
 export type ClinicRole = Database["public"]["Enums"]["clinic_role"];
 
-const STORAGE_KEY = "smartvet.activeClinic";
+const STORAGE_KEY = "vetigo.activeClinic";
 
 type Membership = { clinic_id: string; role: ClinicRole; clinics: Clinic | null };
 

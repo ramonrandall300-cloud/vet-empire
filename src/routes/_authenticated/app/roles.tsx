@@ -16,7 +16,7 @@ import { useClinic } from "@/lib/clinic-context";
 export const Route = createFileRoute("/_authenticated/app/roles")({
   head: () => ({
     meta: [
-      { title: "Roles & Permissions — SmartVet" },
+      { title: "Roles & Permissions — Vetigo" },
       { name: "description", content: "What each clinic role can see and change." },
     ],
   }),

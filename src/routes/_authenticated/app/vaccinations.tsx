@@ -9,7 +9,7 @@ import { useClinicRows, useLookup, useClinicStaff } from "@/lib/data";
 export const Route = createFileRoute("/_authenticated/app/vaccinations")({
   head: () => ({
     meta: [
-      { title: "Vaccination Schedule — SmartVet" },
+      { title: "Vaccination Schedule — Vetigo" },
       { name: "description", content: "Track doses given and upcoming vaccine reminders." },
     ],
   }),
