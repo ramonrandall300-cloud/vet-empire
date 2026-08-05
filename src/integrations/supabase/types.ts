@@ -91,6 +91,47 @@ export type Database = {
           },
         ]
       }
+      billing_events: {
+        Row: {
+          clinic_id: string | null
+          created_at: string
+          error: string | null
+          id: string
+          payload: Json
+          processed_at: string | null
+          stripe_event_id: string
+          type: string
+        }
+        Insert: {
+          clinic_id?: string | null
+          created_at?: string
+          error?: string | null
+          id?: string
+          payload?: Json
+          processed_at?: string | null
+          stripe_event_id: string
+          type: string
+        }
+        Update: {
+          clinic_id?: string | null
+          created_at?: string
+          error?: string | null
+          id?: string
+          payload?: Json
+          processed_at?: string | null
+          stripe_event_id?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_events_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clinic_members: {
         Row: {
           clinic_id: string
@@ -129,6 +170,7 @@ export type Database = {
       clinic_subscriptions: {
         Row: {
           amount: number
+          cancel_at_period_end: boolean
           clinic_id: string
           created_at: string
           current_period_end: string
@@ -137,9 +179,14 @@ export type Database = {
           interval: string
           plan_id: string
           status: Database["public"]["Enums"]["subscription_status"]
+          stripe_customer_id: string | null
+          stripe_price_id: string | null
+          stripe_subscription_id: string | null
+          updated_at: string
         }
         Insert: {
           amount?: number
+          cancel_at_period_end?: boolean
           clinic_id: string
           created_at?: string
           current_period_end?: string
@@ -148,9 +195,14 @@ export type Database = {
           interval?: string
           plan_id: string
           status?: Database["public"]["Enums"]["subscription_status"]
+          stripe_customer_id?: string | null
+          stripe_price_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
         }
         Update: {
           amount?: number
+          cancel_at_period_end?: boolean
           clinic_id?: string
           created_at?: string
           current_period_end?: string
@@ -159,6 +211,10 @@ export type Database = {
           interval?: string
           plan_id?: string
           status?: Database["public"]["Enums"]["subscription_status"]
+          stripe_customer_id?: string | null
+          stripe_price_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
         }
         Relationships: [
           {
@@ -247,6 +303,8 @@ export type Database = {
           phone: string | null
           plan_id: string | null
           slug: string
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
           subscription_status: Database["public"]["Enums"]["subscription_status"]
           timezone: string
           trial_ends_at: string
@@ -268,6 +326,8 @@ export type Database = {
           phone?: string | null
           plan_id?: string | null
           slug: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
           subscription_status?: Database["public"]["Enums"]["subscription_status"]
           timezone?: string
           trial_ends_at?: string
@@ -289,6 +349,8 @@ export type Database = {
           phone?: string | null
           plan_id?: string | null
           slug?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
           subscription_status?: Database["public"]["Enums"]["subscription_status"]
           timezone?: string
           trial_ends_at?: string
@@ -685,6 +747,9 @@ export type Database = {
           price_yearly: number
           slug: string
           sort_order: number
+          stripe_price_id_monthly: string | null
+          stripe_price_id_yearly: string | null
+          stripe_product_id: string | null
           trial_days: number
         }
         Insert: {
@@ -701,6 +766,9 @@ export type Database = {
           price_yearly?: number
           slug: string
           sort_order?: number
+          stripe_price_id_monthly?: string | null
+          stripe_price_id_yearly?: string | null
+          stripe_product_id?: string | null
           trial_days?: number
         }
         Update: {
@@ -717,6 +785,9 @@ export type Database = {
           price_yearly?: number
           slug?: string
           sort_order?: number
+          stripe_price_id_monthly?: string | null
+          stripe_price_id_yearly?: string | null
+          stripe_product_id?: string | null
           trial_days?: number
         }
         Relationships: []
