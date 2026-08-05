@@ -32,6 +32,7 @@ import { Route as AuthenticatedAppSubscriptionRouteImport } from './routes/_auth
 import { Route as AuthenticatedAppUsersRouteImport } from './routes/_authenticated/app/users'
 import { Route as AuthenticatedAppVaccinationsRouteImport } from './routes/_authenticated/app/vaccinations'
 import { Route as AuthenticatedAppWebsiteRouteImport } from './routes/_authenticated/app/website'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -156,6 +157,12 @@ const AuthenticatedAppWebsiteRoute = AuthenticatedAppWebsiteRouteImport.update({
   path: '/website',
   getParentRoute: () => AuthenticatedAppRouteRoute,
 } as any)
+const LovableEmailTransactionalPreviewRoute =
+  LovableEmailTransactionalPreviewRouteImport.update({
+    id: '/lovable/email/transactional/preview',
+    path: '/lovable/email/transactional/preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -180,6 +187,7 @@ export interface FileRoutesByFullPath {
   '/app/vaccinations': typeof AuthenticatedAppVaccinationsRoute
   '/app/website': typeof AuthenticatedAppWebsiteRoute
   '/app/': typeof AuthenticatedAppIndexRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -203,6 +211,7 @@ export interface FileRoutesByTo {
   '/app/vaccinations': typeof AuthenticatedAppVaccinationsRoute
   '/app/website': typeof AuthenticatedAppWebsiteRoute
   '/app': typeof AuthenticatedAppIndexRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -229,6 +238,7 @@ export interface FileRoutesById {
   '/_authenticated/app/vaccinations': typeof AuthenticatedAppVaccinationsRoute
   '/_authenticated/app/website': typeof AuthenticatedAppWebsiteRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -255,6 +265,7 @@ export interface FileRouteTypes {
     | '/app/vaccinations'
     | '/app/website'
     | '/app/'
+    | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -278,6 +289,7 @@ export interface FileRouteTypes {
     | '/app/vaccinations'
     | '/app/website'
     | '/app'
+    | '/lovable/email/transactional/preview'
   id:
     | '__root__'
     | '/'
@@ -303,6 +315,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/vaccinations'
     | '/_authenticated/app/website'
     | '/_authenticated/app/'
+    | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -312,6 +325,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
   CSlugRoute: typeof CSlugRoute
+  LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -477,6 +491,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppWebsiteRouteImport
       parentRoute: typeof AuthenticatedAppRouteRoute
     }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -541,7 +562,18 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
   CSlugRoute: CSlugRoute,
+  LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
