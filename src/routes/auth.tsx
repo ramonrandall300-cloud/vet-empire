@@ -345,15 +345,33 @@ function AuthPage() {
               >
                 Sign up
               </button>
-            </div>
+
+            {oauthError && (
+              <div className="mb-4 space-y-3 rounded-lg border border-destructive/30 bg-destructive/10 p-3">
+                <div className="flex items-start gap-2 text-sm text-destructive">
+                  <RefreshCw className="mt-0.5 size-4 shrink-0" />
+                  <span>Google sign-in didn&apos;t complete: {oauthError}</span>
+                </div>
+                <Button
+                  type="button"
+                  size="sm"
+                  className="w-full"
+                  disabled={busy}
+                  onClick={() => void handleGoogle(true)}
+                >
+                  {busy ? "Retrying…" : "Retry Google sign-in"}
+                </Button>
+              </div>
+            )}
 
             <Button
               type="button"
               variant="outline"
               className="mb-4 w-full"
               disabled={busy}
-              onClick={handleGoogle}
+              onClick={() => void handleGoogle()}
             >
+
               <svg className="mr-2 size-4" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   fill="#4285F4"
