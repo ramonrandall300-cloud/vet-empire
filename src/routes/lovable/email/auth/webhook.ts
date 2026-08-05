@@ -9,7 +9,7 @@ import { EmailChangeEmail } from '@/lib/email-templates/email-change'
 import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
 
 // Configuration
-const SITE_NAME = "vet-empire"
+const SITE_NAME = "Vetigo"
 const SENDER_DOMAIN = "notify.vetigo.pet"
 const ROOT_DOMAIN = "vetigo.pet"
 const FROM_DOMAIN = "notify.vetigo.pet"
