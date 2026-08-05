@@ -345,6 +345,9 @@ function AuthPage() {
               >
                 Sign up
               </button>
+            </div>
+
+
 
             {oauthError && (
               <div className="mb-4 space-y-3 rounded-lg border border-destructive/30 bg-destructive/10 p-3">
