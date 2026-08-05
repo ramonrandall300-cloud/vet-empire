@@ -21,16 +21,17 @@ export function RequireClinic({ children }: { children: ReactNode }) {
     return (
       <div className="surface-panel mx-auto max-w-lg p-10 text-center">
         <Building2 className="mx-auto mb-4 size-8 text-primary" />
-        <h2 className="text-xl font-semibold">Create your first clinic</h2>
+        <h2 className="text-xl font-semibold">Onboard your first clinic</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Every clinic gets its own isolated panel, staff and patient records.
+          Every clinic you operate gets its own isolated panel, staff and patient records.
         </p>
         <Button className="mt-6" asChild>
-          <Link to="/app/clinics">Set up a clinic</Link>
+          <Link to="/app/clinics">Onboard a clinic</Link>
         </Button>
       </div>
     );
   }
+
 
   return <>{children}</>;
 }

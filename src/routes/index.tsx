@@ -1,180 +1,75 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  CalendarDays,
-  ShieldCheck,
-  Syringe,
-  Package,
-  ReceiptText,
-  BarChart3,
-  Building2,
-  PawPrint,
-  Check,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+import { Building2, Lock, PawPrint, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SmartVet — Multi-Clinic Veterinary Management Software" },
+      { title: "SmartVet Operator Console — Internal Clinic Management" },
       {
         name: "description",
         content:
-          "Run unlimited veterinary clinics from one platform. Appointments, patient records, vaccinations, inventory, invoicing and reports — each clinic fully isolated.",
+          "Private operator console for the SmartVet clinic network. Staff sign-in only — no public registration.",
       },
-      { property: "og:title", content: "SmartVet — Multi-Clinic Veterinary Management Software" },
+      { property: "og:title", content: "SmartVet Operator Console" },
       {
         property: "og:description",
-        content:
-          "A subscription-based SaaS platform giving every veterinary clinic its own independent panel and data.",
+        content: "Internal console used to run and monitor every clinic on the SmartVet network.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: Landing,
+  component: Gate,
 });
 
-const FEATURES = [
-  {
-    icon: CalendarDays,
-    title: "Appointment calendar",
-    body: "Colour-coded week view with per-vet scheduling and status tracking.",
-  },
-  {
-    icon: PawPrint,
-    title: "Patient records",
-    body: "Owners, pets, breeds, weights, microchips and full clinical history.",
-  },
-  {
-    icon: Syringe,
-    title: "Vaccination reminders",
-    body: "Automatic next-due dates so no booster is ever missed.",
-  },
-  {
-    icon: Package,
-    title: "Inventory control",
-    body: "Stock levels, reorder thresholds, expiry dates and stock value.",
-  },
-  {
-    icon: ReceiptText,
-    title: "Invoicing",
-    body: "Bill treatments and products, track paid and outstanding balances.",
-  },
-  {
-    icon: BarChart3,
-    title: "Reports",
-    body: "Revenue, visit volume and service mix over a rolling six months.",
-  },
-];
+function Gate() {
+  const [signedIn, setSignedIn] = useState<boolean | null>(null);
 
-function Landing() {
+  useEffect(() => {
+    void supabase.auth.getSession().then(({ data }) => setSignedIn(Boolean(data.session)));
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-5">
-          <span className="flex items-center gap-2 font-semibold">
-            <PawPrint className="size-5 text-primary" /> SmartVet
+    <main className="grid min-h-screen place-items-center bg-background px-5">
+      <div className="w-full max-w-md text-center">
+        <span className="mx-auto flex items-center justify-center gap-2 text-lg font-semibold">
+          <PawPrint className="size-6 text-primary" /> SmartVet
+        </span>
+
+        <div className="surface-panel mt-8 p-9">
+          <span className="mx-auto grid size-12 place-items-center rounded-xl bg-accent text-accent-foreground">
+            <Lock className="size-5" />
           </span>
-          <div className="flex-1" />
-          <Button variant="ghost" asChild>
-            <Link to="/auth">Sign in</Link>
-          </Button>
-          <Button asChild>
-            <Link to="/auth">Start free trial</Link>
-          </Button>
-        </div>
-      </header>
-
-      <main>
-        <section className="mx-auto max-w-6xl px-5 py-20 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground">
-            <Building2 className="size-3.5" /> Multi-tenant SaaS for veterinary groups
-          </span>
-          <h1 className="mx-auto mt-6 max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            Manage unlimited veterinary clinics from a single platform
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">
-            Every clinic gets its own independent panel, staff, patients and billing — while you
-            keep an overview of the whole group.
+          <h1 className="mt-5 text-2xl font-semibold tracking-tight">Operator console</h1>
+          <p className="mt-3 text-sm text-muted-foreground">
+            This is a private console for running the clinics on our network. Access is granted by
+            the platform operator — there is no public sign-up.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button size="lg" asChild>
-              <Link to="/auth">Create your clinic</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link to="/auth">See the panel</Link>
-            </Button>
-          </div>
-          <p className="mt-4 text-sm text-muted-foreground">
-            14-day trial · no card required · cancel anytime
-          </p>
-        </section>
 
-        <section className="border-y bg-card/40 py-16">
-          <div className="mx-auto max-w-6xl px-5">
-            <h2 className="text-center text-2xl font-semibold">Everything a clinic runs on</h2>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {FEATURES.map((f) => (
-                <article key={f.title} className="surface-panel p-6">
-                  <span className="grid size-10 place-items-center rounded-lg bg-accent text-accent-foreground">
-                    <f.icon className="size-5" />
-                  </span>
-                  <h3 className="mt-4 font-semibold">{f.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{f.body}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+          <Button className="mt-7 w-full" size="lg" asChild>
+            <Link to={signedIn ? "/app" : "/auth"}>
+              {signedIn ? "Open console" : "Sign in to console"}
+            </Link>
+          </Button>
 
-        <section className="mx-auto max-w-6xl px-5 py-20">
-          <div className="grid items-center gap-10 lg:grid-cols-2">
-            <div>
-              <h2 className="text-2xl font-semibold">Strict data isolation, by design</h2>
-              <p className="mt-4 text-muted-foreground">
-                Row-level security scopes every record to a single clinic. Staff only ever see the
-                clinic they belong to, and roles decide what they can change.
-              </p>
-              <ul className="mt-6 space-y-3 text-sm">
-                {[
-                  "Owner, admin, veterinarian and staff roles",
-                  "Per-clinic subscription and usage limits",
-                  "Optional public website for each clinic",
-                  "Platform-wide overview of every clinic you run",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-2">
-                    <Check className="size-4 text-primary" /> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="surface-panel p-8">
-              <ShieldCheck className="size-8 text-primary" />
-              <p className="mt-4 text-lg font-medium">
-                “We moved four clinics onto SmartVet in a weekend and finally have one place to see
-                how the group is performing.”
-              </p>
-              <p className="mt-3 text-sm text-muted-foreground">
-                Practice manager, multi-site veterinary group
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t bg-primary py-16 text-center text-primary-foreground">
-          <div className="mx-auto max-w-3xl px-5">
-            <h2 className="text-3xl font-semibold">Ready to open your first clinic panel?</h2>
-            <p className="mt-3 text-primary-foreground/80">
-              Start on the free trial and invite your team in minutes.
+          <div className="mt-7 space-y-2 text-left text-sm text-muted-foreground">
+            <p className="flex items-center gap-2">
+              <Building2 className="size-4 text-primary" /> Unlimited clinics, one operator
             </p>
-            <Button size="lg" variant="secondary" className="mt-7" asChild>
-              <Link to="/auth">Get started</Link>
-            </Button>
+            <p className="flex items-center gap-2">
+              <ShieldCheck className="size-4 text-primary" /> Each clinic isolated by row-level
+              security
+            </p>
           </div>
-        </section>
-      </main>
+        </div>
 
-      <footer className="border-t py-8 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} SmartVet — veterinary clinic management platform
-      </footer>
-    </div>
+        <p className="mt-6 text-xs text-muted-foreground">
+          © {new Date().getFullYear()} SmartVet — internal use only
+        </p>
+      </div>
+    </main>
   );
 }

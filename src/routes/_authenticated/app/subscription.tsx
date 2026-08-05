@@ -14,10 +14,11 @@ import { useClinicRows } from "@/lib/data";
 export const Route = createFileRoute("/_authenticated/app/subscription")({
   head: () => ({
     meta: [
-      { title: "Subscription & Billing — SmartVet" },
-      { name: "description", content: "Your clinic's plan, usage limits and billing period." },
+      { title: "Clinic Plan & Usage — SmartVet Operator Console" },
+      { name: "description", content: "Assign clinic plans and review usage against your limits." },
     ],
   }),
+
   component: () => (
     <RequireClinic>
       <Subscription />
@@ -85,9 +86,10 @@ function Subscription() {
   return (
     <div>
       <PageHeader
-        title="Subscription"
-        description="Each clinic is billed separately for its own workspace."
+        title="Clinic plan & usage"
+        description="Assign this clinic's plan and track its usage against your platform limits."
       />
+
 
       <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard label="Current plan" value={currentPlan?.name ?? "Trial"} />
@@ -109,7 +111,9 @@ function Subscription() {
         <div className="surface-panel mb-6 flex flex-wrap items-center justify-between gap-3 p-5">
           <div>
             <p className="font-medium">
-              {trialDays > 0 ? `${trialDays} days left in your free trial` : "Your trial has ended"}
+              {trialDays > 0
+                ? `${trialDays} days left in this clinic's trial`
+                : "This clinic's trial has ended"}
             </p>
             <p className="text-sm text-muted-foreground">
               Trial ends {clinic && format(parseISO(clinic.trial_ends_at), "d MMMM yyyy")}
@@ -117,6 +121,7 @@ function Subscription() {
           </div>
         </div>
       )}
+
 
       <div className="grid gap-6 lg:grid-cols-3">
         {(plans ?? []).map((plan) => {

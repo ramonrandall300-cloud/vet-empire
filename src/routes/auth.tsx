@@ -5,24 +5,25 @@ import { PawPrint } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — SmartVet Clinic Platform" },
+      { title: "Operator Sign In — SmartVet Console" },
       {
         name: "description",
         content:
-          "Sign in to your SmartVet clinic panel to manage appointments, patients and billing.",
+          "Sign in to the SmartVet operator console to run appointments, patients and billing across every clinic.",
       },
-      { property: "og:title", content: "Sign in — SmartVet Clinic Platform" },
+      { property: "og:title", content: "Operator Sign In — SmartVet Console" },
       {
         property: "og:description",
-        content: "Access your veterinary clinic workspace on SmartVet.",
+        content: "Private staff sign-in for the SmartVet clinic network.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: AuthPage,
@@ -32,7 +33,6 @@ function AuthPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
@@ -59,29 +59,6 @@ function AuthPage() {
     navigate({ to: "/app", replace: true });
   }
 
-  async function signUp() {
-    setBusy(true);
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: window.location.origin,
-        data: { full_name: fullName },
-      },
-    });
-    setBusy(false);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-
-    if (!data.session) {
-      toast.success("Check your email to confirm your account.");
-      return;
-    }
-    navigate({ to: "/app", replace: true });
-  }
-
   async function google() {
     const result = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: window.location.origin,
@@ -102,89 +79,46 @@ function AuthPage() {
         </div>
         <div>
           <h2 className="text-3xl font-semibold leading-tight">
-            One platform, every clinic you run.
+            One console, every clinic you operate.
           </h2>
           <p className="mt-4 max-w-md text-primary-foreground/80">
-            Appointments, patient records, vaccination reminders, inventory and billing — each
-            clinic with its own isolated workspace.
+            Appointments, patient records, vaccination reminders, inventory and billing — managed
+            centrally, isolated per clinic.
           </p>
         </div>
-        <p className="text-sm text-primary-foreground/70">Trusted by modern veterinary teams.</p>
+        <p className="text-sm text-primary-foreground/70">Internal operator access only.</p>
       </div>
 
       <div className="flex items-center justify-center p-6">
         <div className="w-full max-w-sm">
-          <h1 className="text-2xl font-semibold">Welcome to SmartVet</h1>
+          <h1 className="text-2xl font-semibold">Operator sign in</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Sign in or create an account to open your clinic panel.
+            Accounts are created by the platform operator. Contact the operator if you need access.
           </p>
 
-          <Tabs defaultValue="signin" className="mt-6">
-            <TabsList className="w-full">
-              <TabsTrigger value="signin" className="flex-1">
-                Sign in
-              </TabsTrigger>
-              <TabsTrigger value="signup" className="flex-1">
-                Create account
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="signin" className="space-y-4 pt-4">
-              <div className="space-y-2">
-                <Label htmlFor="si-email">Email</Label>
-                <Input
-                  id="si-email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="si-password">Password</Label>
-                <Input
-                  id="si-password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <Button className="w-full" onClick={signIn} disabled={busy}>
-                Sign in
-              </Button>
-            </TabsContent>
-
-            <TabsContent value="signup" className="space-y-4 pt-4">
-              <div className="space-y-2">
-                <Label htmlFor="su-name">Full name</Label>
-                <Input
-                  id="su-name"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="su-email">Email</Label>
-                <Input
-                  id="su-email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="su-password">Password</Label>
-                <Input
-                  id="su-password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <Button className="w-full" onClick={signUp} disabled={busy}>
-                Create account
-              </Button>
-            </TabsContent>
-          </Tabs>
+          <div className="mt-6 space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="si-email">Email</Label>
+              <Input
+                id="si-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="si-password">Password</Label>
+              <Input
+                id="si-password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <Button className="w-full" onClick={signIn} disabled={busy}>
+              Sign in
+            </Button>
+          </div>
 
           <div className="my-5 flex items-center gap-3 text-xs uppercase text-muted-foreground">
             <span className="h-px flex-1 bg-border" /> or <span className="h-px flex-1 bg-border" />
