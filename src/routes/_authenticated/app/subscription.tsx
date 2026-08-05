@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { differenceInCalendarDays, format, parseISO } from "date-fns";
@@ -117,8 +118,8 @@ function Subscription() {
       <PageHeader
         title="Clinic plan & usage"
         description="Assign this clinic's plan and track its usage against your platform limits."
-      >
-        <div className="flex flex-wrap items-center gap-2">
+        actions={
+          <div className="flex flex-wrap items-center gap-2">
           <div className="flex rounded-md border p-0.5">
             {(["monthly", "yearly"] as const).map((i) => (
               <Button
@@ -142,8 +143,9 @@ function Subscription() {
               <RefreshCw className={`mr-2 size-4 ${sync.isPending ? "animate-spin" : ""}`} /> Sync Stripe catalog
             </Button>
           )}
-        </div>
-      </PageHeader>
+          </div>
+        }
+      />
 
 
       <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
