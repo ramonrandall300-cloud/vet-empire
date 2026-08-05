@@ -244,9 +244,16 @@ function Landing() {
         <section className="relative overflow-hidden border-b border-border">
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-20 lg:grid-cols-2 lg:py-28">
             <div>
+              <img
+                src={logoImage.url}
+                alt="Vetigo logo"
+                className="mb-6 h-9 w-auto"
+                loading="eager"
+              />
               <Badge variant="secondary" className="mb-5">
                 30-day free trial — no credit card
               </Badge>
+
               <h1 className="font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
                 Practice management software built for veterinary teams
               </h1>
