@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import heroImage from "@/assets/hero-vet.png.asset.json";
 import {
   Activity,
   ArrowRight,
