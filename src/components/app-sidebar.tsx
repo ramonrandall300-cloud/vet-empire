@@ -12,7 +12,7 @@ import {
   BarChart3,
   UserCog,
   ShieldCheck,
-  Globe,
+  
   Building2,
   CreditCard,
   Heart,
