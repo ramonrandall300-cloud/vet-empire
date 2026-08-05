@@ -278,31 +278,13 @@ function Landing() {
               </dl>
             </div>
 
-            <div className="surface-panel p-6">
-              <p className="text-sm font-medium text-muted-foreground">Everything in one workspace</p>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                {[
-                  [ClipboardList, "Appointments & calendar"],
-                  [PawPrint, "Patient & client records"],
-                  [Syringe, "Vaccination reminders"],
-                  [Building2, "Inventory & pharmacy"],
-                  [CreditCard, "Invoicing & payments"],
-                  [ShieldCheck, "Roles & audit logs"],
-                ].map(([Icon, label]) => {
-                  const I = Icon as typeof PawPrint;
-                  return (
-                    <div
-                      key={label as string}
-                      className="flex items-center gap-3 rounded-lg border border-border bg-card p-3 text-sm"
-                    >
-                      <span className="grid size-9 place-items-center rounded-md bg-accent text-accent-foreground">
-                        <I className="size-4" />
-                      </span>
-                      {label as string}
-                    </div>
-                  );
-                })}
-              </div>
+            <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+              <img
+                src={heroImage.url}
+                alt="Veterinarian examining a corgi with a stethoscope in a modern clinic"
+                className="h-full w-full object-cover"
+                loading="eager"
+              />
             </div>
           </div>
         </section>
