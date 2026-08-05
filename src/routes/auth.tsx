@@ -240,7 +240,15 @@ function AuthPage() {
     <main className="grid min-h-screen lg:grid-cols-2">
       <BrandPanel />
 
-      <div className="flex items-center justify-center p-6">
+      <div className="relative flex flex-col items-center justify-center p-6">
+        <Link
+          to="/"
+          className="absolute left-6 top-6 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition hover:text-foreground"
+        >
+          <ArrowLeft className="size-4" />
+          Back to Home
+        </Link>
+
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl">
