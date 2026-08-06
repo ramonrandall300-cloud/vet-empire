@@ -93,9 +93,8 @@ function Privacy() {
           <h2 className="font-display text-lg font-semibold text-foreground">Service providers</h2>
           <p className="mt-2 text-muted-foreground">
             We use vetted providers for cloud hosting and database infrastructure, authentication,
-            email and SMS delivery, payment processing, and optional AI features you enable. These
-            providers may process data only to deliver their part of the service. A current
-            subprocessor list is available on request.
+            email delivery and payment processing. These providers may process data only to deliver
+            their part of the service. A current subprocessor list is available on request.
           </p>
         </section>
 
