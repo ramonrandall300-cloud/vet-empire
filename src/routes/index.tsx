@@ -191,18 +191,21 @@ const testimonials = [
       "We replaced three tools with Vetigo. Scheduling, medical records and invoicing finally live in one place, so nothing gets lost between the exam room and checkout.",
     name: "Dr. Elena Marsh",
     role: "Owner, Green Valley Veterinary",
+    avatar: face1.url,
   },
   {
     quote:
       "Rolling out five locations took a week. Each clinic sees only its own patients, but I still get practice-wide reports every Monday morning.",
-    name: "Dr. Priya Raman",
+    name: "Dr. Daniel Tran",
     role: "Medical Director, Northgate Animal Group",
+    avatar: face2.url,
   },
   {
     quote:
       "Charting exams and vaccinations takes a fraction of the time it used to, and our records are more complete than they've ever been.",
     name: "Dr. Tom Okafor",
     role: "Small Animal Vet, Riverbend Clinic",
+    avatar: face3.url,
   },
 ];
 
