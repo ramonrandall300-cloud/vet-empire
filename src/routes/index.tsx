@@ -456,7 +456,10 @@ function Landing() {
                 className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
                 asChild
               >
-                <a href="mailto:support@ordex-systems.com">Talk to sales</a>
+                <a href="mailto:support@ordex-systems.com?subject=Vetigo%20sales%20enquiry">
+                  Talk to sales
+                </a>
+
               </Button>
             </div>
           </div>
