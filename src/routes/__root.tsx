@@ -90,7 +90,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "Run your veterinary clinic on one platform: appointments, medical records, reminders, inventory and invoicing.",
+          "Run your veterinary clinic on one platform: appointments, medical records, vaccinations, inventory and invoicing.",
       },
       { property: "og:site_name", content: "Vetigo" },
       { property: "og:type", content: "website" },

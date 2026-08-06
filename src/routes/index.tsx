@@ -40,7 +40,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Run your clinic on one platform: appointments, records, reminders, inventory and invoicing. Free 30-day trial, no credit card required.",
+          "Run your clinic on one platform: appointments, records, vaccinations, inventory and invoicing. Free 30-day trial, no credit card required.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
