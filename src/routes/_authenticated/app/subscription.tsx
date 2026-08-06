@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { differenceInCalendarDays, format, parseISO } from "date-fns";
 import { toast } from "sonner";
-import { Check, CreditCard, RefreshCw } from "lucide-react";
+import { Check, CreditCard } from "lucide-react";
 import { PageHeader, StatCard } from "@/components/page-header";
 import { RequireClinic } from "@/components/require-clinic";
 import { Badge } from "@/components/ui/badge";
@@ -12,11 +12,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useClinic } from "@/lib/clinic-context";
 import { useClinicRows } from "@/lib/data";
-import {
-  createBillingPortalSession,
-  createCheckoutSession,
-  syncStripeCatalog,
-} from "@/lib/billing.functions";
+import { createBillingPortalSession, createCheckoutSession } from "@/lib/billing.functions";
 
 export const Route = createFileRoute("/_authenticated/app/subscription")({
   head: () => ({
@@ -34,10 +30,9 @@ export const Route = createFileRoute("/_authenticated/app/subscription")({
 });
 
 function Subscription() {
-  const { clinic, refetch, isAdmin, isPlatformAdmin } = useClinic();
+  const { clinic, refetch, isAdmin } = useClinic();
   const checkout = useServerFn(createCheckoutSession);
   const portal = useServerFn(createBillingPortalSession);
-  const syncCatalog = useServerFn(syncStripeCatalog);
   const [interval, setInterval] = useState<"monthly" | "yearly">("monthly");
   const queryClient = useQueryClient();
   const pets = useClinicRows("pets", { select: "id" });
@@ -87,15 +82,6 @@ function Subscription() {
     onError: (e) => toast.error(e instanceof Error ? e.message : "Could not open billing portal"),
   });
 
-  const sync = useMutation({
-    mutationFn: () => syncCatalog({}),
-    onSuccess: (r) => {
-      toast.success(`Synced ${r.count} plans with Stripe`);
-      void queryClient.invalidateQueries({ queryKey: ["plans"] });
-    },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Stripe sync failed"),
-  });
-
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const result = params.get("checkout");
@@ -136,11 +122,6 @@ function Subscription() {
           {isAdmin && clinic?.stripe_customer_id && (
             <Button variant="outline" onClick={() => manage.mutate()} disabled={manage.isPending}>
               <CreditCard className="mr-2 size-4" /> Manage billing
-            </Button>
-          )}
-          {isPlatformAdmin && (
-            <Button variant="outline" onClick={() => sync.mutate()} disabled={sync.isPending}>
-              <RefreshCw className={`mr-2 size-4 ${sync.isPending ? "animate-spin" : ""}`} /> Sync Stripe catalog
             </Button>
           )}
           </div>
