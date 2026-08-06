@@ -40,7 +40,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Run your clinic on one platform: appointments, records, reminders, inventory and invoicing. Free 30-day trial, no credit card required.",
+          "Run your clinic on one platform: appointments, records, vaccinations, inventory and invoicing. Free 30-day trial, no credit card required.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -80,13 +80,12 @@ const plans = [
       "1 location",
       "Up to 3 users",
       "Unlimited pets & clients",
-      "Scheduling",
-      "Medical records",
-      "Vaccinations",
-      "Billing & invoices",
+      "Appointment scheduling",
+      "Medical records & exams",
+      "Vaccination tracking",
+      "Invoices & billing",
       "Basic reporting",
-      "Email reminders",
-      "Cloud backups",
+      "Cloud hosted with backups",
     ],
   },
   {
@@ -98,14 +97,9 @@ const plans = [
       "Everything in Starter, plus:",
       "Up to 10 users",
       "Inventory management",
-      "Pharmacy",
-      "Laboratory integrations",
-      "X-ray / document storage",
-      "SMS reminders",
-      "Client portal",
-      "Online appointment booking",
-      "Digital forms",
+      "Services & price catalog",
       "Role-based permissions",
+      "PDF report exports",
     ],
   },
   {
@@ -115,13 +109,8 @@ const plans = [
     features: [
       "Everything in Professional, plus:",
       "Unlimited users",
-      "Advanced analytics",
-      "Financial dashboards",
-      "API access",
       "Multi-location (up to 5)",
-      "Telemedicine",
-      "Custom forms & workflows",
-      "Audit logs",
+      "Financial & practice reports",
       "Priority support",
     ],
   },
@@ -132,16 +121,9 @@ const plans = [
     features: [
       "Everything in Growth, plus:",
       "Unlimited locations",
-      "Single Sign-On (SSO)",
-      "Custom integrations",
       "Dedicated account manager",
-      "SLA",
-      "White labeling",
-      "Data migration",
-      "Advanced security controls",
-      "Custom reporting",
-      "HIPAA-ready infrastructure",
-      "Training",
+      "Data migration assistance",
+      "Onboarding & training",
     ],
   },
 ];
@@ -155,25 +137,25 @@ const steps = [
   },
   {
     icon: Upload,
-    title: "2. Import your data",
-    body: "Bring clients, patients and history across with the import wizard, or explore with demo data first.",
+    title: "2. Set up your clinic",
+    body: "Add your clinic details, invite your team and build your services list with the guided setup wizard.",
   },
   {
     icon: ClipboardList,
     title: "3. Run your day",
-    body: "Book appointments, chart exams, send vaccination reminders and invoice at checkout from one screen.",
+    body: "Book appointments, chart exams, track vaccinations and invoice at checkout from one screen.",
   },
   {
     icon: Activity,
-    title: "4. Grow with add-ons",
-    body: "Turn on SMS, telemedicine, AI notes or extra locations as your practice expands — no migration needed.",
+    title: "4. Grow your practice",
+    body: "Add users, locations and reporting as your practice expands — upgrade your plan without migrating data.",
   },
 ];
 
 const faqs = [
   {
     q: "How does the 30-day free trial work?",
-    a: "You get full functionality for 30 days with no credit card required, including the data import wizard, demo data and email support. Choose a plan whenever you're ready — nothing is charged automatically.",
+    a: "You get full functionality for 30 days with no credit card required, including guided setup and email support. Choose a plan whenever you're ready — nothing is charged automatically.",
   },
   {
     q: "Do you charge per patient or per medical record?",
@@ -181,38 +163,38 @@ const faqs = [
   },
   {
     q: "Can I change plans or add users later?",
-    a: "Yes. Upgrade, downgrade or add seats at any time and billing prorates from the change. Add-on modules can be switched on or off month to month.",
+    a: "Yes. Upgrade, downgrade or add seats at any time from your subscription page, and billing prorates from the change.",
   },
   {
     q: "Are there any discounts available?",
     a: "We offer 20% off for non-profit rescue organisations, 50% off for veterinary schools, and volume discounts for multi-clinic groups.",
   },
   {
-    q: "Can you migrate data from our current system?",
-    a: "Yes. Self-serve import is included, and guided data migration services range from $500 to $5,000 depending on volume and source system. Staff onboarding is $500 and custom training is $200/hour.",
+    q: "Can you help us move data from our current system?",
+    a: "Yes. Guided data migration services range from $500 to $5,000 depending on volume and source system. Staff onboarding is $500 and custom training is $200/hour.",
   },
   {
     q: "How is our clinic data kept separate and secure?",
-    a: "Every clinic runs on an isolated dataset enforced at the database level with row-level security, encrypted in transit and at rest, with automated cloud backups and audit logs on Growth and above.",
+    a: "Every clinic runs on an isolated dataset enforced at the database level with row-level security, encrypted in transit and at rest, with automated cloud backups.",
   },
 ];
 
 const testimonials = [
   {
     quote:
-      "We replaced three tools with Vetigo. Scheduling, records and invoicing finally live in one place, and our no-show rate dropped after we switched on automated reminders.",
+      "We replaced three tools with Vetigo. Scheduling, medical records and invoicing finally live in one place, so nothing gets lost between the exam room and checkout.",
     name: "Dr. Elena Marsh",
     role: "Owner, Green Valley Veterinary",
   },
   {
     quote:
-      "Rolling out five locations took a week. Each clinic sees only its own patients, but I get group-level financial dashboards every Monday morning.",
+      "Rolling out five locations took a week. Each clinic sees only its own patients, but I still get practice-wide reports every Monday morning.",
     name: "Dr. Priya Raman",
     role: "Medical Director, Northgate Animal Group",
   },
   {
     quote:
-      "The AI note add-on gives me back about an hour a day. My exam records are more complete than they've ever been.",
+      "Charting exams and vaccinations takes a fraction of the time it used to, and our records are more complete than they've ever been.",
     name: "Dr. Tom Okafor",
     role: "Small Animal Vet, Riverbend Clinic",
   },
@@ -264,8 +246,8 @@ function Landing() {
                 Vetigo —Veterinary Practice Management Software Built for  Teams
               </h1>
               <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-                Scheduling, medical records, vaccination reminders, inventory, pharmacy and billing —
-                one cloud platform per clinic, priced by practice size instead of patient count.
+                Scheduling, medical records, vaccinations, inventory and billing — one cloud
+                platform per clinic, priced by practice size instead of patient count.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button size="lg" asChild>
@@ -437,8 +419,8 @@ function Landing() {
               Start your 30-day free trial
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-primary-foreground/85">
-              Full functionality, demo data, import wizard and email support. No credit card
-              required, cancel any time.
+              Full functionality, guided setup and email support. No credit card required, cancel
+              any time.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Button size="lg" variant="secondary" asChild>
