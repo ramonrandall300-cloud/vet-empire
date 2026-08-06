@@ -64,11 +64,10 @@ function Terms() {
             3. Billing and changes
           </h2>
           <p className="mt-2 text-muted-foreground">
-            Subscriptions are billed monthly or annually in advance; annual billing is discounted
-            15%. Add-on modules and usage-based charges (such as SMS or payment processing) are
-            billed in the same cycle. Plan upgrades take effect immediately and prorate; downgrades
-            take effect at the next renewal. Fees are non-refundable except where required by law.
-            One-time services such as data migration and training are quoted separately.
+            Subscriptions are billed monthly in advance. Plan upgrades take effect immediately and
+            prorate; downgrades take effect at the next renewal. Fees are non-refundable except
+            where required by law. One-time services such as data migration and training are quoted
+            separately.
           </p>
         </section>
         <section>
