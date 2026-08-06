@@ -138,11 +138,6 @@ function Subscription() {
               <CreditCard className="mr-2 size-4" /> Manage billing
             </Button>
           )}
-          {isPlatformAdmin && (
-            <Button variant="outline" onClick={() => sync.mutate()} disabled={sync.isPending}>
-              <RefreshCw className={`mr-2 size-4 ${sync.isPending ? "animate-spin" : ""}`} /> Sync Stripe catalog
-            </Button>
-          )}
           </div>
         }
       />
