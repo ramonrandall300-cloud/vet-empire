@@ -246,8 +246,8 @@ function Landing() {
                 Vetigo —Veterinary Practice Management Software Built for  Teams
               </h1>
               <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-                Scheduling, medical records, vaccination reminders, inventory, pharmacy and billing —
-                one cloud platform per clinic, priced by practice size instead of patient count.
+                Scheduling, medical records, vaccinations, inventory and billing — one cloud
+                platform per clinic, priced by practice size instead of patient count.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button size="lg" asChild>
