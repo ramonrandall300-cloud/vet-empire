@@ -105,15 +105,18 @@ const plans = [
   {
     name: "Growth",
     price: "$499",
-    best: "Multi-doctor practice",
+    best: "Multi-location practice",
     features: [
       "Everything in Professional, plus:",
       "Unlimited users",
       "Multi-location (up to 5)",
-      "Financial & practice reports",
+      "Multi-location dashboard",
+      "Public clinic landing page",
+      "Consolidated financial & practice reports",
       "Priority support",
     ],
   },
+
   {
     name: "Enterprise",
     price: "$999",
