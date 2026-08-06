@@ -3,6 +3,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImage from "@/assets/hero-vet.png.asset.json";
 import howItWorksImage from "@/assets/how-it-works-vet.png.asset.json";
 import testimonialImage from "@/assets/testimonial-vet.png.asset.json";
+import face1 from "@/assets/testimonial-face-1.png.asset.json";
+import face2 from "@/assets/testimonial-face-2.png.asset.json";
+import face3 from "@/assets/testimonial-face-3.png.asset.json";
 import {
   Activity,
   ArrowRight,
