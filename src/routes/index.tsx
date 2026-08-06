@@ -419,8 +419,8 @@ function Landing() {
               Start your 30-day free trial
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-primary-foreground/85">
-              Full functionality, demo data, import wizard and email support. No credit card
-              required, cancel any time.
+              Full functionality, guided setup and email support. No credit card required, cancel
+              any time.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Button size="lg" variant="secondary" asChild>
