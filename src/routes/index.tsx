@@ -393,9 +393,17 @@ function Landing() {
                   <figure key={t.name} className="surface-panel flex flex-col p-6">
                     <Quote className="size-6 text-primary" />
                     <blockquote className="mt-4 flex-1 text-sm leading-relaxed">{t.quote}</blockquote>
-                    <figcaption className="mt-5 text-sm">
-                      <span className="font-medium">{t.name}</span>
-                      <span className="block text-muted-foreground">{t.role}</span>
+                    <figcaption className="mt-5 flex items-center gap-3 text-sm">
+                      <img
+                        src={t.avatar}
+                        alt={`Portrait of ${t.name}`}
+                        className="size-11 shrink-0 rounded-full object-cover"
+                        loading="lazy"
+                      />
+                      <span>
+                        <span className="block font-medium">{t.name}</span>
+                        <span className="block text-muted-foreground">{t.role}</span>
+                      </span>
                     </figcaption>
                   </figure>
                 ))}
