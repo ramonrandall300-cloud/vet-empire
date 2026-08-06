@@ -79,14 +79,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Vetigo — Veterinary Practice Management Software" },
+      {
+        name: "description",
+        content:
+          "Vetigo is cloud practice management software for veterinary clinics: scheduling, patient records, vaccinations, inventory and billing in one platform.",
+      },
+      { name: "author", content: "Vetigo" },
+      { property: "og:title", content: "Vetigo — Veterinary Practice Management Software" },
+      {
+        property: "og:description",
+        content:
+          "Run your veterinary clinic on one platform: appointments, medical records, reminders, inventory and invoicing.",
+      },
+      { property: "og:site_name", content: "Vetigo" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      
     ],
     links: [
       {
