@@ -357,15 +357,22 @@ function Landing() {
                       </li>
                     ))}
                   </ul>
-                  <Button
-                    className="mt-6 w-full"
-                    variant={p.highlight ? "default" : "outline"}
-                    asChild
-                  >
-                    <a href={p.name === "Enterprise" ? "#contact" : "/auth"}>
-                      {p.name === "Enterprise" ? "Talk to sales" : "Start 30-day trial"}
-                    </a>
-                  </Button>
+                  {p.name === "Enterprise" ? (
+                    <Button className="mt-6 w-full" variant="outline" asChild>
+                      <a href="mailto:support@ordex-systems.com?subject=Vetigo%20Enterprise%20plan%20enquiry">
+                        Talk to sales
+                      </a>
+                    </Button>
+                  ) : (
+                    <Button
+                      className="mt-6 w-full"
+                      variant={p.highlight ? "default" : "outline"}
+                      asChild
+                    >
+                      <Link to="/auth">Start 30-day trial</Link>
+                    </Button>
+                  )}
+
                 </div>
               ))}
             </div>
@@ -449,7 +456,10 @@ function Landing() {
                 className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
                 asChild
               >
-                <a href="mailto:support@ordex-systems.com">Talk to sales</a>
+                <a href="mailto:support@ordex-systems.com?subject=Vetigo%20sales%20enquiry">
+                  Talk to sales
+                </a>
+
               </Button>
             </div>
           </div>
