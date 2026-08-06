@@ -105,7 +105,7 @@ const plans = [
   },
   {
     name: "Enterprise",
-    price: "$999+",
+    price: "$999",
     best: "Hospital groups & corporate networks",
     features: [
       "Everything in Growth, plus:",
@@ -162,8 +162,8 @@ const faqs = [
     a: "Yes. Upgrade, downgrade or add seats at any time and billing prorates from the change. Add-on modules can be switched on or off month to month.",
   },
   {
-    q: "Is there a discount for annual billing?",
-    a: "Annual billing saves 15%. We also offer 20% off for non-profit rescue organisations, 50% off for veterinary schools, and volume discounts for multi-clinic groups.",
+    q: "Are there any discounts available?",
+    a: "We offer 20% off for non-profit rescue organisations, 50% off for veterinary schools, and volume discounts for multi-clinic groups.",
   },
   {
     q: "Can you migrate data from our current system?",
@@ -261,8 +261,8 @@ function Landing() {
                   <dd className="font-display text-xl font-semibold">$99/mo</dd>
                 </div>
                 <div>
-                  <dt className="text-muted-foreground">Annual billing</dt>
-                  <dd className="font-display text-xl font-semibold">15% off</dd>
+                  <dt className="text-muted-foreground">Free trial</dt>
+                  <dd className="font-display text-xl font-semibold">30 days</dd>
                 </div>
                 <div>
                   <dt className="text-muted-foreground">Patient limits</dt>
