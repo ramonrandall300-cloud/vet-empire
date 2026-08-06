@@ -4,20 +4,69 @@ import { Mail, MapPin, PawPrint, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/c/$slug")({
-  head: () => ({
-    meta: [
-      { title: "Veterinary Clinic — Vetigo" },
-      {
-        name: "description",
-        content: "Opening hours, services and contact details for this veterinary clinic.",
-      },
-      { property: "og:title", content: "Veterinary Clinic — Vetigo" },
-      {
-        property: "og:description",
-        content: "Book an appointment and meet the team at this Vetigo clinic.",
-      },
-    ],
-  }),
+  loader: async ({ params }) => {
+    try {
+      const { data: clinic } = await supabase
+        .from("clinics")
+        .select("id, name, city, country")
+        .eq("slug", params.slug)
+        .maybeSingle();
+      if (!clinic) return { name: null, tagline: null, city: null, country: null };
+      const { data: site } = await supabase
+        .from("clinic_websites")
+        .select("tagline, headline")
+        .eq("clinic_id", clinic.id)
+        .eq("is_published", true)
+        .maybeSingle();
+      return {
+        name: clinic.name as string,
+        tagline: (site?.tagline ?? site?.headline ?? null) as string | null,
+        city: clinic.city as string | null,
+        country: clinic.country as string | null,
+      };
+    } catch {
+      return { name: null, tagline: null, city: null, country: null };
+    }
+  },
+  head: ({ params, loaderData }) => {
+    const name = loaderData?.name ?? "Veterinary Clinic";
+    const place = [loaderData?.city, loaderData?.country].filter(Boolean).join(", ");
+    const title = `${name}${place ? ` — ${place}` : ""} | Veterinary Clinic`;
+    const description =
+      loaderData?.tagline ??
+      `Services, opening hours and contact details for ${name}${place ? ` in ${place}` : ""}. Book an appointment for your pet.`;
+    const url = `https://vetigo.pet/c/${params.slug}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: url },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "VeterinaryCare",
+            name,
+            url,
+            description,
+            address: place
+              ? {
+                  "@type": "PostalAddress",
+                  addressLocality: loaderData?.city ?? undefined,
+                  addressCountry: loaderData?.country ?? undefined,
+                }
+              : undefined,
+          }),
+        },
+      ],
+    };
+  },
   component: ClinicSite,
 });
 
