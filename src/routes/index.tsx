@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Vetigo is cloud practice management software for veterinary clinics: scheduling, medical records, vaccinations, inventory and billing. Plans from $99/month, 30-day free trial.",
+          "Cloud practice management software for veterinary clinics: scheduling, medical records, vaccinations, inventory and billing. Plans from $99/month.",
       },
       { property: "og:title", content: "Vetigo — Veterinary Practice Management Software" },
       {
@@ -44,6 +44,28 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://vetigo.pet/" },
+    ],
+    links: [{ rel: "canonical", href: "https://vetigo.pet/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: "Vetigo",
+          applicationCategory: "BusinessApplication",
+          operatingSystem: "Web",
+          url: "https://vetigo.pet/",
+          description:
+            "Cloud practice management software for veterinary clinics: scheduling, medical records, vaccinations, inventory and billing.",
+          offers: {
+            "@type": "Offer",
+            price: "99",
+            priceCurrency: "USD",
+          },
+        }),
+      },
     ],
   }),
   component: Landing,

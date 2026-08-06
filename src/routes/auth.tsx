@@ -235,6 +235,7 @@ function AuthPage() {
   if (signedUpEmail) {
     return (
       <main className="grid min-h-screen lg:grid-cols-2">
+        <h1 className="sr-only">Vetigo clinic account sign in and sign up</h1>
         <BrandPanel />
         <div className="relative flex items-center justify-center p-6">
           <Link
@@ -269,6 +270,7 @@ function AuthPage() {
 
   return (
     <main className="grid min-h-screen lg:grid-cols-2">
+        <h1 className="sr-only">Vetigo clinic account sign in and sign up</h1>
       <BrandPanel />
 
       <div className="relative flex flex-col items-center justify-center p-6">
@@ -378,6 +380,7 @@ function AuthPage() {
                     <button
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
+                      aria-label={showPassword ? "Hide password" : "Show password"}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                     >
                       {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
@@ -444,6 +447,7 @@ function AuthPage() {
                     <button
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
+                      aria-label={showPassword ? "Hide password" : "Show password"}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                     >
                       {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
@@ -471,6 +475,7 @@ function AuthPage() {
                     <button
                       type="button"
                       onClick={() => setShowConfirm((v) => !v)}
+                      aria-label={showConfirm ? "Hide password" : "Show password"}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                     >
                       {showConfirm ? <EyeOff className="size-4" /> : <Eye className="size-4" />}

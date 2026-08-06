@@ -88,6 +88,7 @@ function ResetPasswordPage() {
 
   return (
     <main className="grid min-h-screen lg:grid-cols-2">
+      <h1 className="sr-only">Reset your Vetigo password</h1>
       <div className="hidden flex-col justify-between bg-primary p-12 text-primary-foreground lg:flex">
         <div className="flex items-center gap-2 text-xl font-semibold">
           <PawPrint className="size-7" />
@@ -153,6 +154,7 @@ function ResetPasswordPage() {
                     <button
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
+                      aria-label={showPassword ? "Hide password" : "Show password"}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                     >
                       {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
@@ -176,6 +178,7 @@ function ResetPasswordPage() {
                     <button
                       type="button"
                       onClick={() => setShowConfirm((v) => !v)}
+                      aria-label={showConfirm ? "Hide password" : "Show password"}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                     >
                       {showConfirm ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
