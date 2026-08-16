@@ -66,6 +66,10 @@ type Tab = "signin" | "signup";
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
+  validateSearch: (search: Record<string, unknown>) => ({
+    mode: search["mode"] === "signup" ? ("signup" as const) : undefined,
+  }),
+
   head: () => ({
     meta: [
       { title: "Sign In — Vetigo for Clinics" },
@@ -89,8 +93,10 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
+  const { mode } = Route.useSearch();
 
-  const [tab, setTab] = useState<Tab>("signin");
+  const [tab, setTab] = useState<Tab>(mode === "signup" ? "signup" : "signin");
+
   const [busy, setBusy] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
