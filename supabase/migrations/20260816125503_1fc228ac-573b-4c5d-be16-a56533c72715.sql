@@ -1,0 +1,1 @@
+delete from auth.users where email in ('vetigo.check+24881@example.com','qa.vetigo47324@example.com');

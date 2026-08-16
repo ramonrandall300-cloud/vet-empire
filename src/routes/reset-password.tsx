@@ -122,7 +122,7 @@ function ResetPasswordPage() {
                   the sign-in page.
                 </p>
                 <Button asChild className="w-full">
-                  <Link to="/auth">Back to sign in</Link>
+                  <Link to="/auth" search={{}}>Back to sign in</Link>
                 </Button>
               </div>
             ) : done ? (
@@ -134,7 +134,7 @@ function ResetPasswordPage() {
                   Your password has been updated. You can now sign in with your new password.
                 </p>
                 <Button asChild className="w-full">
-                  <Link to="/auth">Sign in</Link>
+                  <Link to="/auth" search={{}}>Sign in</Link>
                 </Button>
               </div>
             ) : (

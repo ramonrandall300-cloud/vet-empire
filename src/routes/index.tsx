@@ -233,11 +233,17 @@ function Landing() {
           </nav>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" asChild>
-              <Link to="/auth">Sign in</Link>
+              <Link to="/auth" search={{}}>
+                Sign in
+              </Link>
+
             </Button>
             <Button size="sm" asChild>
-              <a href="#pricing">Start free trial</a>
+              <Link to="/auth" search={{ mode: "signup" }}>
+                Start free trial
+              </Link>
             </Button>
+
           </div>
         </div>
       </header>
@@ -260,10 +266,11 @@ function Landing() {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button size="lg" asChild>
-                  <a href="#pricing">
+                  <Link to="/auth" search={{ mode: "signup" }}>
                     Start free trial <ArrowRight className="size-4" />
-                  </a>
+                  </Link>
                 </Button>
+
                 <Button size="lg" variant="outline" asChild>
                   <a href="#how-it-works">See how it works</a>
                 </Button>
@@ -369,7 +376,10 @@ function Landing() {
                       variant={p.highlight ? "default" : "outline"}
                       asChild
                     >
-                      <Link to="/auth">Start 30-day trial</Link>
+                      <Link to="/auth" search={{ mode: "signup" }}>
+                        Start 30-day trial
+                      </Link>
+
                     </Button>
                   )}
 
@@ -448,7 +458,10 @@ function Landing() {
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Button size="lg" variant="secondary" asChild>
-                <Link to="/auth">Create your clinic workspace</Link>
+                <Link to="/auth" search={{ mode: "signup" }}>
+                  Create your clinic workspace
+                </Link>
+
               </Button>
               <Button
                 size="lg"
