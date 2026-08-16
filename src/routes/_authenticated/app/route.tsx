@@ -62,7 +62,7 @@ function UserMenu() {
     await queryClient.cancelQueries();
     queryClient.clear();
     await supabase.auth.signOut();
-    navigate({ to: "/auth", replace: true });
+    navigate({ to: "/auth", search: {}, replace: true });
   }
 
   const name = (user?.user_metadata?.["full_name"] as string) || user?.email || "Account";
