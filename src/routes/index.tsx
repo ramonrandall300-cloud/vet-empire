@@ -2,10 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import heroImage from "@/assets/hero-vet.png.asset.json";
 import howItWorksImage from "@/assets/how-it-works-vet.png.asset.json";
-import testimonialImage from "@/assets/testimonial-vet.png.asset.json";
-import face1 from "@/assets/testimonial-face-1.png.asset.json";
-import face2 from "@/assets/testimonial-face-2.png.asset.json";
-import face3 from "@/assets/testimonial-face-3.png.asset.json";
 import {
   Activity,
   ArrowRight,
@@ -15,7 +11,6 @@ import {
   CreditCard,
   Mail,
   PawPrint,
-  Quote,
   Rocket,
   ShieldCheck,
   Syringe,
@@ -185,29 +180,6 @@ const faqs = [
   },
 ];
 
-const testimonials = [
-  {
-    quote:
-      "We replaced three tools with Vetigo. Scheduling, medical records and invoicing finally live in one place, so nothing gets lost between the exam room and checkout.",
-    name: "Dr. Elena Marsh",
-    role: "Owner, Green Valley Veterinary",
-    avatar: face1.url,
-  },
-  {
-    quote:
-      "Rolling out five locations took a week. Each clinic sees only its own patients, but I still get practice-wide reports every Monday morning.",
-    name: "Dr. Daniel Tran",
-    role: "Medical Director, Northgate Animal Group",
-    avatar: face2.url,
-  },
-  {
-    quote:
-      "Charting exams and vaccinations takes a fraction of the time it used to, and our records are more complete than they've ever been.",
-    name: "Dr. Tom Okafor",
-    role: "Small Animal Vet, Riverbend Clinic",
-    avatar: face3.url,
-  },
-];
 
 const nav = [
   ["How it works", "#how-it-works"],
@@ -390,44 +362,6 @@ function Landing() {
           </div>
         </section>
 
-        {/* Testimonials */}
-        <section className="border-b border-border bg-secondary/40">
-          <div className="mx-auto max-w-6xl px-5 py-20">
-            <h2 className="font-display text-3xl font-semibold tracking-tight">
-              Trusted by growing veterinary teams
-            </h2>
-            <div className="mt-10 grid items-stretch gap-8 lg:grid-cols-2">
-              <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-                <img
-                  src={testimonialImage.url}
-                  alt="Veterinarian examining a dog with a stethoscope in a bright modern clinic"
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="grid content-start gap-5">
-                {testimonials.map((t) => (
-                  <figure key={t.name} className="surface-panel flex flex-col p-6">
-                    <Quote className="size-6 text-primary" />
-                    <blockquote className="mt-4 flex-1 text-sm leading-relaxed">{t.quote}</blockquote>
-                    <figcaption className="mt-5 flex items-center gap-3 text-sm">
-                      <img
-                        src={t.avatar}
-                        alt={`Portrait of ${t.name}`}
-                        className="size-11 shrink-0 rounded-full object-cover"
-                        loading="lazy"
-                      />
-                      <span>
-                        <span className="block font-medium">{t.name}</span>
-                        <span className="block text-muted-foreground">{t.role}</span>
-                      </span>
-                    </figcaption>
-                  </figure>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* FAQ */}
         <section id="faq" className="border-b border-border">
