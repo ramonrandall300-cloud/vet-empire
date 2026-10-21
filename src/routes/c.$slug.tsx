@@ -14,13 +14,14 @@ export const Route = createFileRoute("/c/$slug")({
       if (!clinic) return { name: null, tagline: null, city: null, country: null };
       const { data: site } = await supabase
         .from("clinic_websites")
-        .select("tagline, headline")
+        .select("tagline, headline, hero_image_url")
         .eq("clinic_id", clinic.id)
         .eq("is_published", true)
         .maybeSingle();
       return {
         name: clinic.name as string,
         tagline: (site?.tagline ?? site?.headline ?? null) as string | null,
+        heroImage: site?.hero_image_url ?? null,
         city: clinic.city as string | null,
         country: clinic.country as string | null,
       };
@@ -45,6 +46,12 @@ export const Route = createFileRoute("/c/$slug")({
         { property: "og:type", content: "website" },
         { property: "og:url", content: url },
         { name: "twitter:card", content: "summary" },
+        ...(loaderData && "heroImage" in loaderData && typeof loaderData.heroImage === "string" && loaderData.heroImage.startsWith("https://")
+          ? [
+              { property: "og:image", content: loaderData.heroImage },
+              { name: "twitter:image", content: loaderData.heroImage },
+            ]
+          : []),
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
