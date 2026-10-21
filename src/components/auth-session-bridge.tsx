@@ -67,14 +67,14 @@ export function AuthSessionBridge() {
           failVerification();
           return;
         }
-        if (returnKind === "callback" || returnKind === "error") failVerification();
+        clearHash();
       })
       .catch((err: unknown) => {
         console.error(
           "[auth] Unexpected error reading session:",
           err instanceof Error ? err.message : String(err),
         );
-        clearHash();
+        if (returnKind === "callback" || returnKind === "error") failVerification();
       });
 
     const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
