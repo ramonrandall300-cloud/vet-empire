@@ -27,6 +27,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useClinic, useCurrentUser } from "@/lib/clinic-context";
 import { deleteMyAccount, setSubscriptionCancellation } from "@/lib/account.functions";
+import { subscriptionDate } from "@/lib/subscription-dates";
 
 export const Route = createFileRoute("/_authenticated/app/profile")({
   head: () => ({
@@ -267,11 +268,10 @@ function ProfilePage() {
   const emailVerified = Boolean(user?.email_confirmed_at ?? user?.confirmed_at);
   const accountActive = profile?.is_active !== false;
   const subscription = subscriptionQuery.data;
-  const renewal = subscription?.current_period_end
-    ? format(parseISO(subscription.current_period_end), "d MMMM yyyy")
-    : clinic?.trial_ends_at
-      ? `${format(parseISO(clinic.trial_ends_at), "d MMMM yyyy")} (trial ends)`
-      : "—";
+  const billingDate = subscriptionDate(clinic, subscription);
+  const renewal = billingDate.date
+    ? format(parseISO(billingDate.date), "d MMMM yyyy")
+    : "—";
 
   return (
     <div>
@@ -490,7 +490,7 @@ function ProfilePage() {
                 <dd className="capitalize">{clinic?.subscription_status ?? "trialing"}</dd>
               </div>
               <div className="flex items-center justify-between gap-3">
-                <dt className="text-muted-foreground">Renewal date</dt>
+                <dt className="text-muted-foreground">{billingDate.label}</dt>
                 <dd>{renewal}</dd>
               </div>
             </dl>
