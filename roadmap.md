@@ -1,3 +1,3 @@
-- [ ] Align onboarding and profile trial dates, including existing trial records; verify with tests and signed-in UI.
-- [ ] Fix first-click email verification and verify session handoff without a reload.
-- [ ] Resolve current root error typing and check page metadata.
+- [x] Align onboarding and profile trial dates, including existing trial records; verified with tests and signed-in UI.
+- [x] Fix first-click email verification; verified real-session fragment handoff on both callback and homepage without a reload, plus expired-link feedback. A freshly delivered confirmation email was not exercised.
+- [x] Resolve current root error typing and check page metadata.

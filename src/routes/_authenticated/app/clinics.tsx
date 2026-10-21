@@ -18,6 +18,10 @@ export const Route = createFileRoute("/_authenticated/app/clinics")({
     meta: [
       { title: "All Clinics — Vetigo Operator Console" },
       { name: "description", content: "Operate and monitor every clinic on your platform." },
+      { property: "og:title", content: "All Clinics — Vetigo Operator Console" },
+      { property: "og:description", content: "Operate and monitor every clinic on your platform." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
 

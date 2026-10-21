@@ -18,6 +18,10 @@ export const Route = createFileRoute("/_authenticated/app/examinations")({
     meta: [
       { title: "Examinations — Vetigo" },
       { name: "description", content: "Clinical notes, diagnoses, vitals and prescriptions." },
+      { property: "og:title", content: "Examinations — Vetigo" },
+      { property: "og:description", content: "Clinical notes, diagnoses, vitals and prescriptions." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (

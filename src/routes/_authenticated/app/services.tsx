@@ -12,6 +12,10 @@ export const Route = createFileRoute("/_authenticated/app/services")({
         name: "description",
         content: "The treatments this clinic offers, with duration and price.",
       },
+      { property: "og:title", content: "Services & Pricing — Vetigo" },
+      { property: "og:description", content: "The treatments this clinic offers, with duration and price." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (

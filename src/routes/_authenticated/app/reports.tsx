@@ -26,6 +26,10 @@ export const Route = createFileRoute("/_authenticated/app/reports")({
     meta: [
       { title: "Reports & Analytics — Vetigo" },
       { name: "description", content: "Revenue, visit volume and service mix for your clinic." },
+      { property: "og:title", content: "Reports & Analytics — Vetigo" },
+      { property: "og:description", content: "Revenue, visit volume and service mix for your clinic." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (
