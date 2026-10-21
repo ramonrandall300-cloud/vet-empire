@@ -17,6 +17,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedAppRouteRouteImport } from './routes/_authenticated/app/route'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as CSlugRouteImport } from './routes/c.$slug'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
 import { Route as AuthenticatedAppAppointmentsRouteImport } from './routes/_authenticated/app/appointments'
@@ -78,6 +79,11 @@ const AuthenticatedAppRouteRoute = AuthenticatedAppRouteRouteImport.update({
   id: '/app',
   path: '/app',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/callback',
+  path: '/callback',
+  getParentRoute: () => AuthRoute,
 } as any)
 const CSlugRoute = CSlugRouteImport.update({
   id: '/c/$slug',
@@ -202,12 +208,13 @@ const LovableEmailTransactionalPreviewRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/app': typeof AuthenticatedAppRouteRouteWithChildren
+  '/auth/callback': typeof AuthCallbackRoute
   '/c/$slug': typeof CSlugRoute
   '/app/appointments': typeof AuthenticatedAppAppointmentsRoute
   '/app/clinics': typeof AuthenticatedAppClinicsRoute
@@ -233,11 +240,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/c/$slug': typeof CSlugRoute
   '/app/appointments': typeof AuthenticatedAppAppointmentsRoute
   '/app/clinics': typeof AuthenticatedAppClinicsRoute
@@ -265,12 +273,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/auth': typeof AuthRoute
+  '/auth': typeof AuthRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteRouteWithChildren
+  '/auth/callback': typeof AuthCallbackRoute
   '/c/$slug': typeof CSlugRoute
   '/_authenticated/app/appointments': typeof AuthenticatedAppAppointmentsRoute
   '/_authenticated/app/clinics': typeof AuthenticatedAppClinicsRoute
@@ -304,6 +313,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/app'
+    | '/auth/callback'
     | '/c/$slug'
     | '/app/appointments'
     | '/app/clinics'
@@ -334,6 +344,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sitemap.xml'
     | '/terms'
+    | '/auth/callback'
     | '/c/$slug'
     | '/app/appointments'
     | '/app/clinics'
@@ -366,6 +377,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/_authenticated/app'
+    | '/auth/callback'
     | '/c/$slug'
     | '/_authenticated/app/appointments'
     | '/_authenticated/app/clinics'
@@ -393,7 +405,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  AuthRoute: typeof AuthRoute
+  AuthRoute: typeof AuthRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -462,6 +474,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app'
       preLoaderRoute: typeof AuthenticatedAppRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/c/$slug': {
       id: '/c/$slug'
@@ -676,10 +695,20 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface AuthRouteChildren {
+  AuthCallbackRoute: typeof AuthCallbackRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthCallbackRoute: AuthCallbackRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  AuthRoute: AuthRoute,
+  AuthRoute: AuthRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
