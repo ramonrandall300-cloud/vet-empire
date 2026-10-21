@@ -14,6 +14,10 @@ export const Route = createFileRoute("/_authenticated/app/appointments")({
     meta: [
       { title: "Appointment Calendar — Vetigo" },
       { name: "description", content: "Book, reschedule and track every clinic appointment." },
+      { property: "og:title", content: "Appointment Calendar — Vetigo" },
+      { property: "og:description", content: "Book, reschedule and track every clinic appointment." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (

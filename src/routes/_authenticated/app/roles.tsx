@@ -18,6 +18,10 @@ export const Route = createFileRoute("/_authenticated/app/roles")({
     meta: [
       { title: "Roles & Permissions — Vetigo" },
       { name: "description", content: "What each clinic role can see and change." },
+      { property: "og:title", content: "Roles & Permissions — Vetigo" },
+      { property: "og:description", content: "What each clinic role can see and change." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (

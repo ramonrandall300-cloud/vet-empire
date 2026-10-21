@@ -22,6 +22,10 @@ export const Route = createFileRoute("/_authenticated/app/")({
     meta: [
       { title: "Clinic Dashboard — Vetigo" },
       { name: "description", content: "Daily overview of appointments, patients and revenue." },
+      { property: "og:title", content: "Clinic Dashboard — Vetigo" },
+      { property: "og:description", content: "Daily overview of appointments, patients and revenue." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (

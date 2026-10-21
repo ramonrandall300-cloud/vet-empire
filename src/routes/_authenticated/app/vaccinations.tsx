@@ -11,6 +11,10 @@ export const Route = createFileRoute("/_authenticated/app/vaccinations")({
     meta: [
       { title: "Vaccination Schedule — Vetigo" },
       { name: "description", content: "Track doses given and upcoming vaccine reminders." },
+      { property: "og:title", content: "Vaccination Schedule — Vetigo" },
+      { property: "og:description", content: "Track doses given and upcoming vaccine reminders." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (

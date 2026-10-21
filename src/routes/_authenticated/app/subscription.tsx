@@ -19,6 +19,10 @@ export const Route = createFileRoute("/_authenticated/app/subscription")({
     meta: [
       { title: "Clinic Plan & Usage — Vetigo Operator Console" },
       { name: "description", content: "Assign clinic plans and review usage against your limits." },
+      { property: "og:title", content: "Clinic Plan & Usage — Vetigo Operator Console" },
+      { property: "og:description", content: "Assign clinic plans and review usage against your limits." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
 

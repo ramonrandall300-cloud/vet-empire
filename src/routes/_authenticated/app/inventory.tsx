@@ -12,6 +12,10 @@ export const Route = createFileRoute("/_authenticated/app/inventory")({
     meta: [
       { title: "Inventory — Vetigo" },
       { name: "description", content: "Medicines, consumables, stock levels and expiry dates." },
+      { property: "og:title", content: "Inventory — Vetigo" },
+      { property: "og:description", content: "Medicines, consumables, stock levels and expiry dates." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (

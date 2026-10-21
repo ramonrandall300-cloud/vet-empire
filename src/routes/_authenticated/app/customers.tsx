@@ -8,6 +8,10 @@ export const Route = createFileRoute("/_authenticated/app/customers")({
     meta: [
       { title: "Customers — Vetigo" },
       { name: "description", content: "Pet owner records, contact details and visit notes." },
+      { property: "og:title", content: "Customers — Vetigo" },
+      { property: "og:description", content: "Pet owner records, contact details and visit notes." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (

@@ -19,6 +19,10 @@ export const Route = createFileRoute("/_authenticated/app/website")({
     meta: [
       { title: "Website Management — Vetigo" },
       { name: "description", content: "Publish a public page for your clinic in a few clicks." },
+      { property: "og:title", content: "Website Management — Vetigo" },
+      { property: "og:description", content: "Publish a public page for your clinic in a few clicks." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (

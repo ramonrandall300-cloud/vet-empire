@@ -12,6 +12,10 @@ export const Route = createFileRoute("/_authenticated/app/invoices")({
     meta: [
       { title: "Invoices — Vetigo" },
       { name: "description", content: "Bill customers, track payments and outstanding balances." },
+      { property: "og:title", content: "Invoices — Vetigo" },
+      { property: "og:description", content: "Bill customers, track payments and outstanding balances." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (

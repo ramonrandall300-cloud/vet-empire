@@ -11,6 +11,10 @@ export const Route = createFileRoute("/_authenticated/app/pets")({
     meta: [
       { title: "Patients — Vetigo" },
       { name: "description", content: "Complete medical profile for every animal in your care." },
+      { property: "og:title", content: "Patients — Vetigo" },
+      { property: "og:description", content: "Complete medical profile for every animal in your care." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (
