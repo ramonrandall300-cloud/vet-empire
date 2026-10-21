@@ -10,3 +10,6 @@
 > the editor, so keep the branch in a working state.
 
 <!-- LOVABLE:END -->
+
+- AuthSessionBridge owns the single auth-event subscription and post-verification handoff; email links return to the public /auth/callback page so initialization is visible and completes before entering protected pages.
+- Trial subscription periods end at clinics.trial_ends_at; paid renewal dates come from billing records, keeping trial and paid periods distinct.
