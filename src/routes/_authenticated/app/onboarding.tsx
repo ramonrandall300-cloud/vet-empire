@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { useClinic, useCurrentUser } from "@/lib/clinic-context";
+import { trialPeriodEnd } from "@/lib/subscription-dates";
 
 export const Route = createFileRoute("/_authenticated/app/onboarding")({
   head: () => ({
@@ -144,13 +145,14 @@ function Onboarding() {
 
   const create = useMutation({
     mutationFn: async () => {
+      if (!user) throw new Error("Please sign in before onboarding a clinic");
       const trialEndsAt = trialEnds.toISOString();
       const { data: clinic, error } = await supabase
         .from("clinics")
         .insert({
           name: form.name.trim(),
           slug: `${slugify(form.name)}-${Math.random().toString(36).slice(2, 6)}`,
-          owner_id: user!.id,
+          owner_id: user.id,
           email: form.email.trim() || null,
           phone: form.phone.trim() || null,
           address: form.address.trim() || null,
@@ -169,7 +171,7 @@ function Onboarding() {
 
       const { error: memberError } = await supabase
         .from("clinic_members")
-        .insert({ clinic_id: clinic.id, user_id: user!.id, role: "owner" });
+        .insert({ clinic_id: clinic.id, user_id: user.id, role: "owner" });
       if (memberError) throw memberError;
 
       if (selectedPlan) {
@@ -177,9 +179,6 @@ function Onboarding() {
           form.interval === "yearly"
             ? Number(selectedPlan.price_yearly)
             : Number(selectedPlan.price_monthly);
-        const periodEnd = new Date(trialEnds);
-        if (form.interval === "yearly") periodEnd.setFullYear(periodEnd.getFullYear() + 1);
-        else periodEnd.setMonth(periodEnd.getMonth() + 1);
         const { error: subError } = await supabase.from("clinic_subscriptions").insert({
           clinic_id: clinic.id,
           plan_id: selectedPlan.id,
@@ -187,7 +186,7 @@ function Onboarding() {
           interval: form.interval,
           amount,
           current_period_start: new Date().toISOString(),
-          current_period_end: periodEnd.toISOString(),
+          current_period_end: trialPeriodEnd(trialEndsAt),
         });
         if (subError) throw subError;
       }

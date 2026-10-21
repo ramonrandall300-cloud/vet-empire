@@ -1,0 +1,3 @@
+- [ ] Align onboarding and profile trial dates, including existing trial records; verify with tests and signed-in UI.
+- [ ] Fix first-click email verification and verify session handoff without a reload.
+- [ ] Resolve current root error typing and check page metadata.
