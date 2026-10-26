@@ -36,8 +36,8 @@ function Privacy() {
         This page is maintained by Ordex Systems to answer common privacy and security questions
         about Vetigo. It describes our current practices and is not an independent certification or
         audit report. Questions:{" "}
-        <a className="text-primary" href="mailto:support@ordex-systems.com">
-          support@ordex-systems.com
+        <a className="text-primary" href="mailto:info@vetigo.pet">
+          info@vetigo.pet
         </a>
         .
       </p>
@@ -122,8 +122,8 @@ function Privacy() {
           <p className="mt-2 text-muted-foreground">
             Clinic account owners can request access, correction, export or deletion of their data,
             or a data processing agreement, by emailing{" "}
-            <a className="text-primary" href="mailto:support@ordex-systems.com">
-              support@ordex-systems.com
+            <a className="text-primary" href="mailto:info@vetigo.pet">
+              info@vetigo.pet
             </a>
             . Report suspected security issues to the same address and we will acknowledge promptly.
           </p>
