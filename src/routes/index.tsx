@@ -338,7 +338,7 @@ function Landing() {
                   </ul>
                   {p.name === "Enterprise" ? (
                     <Button className="mt-6 w-full" variant="outline" asChild>
-                      <a href="mailto:support@ordex-systems.com?subject=Vetigo%20Enterprise%20plan%20enquiry">
+                      <a href="mailto:info@vetigo.pet?subject=Vetigo%20Enterprise%20plan%20enquiry">
                         Talk to sales
                       </a>
                     </Button>
@@ -403,7 +403,7 @@ function Landing() {
                 className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
                 asChild
               >
-                <a href="mailto:support@ordex-systems.com?subject=Vetigo%20sales%20enquiry">
+                <a href="mailto:info@vetigo.pet?subject=Vetigo%20sales%20enquiry">
                   Talk to sales
                 </a>
 
@@ -431,10 +431,10 @@ function Landing() {
               Privacy Policy
             </Link>
             <a
-              href="mailto:support@ordex-systems.com"
+              href="mailto:info@vetigo.pet"
               className="flex items-center gap-2 hover:text-foreground"
             >
-              <Mail className="size-4" /> support@ordex-systems.com
+              <Mail className="size-4" /> info@vetigo.pet
             </a>
           </nav>
         </div>

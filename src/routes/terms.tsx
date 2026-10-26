@@ -34,8 +34,8 @@ function Terms() {
       <h1 className="mt-6 font-display text-3xl font-semibold tracking-tight">Terms of Service</h1>
       <p className="mt-2 text-sm text-muted-foreground">
         Maintained by Ordex Systems for the Vetigo platform. Contact{" "}
-        <a className="text-primary" href="mailto:support@ordex-systems.com">
-          support@ordex-systems.com
+        <a className="text-primary" href="mailto:info@vetigo.pet">
+          info@vetigo.pet
         </a>{" "}
         with any questions about these terms.
       </p>
