@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { checkoutPriceId } from "./billing-catalog";
 
 const ALLOWED_ORIGINS = new Set([
   "https://vetigo.pet",
@@ -78,7 +79,7 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
     if (roleError) throw new Error("Could not verify permissions");
     if (!isAdmin) throw new Error("Forbidden");
 
-    const { getStripe, ensurePlanInStripe } = await import("./stripe.server");
+    const { getStripe } = await import("./stripe.server");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const stripe = getStripe();
 
@@ -99,21 +100,9 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       .single();
     if (planError || !plan) throw new Error("Plan not found");
 
-    // Keep checkout self-contained: a new or repriced plan must not require a
-    // separate platform-admin catalog sync before a clinic can subscribe.
-    const stripeIds = await ensurePlanInStripe(stripe, {
-      ...plan,
-      price_monthly: Number(plan.price_monthly),
-      price_yearly: Number(plan.price_yearly),
-    });
-    const { error: planUpdateError } = await supabaseAdmin
-      .from("plans")
-      .update(stripeIds)
-      .eq("id", plan.id);
-    if (planUpdateError) throw new Error("Could not save the plan's Stripe billing details");
-
-    const priceId =
-      data.interval === "yearly" ? stripeIds.stripe_price_id_yearly : stripeIds.stripe_price_id_monthly;
+    // Clinic admins may purchase a synced plan, but only platform admins may
+    // create Stripe catalog entries or write to the shared plans table.
+    const priceId = checkoutPriceId(plan, data.interval);
 
     let customerId = clinic.stripe_customer_id;
     if (!customerId) {

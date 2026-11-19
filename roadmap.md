@@ -1,3 +1,6 @@
-- [x] Align onboarding and profile trial dates, including existing trial records; verified with tests and signed-in UI.
-- [x] Fix first-click email verification; verified real-session fragment handoff on both callback and homepage without a reload, plus expired-link feedback. A freshly delivered confirmation email was not exercised.
-- [x] Resolve current root error typing and check page metadata.
+- [ ] Remove clinic-admin writes to the shared plan catalog; verify synced plans still reach checkout.
+- [ ] Shorten private avatar and clinic-logo links to five minutes.
+- [ ] Audit public pages, sign-up/sign-in, verification and password recovery.
+- [ ] Audit every clinic-panel page, including create/edit/delete flows and downloads.
+- [ ] Audit clinic isolation, staff roles, account management and platform administration.
+- [ ] Re-run security checks and deliver a candid production-readiness report with any remaining blockers.

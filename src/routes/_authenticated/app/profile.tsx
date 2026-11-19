@@ -65,7 +65,7 @@ function useSignedUrl(path: string | null | undefined) {
     }
     void supabase.storage
       .from("avatars")
-      .createSignedUrl(path, 60 * 60)
+      .createSignedUrl(path, 5 * 60)
       .then(({ data }) => {
         if (!cancelled) setUrl(data?.signedUrl ?? null);
       });
