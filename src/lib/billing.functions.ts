@@ -1,6 +1,26 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
+const ALLOWED_ORIGINS = new Set([
+  "https://vetigo.pet",
+  "https://www.vetigo.pet",
+  "https://vet-empire.lovable.app",
+  "https://id-preview--906de6fe-8a09-4504-b296-727f0e866356.lovable.app",
+  "http://localhost:8080",
+]);
+const DEFAULT_ORIGIN = "https://vetigo.pet";
+
+/** Only return users to a known Vetigo origin; anything else falls back to the main site. */
+function safeOrigin(origin: unknown): string {
+  if (typeof origin !== "string") return DEFAULT_ORIGIN;
+  try {
+    const o = new URL(origin).origin;
+    return ALLOWED_ORIGINS.has(o) ? o : DEFAULT_ORIGIN;
+  } catch {
+    return DEFAULT_ORIGIN;
+  }
+}
+
 /** Push all active plans to Stripe as products/prices and store the IDs. Platform admins only. */
 export const syncStripeCatalog = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -48,8 +68,7 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
   .inputValidator((data: { clinicId: string; planId: string; interval: "monthly" | "yearly"; origin: string }) => {
     if (!data?.clinicId || !data?.planId) throw new Error("clinicId and planId are required");
     if (data.interval !== "monthly" && data.interval !== "yearly") throw new Error("Invalid interval");
-    if (!/^https?:\/\//.test(data.origin)) throw new Error("Invalid origin");
-    return data;
+    return { ...data, origin: safeOrigin(data.origin) };
   })
   .handler(async ({ data, context }) => {
     const { data: isAdmin, error: roleError } = await context.supabase.rpc("is_clinic_admin", {
@@ -117,8 +136,7 @@ export const createBillingPortalSession = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { clinicId: string; origin: string }) => {
     if (!data?.clinicId) throw new Error("clinicId is required");
-    if (!/^https?:\/\//.test(data.origin)) throw new Error("Invalid origin");
-    return data;
+    return { ...data, origin: safeOrigin(data.origin) };
   })
   .handler(async ({ data, context }) => {
     const { data: isAdmin, error: roleError } = await context.supabase.rpc("is_clinic_admin", {
