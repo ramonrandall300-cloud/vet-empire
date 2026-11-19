@@ -78,7 +78,7 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
     if (roleError) throw new Error("Could not verify permissions");
     if (!isAdmin) throw new Error("Forbidden");
 
-    const { getStripe } = await import("./stripe.server");
+    const { getStripe, ensurePlanInStripe } = await import("./stripe.server");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const stripe = getStripe();
 
@@ -91,14 +91,29 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
 
     const { data: plan, error: planError } = await supabaseAdmin
       .from("plans")
-      .select("id, name, slug, stripe_price_id_monthly, stripe_price_id_yearly, trial_days")
+      .select(
+        "id, name, slug, price_monthly, price_yearly, stripe_product_id, stripe_price_id_monthly, stripe_price_id_yearly",
+      )
       .eq("id", data.planId)
+      .eq("is_active", true)
       .single();
     if (planError || !plan) throw new Error("Plan not found");
 
+    // Keep checkout self-contained: a new or repriced plan must not require a
+    // separate platform-admin catalog sync before a clinic can subscribe.
+    const stripeIds = await ensurePlanInStripe(stripe, {
+      ...plan,
+      price_monthly: Number(plan.price_monthly),
+      price_yearly: Number(plan.price_yearly),
+    });
+    const { error: planUpdateError } = await supabaseAdmin
+      .from("plans")
+      .update(stripeIds)
+      .eq("id", plan.id);
+    if (planUpdateError) throw new Error("Could not save the plan's Stripe billing details");
+
     const priceId =
-      data.interval === "yearly" ? plan.stripe_price_id_yearly : plan.stripe_price_id_monthly;
-    if (!priceId) throw new Error("This plan is not synced with Stripe yet. Run the catalog sync first.");
+      data.interval === "yearly" ? stripeIds.stripe_price_id_yearly : stripeIds.stripe_price_id_monthly;
 
     let customerId = clinic.stripe_customer_id;
     if (!customerId) {
