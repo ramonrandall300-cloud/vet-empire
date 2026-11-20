@@ -102,13 +102,14 @@ function Invoices() {
           { name: "pet_id", label: "Patient", type: "select", options: pets },
           { name: "issued_at", label: "Issue date", type: "date", required: true },
           { name: "due_at", label: "Due date", type: "date" },
-          { name: "subtotal", label: "Subtotal", type: "number" },
-          { name: "tax_rate", label: "Tax rate (%)", type: "number" },
+          { name: "subtotal", label: "Subtotal", type: "number", defaultValue: 0 },
+          { name: "tax_rate", label: "Tax rate (%)", type: "number", defaultValue: 0 },
           { name: "total", label: "Total", type: "number", required: true },
           {
             name: "status",
             label: "Status",
             type: "select",
+            defaultValue: "draft",
             options: ["draft", "sent", "paid", "overdue", "void"].map((v) => ({
               value: v,
               label: v,

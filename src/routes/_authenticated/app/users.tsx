@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -36,6 +37,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useClinic, type ClinicRole } from "@/lib/clinic-context";
 import { useClinicStaff } from "@/lib/data";
+import { addClinicMember } from "@/lib/team.functions";
 
 export const Route = createFileRoute("/_authenticated/app/users")({
   head: () => ({
@@ -64,6 +66,7 @@ function UsersPage() {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [role, setRole] = useState<ClinicRole>("staff");
+  const addMember = useServerFn(addClinicMember);
 
   const changeRole = useMutation({
     mutationFn: async ({ userId, next }: { userId: string; next: ClinicRole }) => {
@@ -83,21 +86,7 @@ function UsersPage() {
 
   const invite = useMutation({
     mutationFn: async () => {
-      const { data: profile, error } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("email", email.trim().toLowerCase())
-        .maybeSingle();
-      if (error) throw error;
-      if (!profile) {
-        throw new Error(
-          "No Vetigo account uses that email yet. Ask them to sign up first, then add them here.",
-        );
-      }
-      const { error: insertError } = await supabase
-        .from("clinic_members")
-        .insert({ clinic_id: clinic!.id, user_id: profile.id, role });
-      if (insertError) throw insertError;
+      await addMember({ data: { clinicId: clinic!.id, email, role } });
     },
     onSuccess: () => {
       toast.success("Team member added");

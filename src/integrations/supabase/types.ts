@@ -986,11 +986,22 @@ export type Database = {
           plan_slug: string
         }[]
       }
+      has_clinic_role: {
+        Args: {
+          _clinic_id: string
+          _roles: Database["public"]["Enums"]["clinic_role"][]
+        }
+        Returns: boolean
+      }
       is_clinic_admin: {
         Args: { _clinic_id: string; _user_id: string }
         Returns: boolean
       }
       is_clinic_member: {
+        Args: { _clinic_id: string; _user_id: string }
+        Returns: boolean
+      }
+      is_clinic_owner: {
         Args: { _clinic_id: string; _user_id: string }
         Returns: boolean
       }

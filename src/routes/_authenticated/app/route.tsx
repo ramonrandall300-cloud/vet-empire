@@ -1,4 +1,4 @@
-import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { Building2, ChevronsUpDown, LogOut, Plus } from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { supabase } from "@/integrations/supabase/client";
 import { ClinicProvider, useClinic, useCurrentUser } from "@/lib/clinic-context";
+import { canAccessClinicPath } from "@/lib/clinic-permissions";
 
 export const Route = createFileRoute("/_authenticated/app")({
   component: AppLayout,
@@ -93,6 +94,25 @@ function UserMenu() {
   );
 }
 
+function ProtectedOutlet() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const { clinic, role, isPlatformAdmin, loading } = useClinic();
+
+  if (!loading && !canAccessClinicPath(role, pathname, isPlatformAdmin)) {
+    return (
+      <section className="surface-panel mx-auto max-w-xl p-8 text-center">
+        <h1 className="text-xl font-semibold">Access restricted</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Your {role ?? "current"} role at {clinic?.name ?? "this clinic"} does not include this
+          area. Contact a clinic owner if you need access.
+        </p>
+      </section>
+    );
+  }
+
+  return <Outlet />;
+}
+
 function Shell() {
   return (
     <SidebarProvider>
@@ -106,7 +126,7 @@ function Shell() {
             <UserMenu />
           </header>
           <main className="min-w-0 flex-1 p-5 lg:p-8">
-            <Outlet />
+            <ProtectedOutlet />
           </main>
         </div>
       </div>

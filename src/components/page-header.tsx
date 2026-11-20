@@ -36,7 +36,7 @@ export function StatCard({
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-sm text-muted-foreground">{label}</p>
-          <p className="mt-1 text-2xl font-semibold tracking-tight">{value}</p>
+          <div className="mt-1 text-2xl font-semibold tracking-tight">{value}</div>
           {hint && <p className="mt-1 text-xs text-muted-foreground">{hint}</p>}
         </div>
         {icon && (

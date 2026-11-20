@@ -32,6 +32,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useClinic } from "@/lib/clinic-context";
+import { canAccessClinicPath } from "@/lib/clinic-permissions";
 
 const clinicNav = [
   { title: "Dashboard", url: "/app", icon: LayoutDashboard },
@@ -62,14 +63,16 @@ export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const { clinic } = useClinic();
+  const { clinic, role, isPlatformAdmin } = useClinic();
 
   const isActive = (url: string) =>
     url === "/app" ? pathname === "/app" || pathname === "/app/" : pathname.startsWith(url);
 
   const renderItems = (items: typeof clinicNav) => (
     <SidebarMenu>
-      {items.map((item) => (
+      {items
+        .filter((item) => canAccessClinicPath(role, item.url, isPlatformAdmin))
+        .map((item) => (
         <SidebarMenuItem key={item.url}>
           <SidebarMenuButton asChild isActive={isActive(item.url)} tooltip={item.title}>
             <Link to={item.url}>

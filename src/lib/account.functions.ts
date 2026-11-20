@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-/** Cancel (or resume) a clinic's Stripe subscription at period end. Clinic admins only. */
+/** Cancel (or resume) a clinic's Stripe subscription at period end. Clinic owners only. */
 export const setSubscriptionCancellation = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { clinicId: string; cancel: boolean }) => {
@@ -10,7 +10,7 @@ export const setSubscriptionCancellation = createServerFn({ method: "POST" })
     return data;
   })
   .handler(async ({ data, context }) => {
-    const { data: isAdmin, error: roleError } = await context.supabase.rpc("is_clinic_admin", {
+    const { data: isAdmin, error: roleError } = await context.supabase.rpc("is_clinic_owner", {
       _clinic_id: data.clinicId,
       _user_id: context.userId,
     });

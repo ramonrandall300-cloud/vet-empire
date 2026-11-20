@@ -36,9 +36,12 @@ export const Route = createFileRoute("/_authenticated/app/")({
 });
 
 function useDashboard() {
-  const { clinic } = useClinic();
+  const { clinic, role, isPlatformAdmin } = useClinic();
+  const canSeeFinancial =
+    isPlatformAdmin || role === "owner" || role === "admin" || role === "staff";
+  const canSeeClinical = isPlatformAdmin || role !== "staff";
   return useQuery({
-    queryKey: ["dashboard", clinic?.id],
+    queryKey: ["dashboard", clinic?.id, role, isPlatformAdmin],
     enabled: Boolean(clinic?.id),
     queryFn: async () => {
       const id = clinic!.id;
@@ -58,14 +61,18 @@ function useDashboard() {
           .gte("starts_at", start.toISOString())
           .order("starts_at", { ascending: true })
           .limit(30),
-        supabase
-          .from("vaccinations")
-          .select("id, vaccine_name, next_due_at, pets(name)")
-          .eq("clinic_id", id)
-          .not("next_due_at", "is", null)
-          .order("next_due_at", { ascending: true })
-          .limit(6),
-        supabase.from("invoices").select("total, status").eq("clinic_id", id),
+        canSeeClinical
+          ? supabase
+              .from("vaccinations")
+              .select("id, vaccine_name, next_due_at, pets(name)")
+              .eq("clinic_id", id)
+              .not("next_due_at", "is", null)
+              .order("next_due_at", { ascending: true })
+              .limit(6)
+          : Promise.resolve({ data: [] }),
+        canSeeFinancial
+          ? supabase.from("invoices").select("total, status").eq("clinic_id", id)
+          : Promise.resolve({ data: [] }),
         supabase
           .from("inventory_items")
           .select("name, quantity, reorder_level, unit")
@@ -102,7 +109,10 @@ const statusTone: Record<string, string> = {
 };
 
 function Dashboard() {
-  const { clinic } = useClinic();
+  const { clinic, role, isPlatformAdmin } = useClinic();
+  const canSeeFinancial =
+    isPlatformAdmin || role === "owner" || role === "admin" || role === "staff";
+  const canSeeClinical = isPlatformAdmin || role !== "staff";
   const { data } = useDashboard();
   const currency = clinic?.currency ?? "USD";
   const money = (n: number) =>
@@ -141,12 +151,20 @@ function Dashboard() {
           icon={<Users className="size-5" />}
         />
         <StatCard label="Patients" value={data?.pets ?? 0} icon={<PawPrint className="size-5" />} />
-        <StatCard
-          label="Collected revenue"
-          value={money(data?.revenue ?? 0)}
-          hint={`${money(data?.outstanding ?? 0)} outstanding`}
-          icon={<ReceiptText className="size-5" />}
-        />
+        {canSeeFinancial ? (
+          <StatCard
+            label="Collected revenue"
+            value={money(data?.revenue ?? 0)}
+            hint={`${money(data?.outstanding ?? 0)} outstanding`}
+            icon={<ReceiptText className="size-5" />}
+          />
+        ) : (
+          <StatCard
+            label="Low stock items"
+            value={data?.lowStock.length ?? 0}
+            icon={<AlertTriangle className="size-5" />}
+          />
+        )}
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
@@ -192,6 +210,7 @@ function Dashboard() {
         </section>
 
         <div className="space-y-6">
+          {canSeeClinical && (
           <section className="surface-panel p-5">
             <h2 className="mb-3 flex items-center gap-2 text-base font-semibold">
               <Syringe className="size-4 text-primary" /> Vaccinations due
@@ -215,6 +234,7 @@ function Dashboard() {
               )}
             </ul>
           </section>
+          )}
 
           <section className="surface-panel p-5">
             <h2 className="mb-3 flex items-center gap-2 text-base font-semibold">

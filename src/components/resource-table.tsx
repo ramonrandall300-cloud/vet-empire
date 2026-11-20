@@ -39,6 +39,7 @@ export type FieldDef = {
   type?: "text" | "email" | "tel" | "number" | "textarea" | "date" | "datetime-local" | "select";
   options?: { value: string; label: string }[];
   required?: boolean;
+  defaultValue?: string | number;
   placeholder?: string;
   colSpan?: 1 | 2;
   /** Convert stored value → form display value */
@@ -66,7 +67,16 @@ type Props = {
 };
 
 function emptyValues(fields: FieldDef[]) {
-  return Object.fromEntries(fields.map((f) => [f.name, ""])) as AnyRow;
+  return Object.fromEntries(fields.map((f) => [f.name, f.defaultValue ?? ""])) as AnyRow;
+}
+
+function errorMessage(error: unknown, fallback: string) {
+  if (error instanceof Error) return error.message;
+  if (typeof error === "object" && error !== null && "message" in error) {
+    const message = (error as { message?: unknown }).message;
+    if (typeof message === "string") return message;
+  }
+  return fallback;
 }
 
 export function ResourceTable({
@@ -148,7 +158,7 @@ export function ResourceTable({
       toast.success(editing ? `${singular} updated` : `${singular} created`);
       setOpen(false);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Something went wrong");
+      toast.error(errorMessage(error, "Something went wrong"));
     } finally {
       setSaving(false);
     }
@@ -160,7 +170,7 @@ export function ResourceTable({
       await mutations.remove(String(row["id"]));
       toast.success(`${singular} deleted`);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Could not delete");
+      toast.error(errorMessage(error, "Could not delete"));
     }
   }
 

@@ -34,7 +34,8 @@ export const Route = createFileRoute("/_authenticated/app/subscription")({
 });
 
 function Subscription() {
-  const { clinic, refetch, isAdmin } = useClinic();
+  const { clinic, refetch, role, isPlatformAdmin } = useClinic();
+  const canManageBilling = role === "owner" || isPlatformAdmin;
   const checkout = useServerFn(createCheckoutSession);
   const portal = useServerFn(createBillingPortalSession);
   const [interval, setInterval] = useState<"monthly" | "yearly">("monthly");
@@ -123,7 +124,7 @@ function Subscription() {
               </Button>
             ))}
           </div>
-          {isAdmin && clinic?.stripe_customer_id && (
+          {canManageBilling && clinic?.stripe_customer_id && (
             <Button variant="outline" onClick={() => manage.mutate()} disabled={manage.isPending}>
               <CreditCard className="mr-2 size-4" /> Manage billing
             </Button>
@@ -201,7 +202,7 @@ function Subscription() {
               <Button
                 className="mt-6 w-full"
                 variant={active ? "outline" : "default"}
-                disabled={active || choose.isPending || !isAdmin}
+                disabled={active || choose.isPending || !canManageBilling}
                 onClick={() => choose.mutate(plan.id)}
               >
                 {active ? "Current plan" : `Subscribe to ${plan.name}`}

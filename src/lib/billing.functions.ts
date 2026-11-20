@@ -72,7 +72,7 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
     return { ...data, origin: safeOrigin(data.origin) };
   })
   .handler(async ({ data, context }) => {
-    const { data: isAdmin, error: roleError } = await context.supabase.rpc("is_clinic_admin", {
+    const { data: isAdmin, error: roleError } = await context.supabase.rpc("is_clinic_owner", {
       _clinic_id: data.clinicId,
       _user_id: context.userId,
     });
@@ -143,7 +143,7 @@ export const createBillingPortalSession = createServerFn({ method: "POST" })
     return { ...data, origin: safeOrigin(data.origin) };
   })
   .handler(async ({ data, context }) => {
-    const { data: isAdmin, error: roleError } = await context.supabase.rpc("is_clinic_admin", {
+    const { data: isAdmin, error: roleError } = await context.supabase.rpc("is_clinic_owner", {
       _clinic_id: data.clinicId,
       _user_id: context.userId,
     });

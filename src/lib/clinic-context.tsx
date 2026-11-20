@@ -61,10 +61,26 @@ export function ClinicProvider({ children }: { children: ReactNode }) {
     },
   });
 
-  const memberships = useMemo(
-    () => (membershipQuery.data ?? []).filter((m) => m.clinics),
-    [membershipQuery.data],
-  );
+  const allClinicsQuery = useQuery({
+    queryKey: ["all-clinics"],
+    enabled: platformQuery.data === true,
+    queryFn: async () => {
+      const { data, error } = await supabase.from("clinics").select("*").order("name");
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+
+  const memberships = useMemo(() => {
+    const own = (membershipQuery.data ?? []).filter((m) => m.clinics);
+    if (platformQuery.data !== true) return own;
+
+    const ownedIds = new Set(own.map((m) => m.clinic_id));
+    const platformMemberships: Membership[] = (allClinicsQuery.data ?? [])
+      .filter((clinic) => !ownedIds.has(clinic.id))
+      .map((clinic) => ({ clinic_id: clinic.id, role: "owner", clinics: clinic }));
+    return [...own, ...platformMemberships];
+  }, [allClinicsQuery.data, membershipQuery.data, platformQuery.data]);
   const clinics = useMemo(() => memberships.map((m) => m.clinics!), [memberships]);
 
   const current = useMemo(() => {
@@ -79,7 +95,8 @@ export function ClinicProvider({ children }: { children: ReactNode }) {
     role: current?.role ?? null,
     isAdmin: current?.role === "owner" || current?.role === "admin" || platformQuery.data === true,
     isPlatformAdmin: platformQuery.data === true,
-    loading: membershipQuery.isLoading,
+    loading:
+      membershipQuery.isLoading || (platformQuery.data === true && allClinicsQuery.isLoading),
     setClinicId: (id: string) => {
       window.localStorage.setItem(STORAGE_KEY, id);
       setActiveId(id);

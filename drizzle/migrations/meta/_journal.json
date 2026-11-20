@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1795186120615,
+      "tag": "0000_enforce_clinic_role_permissions",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795186498635,
+      "tag": "0001_restore_ramon_platform_admin",
+      "breakpoints": true
+    }
+  ]
+}
