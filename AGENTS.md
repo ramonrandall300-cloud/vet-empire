@@ -13,3 +13,4 @@
 
 - AuthSessionBridge owns the single auth-event subscription and post-verification handoff; email links return to the public /auth/callback page so initialization is visible and completes before entering protected pages.
 - Trial subscription periods end at clinics.trial_ends_at; paid renewal dates come from billing records, keeping trial and paid periods distinct.
+- Clinic role access lives in database policies (has_clinic_role / is_clinic_owner) and is mirrored by src/lib/clinic-permissions.ts for navigation; why: screens and data rules must never disagree.

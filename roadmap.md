@@ -1,6 +1,5 @@
-- [ ] Remove clinic-admin writes to the shared plan catalog; verify synced plans still reach checkout.
-- [ ] Shorten private avatar and clinic-logo links to five minutes.
-- [ ] Audit public pages, sign-up/sign-in, verification and password recovery.
-- [ ] Audit every clinic-panel page, including create/edit/delete flows and downloads.
-- [ ] Audit clinic isolation, staff roles, account management and platform administration.
-- [ ] Re-run security checks and deliver a candid production-readiness report with any remaining blockers.
+- [x] Remove clinic-admin writes to the shared plan catalog; verify synced plans still reach checkout.
+- [x] Shorten private avatar and clinic-logo links to five minutes.
+- [x] Audit every clinic-panel page, including create/edit/delete flows and downloads.
+- [x] Audit clinic isolation, staff roles, account management and platform administration.
+- [ ] Live test of a freshly delivered sign-up email link (needs a real inbox).
