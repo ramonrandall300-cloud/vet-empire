@@ -79,7 +79,8 @@ function useSignedUrl(path: string | null | undefined) {
 function ProfilePage() {
   const queryClient = useQueryClient();
   const { data: user } = useCurrentUser();
-  const { clinic, role, isAdmin, refetch } = useClinic();
+  const { clinic, role, isAdmin, isPlatformAdmin, refetch } = useClinic();
+  const canManageBilling = role === "owner" || isPlatformAdmin;
   const cancelSub = useServerFn(setSubscriptionCancellation);
   const deleteAccount = useServerFn(deleteMyAccount);
   const avatarInput = useRef<HTMLInputElement>(null);
@@ -496,10 +497,12 @@ function ProfilePage() {
             </dl>
 
             <div className="space-y-2">
-              <Button asChild className="w-full" variant="outline">
-                <Link to="/app/subscription">Upgrade or downgrade plan</Link>
-              </Button>
-              {isAdmin && clinic?.stripe_subscription_id && (
+              {canManageBilling && (
+                <Button asChild className="w-full" variant="outline">
+                  <Link to="/app/subscription">Upgrade or downgrade plan</Link>
+                </Button>
+              )}
+              {canManageBilling && clinic?.stripe_subscription_id && (
                 <Button
                   variant={subscription?.cancel_at_period_end ? "default" : "destructive"}
                   className="w-full"
